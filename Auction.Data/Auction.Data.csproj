@@ -201,9 +201,47 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Migrations\201806081148387_InitialCreate.cs" />
+    <Compile Include="Migrations\201806081148387_InitialCreate.Designer.cs">
+      <DependentUpon>201806081148387_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806081156436_ChangedTableNames.cs" />
+    <Compile Include="Migrations\201806081156436_ChangedTableNames.Designer.cs">
+      <DependentUpon>201806081156436_ChangedTableNames.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806081313090_AddedAuction.cs" />
+    <Compile Include="Migrations\201806081313090_AddedAuction.Designer.cs">
+      <DependentUpon>201806081313090_AddedAuction.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806081318258_AddedOrder.cs" />
+    <Compile Include="Migrations\201806081318258_AddedOrder.Designer.cs">
+      <DependentUpon>201806081318258_AddedOrder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806081331343_AddedBid.cs" />
+    <Compile Include="Migrations\201806081331343_AddedBid.Designer.cs">
+      <DependentUpon>201806081331343_AddedBid.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806081336096_UpdateDB.cs" />
+    <Compile Include="Migrations\201806081336096_UpdateDB.Designer.cs">
+      <DependentUpon>201806081336096_UpdateDB.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806081352516_RenamedAuctionId.cs" />
+    <Compile Include="Migrations\201806081352516_RenamedAuctionId.Designer.cs">
+      <DependentUpon>201806081352516_RenamedAuctionId.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806081357446_AddedDefaultValuesAndBid.cs" />
+    <Compile Include="Migrations\201806081357446_AddedDefaultValuesAndBid.Designer.cs">
+      <DependentUpon>201806081357446_AddedDefaultValuesAndBid.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Auction\Auction.cs" />
+    <Compile Include="Models\Bid\Bid.cs" />
+    <Compile Include="Models\DefaultValues\DefaultValues.cs" />
+    <Compile Include="Models\Order\Order.cs" />
+    <Compile Include="Models\User\AccountViewModels.cs" />
+    <Compile Include="Models\AuctionDB.cs" />
+    <Compile Include="Models\User\User.cs" />
+    <Compile Include="Models\User\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -282,6 +320,32 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201806081148387_InitialCreate.resx">
+      <DependentUpon>201806081148387_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806081156436_ChangedTableNames.resx">
+      <DependentUpon>201806081156436_ChangedTableNames.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806081313090_AddedAuction.resx">
+      <DependentUpon>201806081313090_AddedAuction.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806081318258_AddedOrder.resx">
+      <DependentUpon>201806081318258_AddedOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806081331343_AddedBid.resx">
+      <DependentUpon>201806081331343_AddedBid.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806081336096_UpdateDB.resx">
+      <DependentUpon>201806081336096_UpdateDB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806081352516_RenamedAuctionId.resx">
+      <DependentUpon>201806081352516_RenamedAuctionId.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806081357446_AddedDefaultValuesAndBid.resx">
+      <DependentUpon>201806081357446_AddedDefaultValuesAndBid.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
