@@ -14,7 +14,7 @@ namespace Auction.Data.Models
     {
         public string ReturnUrl { get; set; }
     }
-
+    /*
     public class SendCodeViewModel
     {
         public string SelectedProvider { get; set; }
@@ -22,7 +22,7 @@ namespace Auction.Data.Models
         public string ReturnUrl { get; set; }
         public bool RememberMe { get; set; }
     }
-
+    */
     public class VerifyCodeViewModel
     {
         [Required]
