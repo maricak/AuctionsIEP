@@ -34,7 +34,7 @@ namespace Auction.Data.Models
         [DataType(DataType.DateTime)]
         public DateTime? ClosingTime { get; set; }
 
-        public AuctionStatus Status;
+        public AuctionStatus Status { get; set; }
 
         //       public string UserId { get; set; } // guid
         public virtual User User { get; set; }

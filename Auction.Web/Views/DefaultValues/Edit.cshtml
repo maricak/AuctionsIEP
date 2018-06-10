@@ -1,0 +1,91 @@
+﻿@model Auction.Data.Models.EditDefaultValuesViewModel
+
+@{
+    ViewBag.Title = "Administrator dashboard";
+}
+
+@using (Html.BeginForm())
+{
+    <div class="form-group">
+        <div class="col">
+            <h2>
+                Edit Default Values
+                <input type="submit" value="Save changes" class="btn btn-primary float-right" />
+            </h2>
+        </div>
+    </div>
+
+    <hr />
+
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.NumberOfAuctionsPerPage, htmlAttributes: new { @class = "control-label col" })
+            <div class="col">
+                @Html.EditorFor(model => model.NumberOfAuctionsPerPage, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.NumberOfAuctionsPerPage, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.AuctionDuration, htmlAttributes: new { @class = "control-label col" })
+            <div class="col">
+                @Html.EditorFor(model => model.AuctionDuration, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.AuctionDuration, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SilverTokenNumber, htmlAttributes: new { @class = "control-label col" })
+            <div class="col">
+                @Html.EditorFor(model => model.SilverTokenNumber, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SilverTokenNumber, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.GoldTokenNumber, htmlAttributes: new { @class = "control-label col" })
+            <div class="col">
+                @Html.EditorFor(model => model.GoldTokenNumber, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.GoldTokenNumber, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PlatinuTokenNumber, htmlAttributes: new { @class = "control-label col" })
+            <div class="col">
+                @Html.EditorFor(model => model.PlatinuTokenNumber, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PlatinuTokenNumber, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TokenValue, htmlAttributes: new { @class = "control-label col" })
+            <div class="col">
+                @Html.EditorFor(model => model.TokenValue, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TokenValue, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Currency, htmlAttributes: new { @class = "control-label col" })
+            <div class="col">
+                @Html.EnumDropDownListFor(model => model.Currency, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Currency, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group mb-4">
+            <div class="col">
+                &nbsp;
+                <input type="submit" value="Save changes" class="btn btn-primary float-right" />
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,83 @@
+﻿@model Auction.Data.Models.EditDefaultValuesViewModel
+
+@{
+    ViewBag.Title = "Administrator dashboard";
+}
+
+<h2 class="w-100">
+    <span>Default Values for the System</span>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }, new { @class = "btn btn-primary float-right" })
+</h2>
+
+<hr />
+
+@if (ViewBag.Message != null)
+{
+    <div class="alert alert-info alert-dismissible fade show">
+        @ViewBag.Message
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    ViewBag.Message = null;
+}
+<div>
+    <dl class="row">
+        <dt class="col-10 col-sm-5">
+            @Html.DisplayNameFor(model => model.NumberOfAuctionsPerPage)
+        </dt>
+
+        <dd class="col-2 col-sm-1">
+            @Html.DisplayFor(model => model.NumberOfAuctionsPerPage)
+        </dd>
+
+        <dt class="col-10 col-sm-5">
+            @Html.DisplayNameFor(model => model.AuctionDuration)
+        </dt>
+
+        <dd class="col-2 col-sm-1">
+            @Html.DisplayFor(model => model.AuctionDuration)
+        </dd>
+
+        <dt class="col-10 col-sm-5">
+            @Html.DisplayNameFor(model => model.SilverTokenNumber)
+        </dt>
+
+        <dd class="col-2 col-sm-1">
+            @Html.DisplayFor(model => model.SilverTokenNumber)
+        </dd>
+
+        <dt class="col-10 col-sm-5">
+            @Html.DisplayNameFor(model => model.GoldTokenNumber)
+        </dt>
+
+        <dd class="col-2 col-sm-1">
+            @Html.DisplayFor(model => model.GoldTokenNumber)
+        </dd>
+
+        <dt class="col-10 col-sm-5">
+            @Html.DisplayNameFor(model => model.PlatinuTokenNumber)
+        </dt>
+
+        <dd class="col-2 col-sm-1">
+            @Html.DisplayFor(model => model.PlatinuTokenNumber)
+        </dd>
+
+        <dt class="col-10 col-sm-5">
+            @Html.DisplayNameFor(model => model.TokenValue)
+        </dt>
+
+        <dd class="col-2 col-sm-1">
+            @Html.DisplayFor(model => model.TokenValue)
+        </dd>
+
+        <dt class="col-10 col-sm-5">
+            @Html.DisplayNameFor(model => model.Currency)
+        </dt>
+
+        <dd class="col-2 col-sm-1">
+            @Html.DisplayFor(model => model.Currency)
+        </dd>
+    </dl>
+</div>
+
