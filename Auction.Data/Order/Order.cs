@@ -22,6 +22,7 @@ namespace Auction.Data.Models
         public OrderStatus Status { get; set; }
 
         [Required]
-        public string UserId { get; set; } // guid
+        //public string UserId { get; set; } // guid
+        public virtual User User { get; set; }
     }
 }

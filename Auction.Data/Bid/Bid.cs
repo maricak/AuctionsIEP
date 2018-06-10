@@ -20,9 +20,10 @@ namespace Auction.Data.Models
 
         [Required]
        // [Column(name: "User_Id")]
-        public string UserId { get; set; } // guid
-
+       // public string UserId { get; set; } // guid
+        public virtual User User { get; set; }
         [Required]
-        public Guid AuctionId { get; set; }
+        //public Guid AuctionId { get; set; }
+        public virtual Auction Auction { get; set; }
     }
 }
