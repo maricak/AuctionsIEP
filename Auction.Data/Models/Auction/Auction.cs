@@ -36,8 +36,6 @@ namespace Auction.Data.Models
 
         public AuctionStatus Status;
 
-        public string UserId { get; set; } // guid
-
         public ICollection<Bid> Bids { get; set; }
 
         public virtual User User { get; set; }

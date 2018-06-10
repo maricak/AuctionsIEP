@@ -19,14 +19,9 @@ namespace Auction.Data.Models
         public long NumberOfTokens { get; set; }
 
         [Required]
-       // [Column(name: "User_Id")]
-        public string UserId { get; set; } // guid
-
-        [Required]
-        public Guid AuctionId { get; set; }
-
         public virtual Auction Auction { get; set; }
 
+        [Required]
         public virtual User User { get; set; }
     }
 }

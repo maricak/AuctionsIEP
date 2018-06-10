@@ -23,9 +23,7 @@ namespace Auction.Data.Models
         public long NumberOfTokens { get; set; }
 
         public ICollection<Auction> Auctions { get; set; }
-
         public ICollection<Order> Orders { get; set; }
-
         public ICollection<Bid> Bids { get; set; }
 
         public User()

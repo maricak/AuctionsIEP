@@ -241,6 +241,18 @@
     <Compile Include="Migrations\201806101431176_AddedVirtualFields.Designer.cs">
       <DependentUpon>201806101431176_AddedVirtualFields.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201806101433444_RemovedIdsFromBid.cs" />
+    <Compile Include="Migrations\201806101433444_RemovedIdsFromBid.Designer.cs">
+      <DependentUpon>201806101433444_RemovedIdsFromBid.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806101458484_AddedVirtaulFields.cs" />
+    <Compile Include="Migrations\201806101458484_AddedVirtaulFields.Designer.cs">
+      <DependentUpon>201806101458484_AddedVirtaulFields.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806101508379_AddedRequiredAttributes.cs" />
+    <Compile Include="Migrations\201806101508379_AddedRequiredAttributes.Designer.cs">
+      <DependentUpon>201806101508379_AddedRequiredAttributes.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Auction\Auction.cs" />
     <Compile Include="Models\Bid\Bid.cs" />
@@ -312,6 +324,8 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Home\Bid.cshtml" />
+    <Content Include="Views\Home\Auction.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -359,6 +373,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201806101431176_AddedVirtualFields.resx">
       <DependentUpon>201806101431176_AddedVirtualFields.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806101433444_RemovedIdsFromBid.resx">
+      <DependentUpon>201806101433444_RemovedIdsFromBid.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806101458484_AddedVirtaulFields.resx">
+      <DependentUpon>201806101458484_AddedVirtaulFields.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806101508379_AddedRequiredAttributes.resx">
+      <DependentUpon>201806101508379_AddedRequiredAttributes.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

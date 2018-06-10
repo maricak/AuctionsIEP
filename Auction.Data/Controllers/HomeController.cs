@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Auction.Data.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,7 +11,12 @@ namespace Auction.Data.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            using (AuctionDB db = new AuctionDB())
+            {
+                var auction = db.Auctions.Include("User").FirstOrDefault();
+
+                return View("Auction", auction);
+            }
         }
 
         public ActionResult About()
