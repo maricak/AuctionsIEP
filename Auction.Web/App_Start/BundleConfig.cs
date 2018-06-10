@@ -23,7 +23,7 @@ namespace Auction.Web
                       "~/Scripts/bootstrap.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css"/*,
+                      "~/Content/lumen-bootstrap.css"/*,
                       "~/Content/site.css"*/));
         }
     }
