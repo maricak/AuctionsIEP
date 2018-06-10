@@ -40,5 +40,7 @@ namespace Auction.Data.Models
 
         public ICollection<Bid> Bids { get; set; }
 
+        public virtual User User { get; set; }
+
     }
 }

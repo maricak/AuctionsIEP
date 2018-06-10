@@ -24,5 +24,9 @@ namespace Auction.Data.Models
 
         [Required]
         public Guid AuctionId { get; set; }
+
+        public virtual Auction Auction { get; set; }
+
+        public virtual User User { get; set; }
     }
 }

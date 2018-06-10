@@ -233,6 +233,14 @@
     <Compile Include="Migrations\201806081357446_AddedDefaultValuesAndBid.Designer.cs">
       <DependentUpon>201806081357446_AddedDefaultValuesAndBid.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201806101428177_AddedFieldAuctionToBid.cs" />
+    <Compile Include="Migrations\201806101428177_AddedFieldAuctionToBid.Designer.cs">
+      <DependentUpon>201806101428177_AddedFieldAuctionToBid.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806101431176_AddedVirtualFields.cs" />
+    <Compile Include="Migrations\201806101431176_AddedVirtualFields.Designer.cs">
+      <DependentUpon>201806101431176_AddedVirtualFields.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Auction\Auction.cs" />
     <Compile Include="Models\Bid\Bid.cs" />
@@ -345,6 +353,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201806081357446_AddedDefaultValuesAndBid.resx">
       <DependentUpon>201806081357446_AddedDefaultValuesAndBid.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806101428177_AddedFieldAuctionToBid.resx">
+      <DependentUpon>201806101428177_AddedFieldAuctionToBid.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806101431176_AddedVirtualFields.resx">
+      <DependentUpon>201806101431176_AddedVirtualFields.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
