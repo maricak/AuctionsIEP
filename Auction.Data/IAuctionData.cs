@@ -10,13 +10,14 @@ namespace Auction.Data
     public interface IAuctionData
     {
         /* DefaultValues */
-        EditDefaultValuesViewModel GetDetailsDefaultValues();
+        DetailsDefaultValuesViewModel GetDetailsDefaultValues();
         EditDefaultValuesViewModel GetEditDefaultValues();
         bool SetDefaultValues(EditDefaultValuesViewModel model);
         /* DefaultValues END */
 
         /* Auctions */
-        ICollection<AdminAuctionViewModel> GetAuctionsByStatus(AuctionStatus status);
+        ICollection<AdminAuctionViewModel> GetReadyAuctions();
+        bool OpenAuction(string id);
         /* Auctions END */
     }
 }

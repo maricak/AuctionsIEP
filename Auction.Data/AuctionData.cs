@@ -27,14 +27,14 @@ namespace Auction.Data
         private AuctionData() { }
 
         /* DefaultValues */
-        public EditDefaultValuesViewModel GetDetailsDefaultValues()
+        public DetailsDefaultValuesViewModel GetDetailsDefaultValues()
         {
             try
             {
                 using (AuctionDB db = new AuctionDB())
                 {
                     var defaultValues = db.DefaultValues.SingleOrDefault();
-                    return new EditDefaultValuesViewModel
+                    return new DetailsDefaultValuesViewModel
                     {
                         AuctionDuration = defaultValues.AuctionDuration,
                         Currency = defaultValues.Currency,
@@ -117,15 +117,15 @@ namespace Auction.Data
         /* DefaultValues END */
 
         /* Auctions */
-        public ICollection<AdminAuctionViewModel> GetAuctionsByStatus(AuctionStatus status)
+        public ICollection<AdminAuctionViewModel> GetReadyAuctions()
         {
             try
             {
                 using (AuctionDB db = new AuctionDB())
                 {
-                    var auctions = db.Auctions.Include(a => a.User.UserName).Where(a => a.Status == AuctionStatus.READY).ToList();
+                    var auctions = db.Auctions.Where(a => a.Status == AuctionStatus.READY).ToList();
                     var result = new List<AdminAuctionViewModel>();
-                    foreach(var auction in auctions)
+                    foreach (var auction in auctions)
                     {
                         result.Add(new AdminAuctionViewModel
                         {
@@ -135,7 +135,7 @@ namespace Auction.Data
                             Name = auction.Name,
                             StartPrice = auction.StartPrice,
                             Status = auction.Status,
-                            Username = auction.User.UserName
+                            Id = auction.Id.ToString()
                         });
                     }
                     return result;
@@ -150,8 +150,42 @@ namespace Auction.Data
             // something went wrong
             return null;
         }
+
+        public bool OpenAuction(string id)
+        {
+            try
+            {
+                if (String.IsNullOrEmpty(id))
+                {
+                    // TODO: log
+                    return false;
+                }
+                var guidId = new Guid(id);
+                using (AuctionDB db = new AuctionDB())
+                {
+                    var auction = db.Auctions.Where(a => a.Id.Equals(guidId)).SingleOrDefault();
+                    if (auction == null)
+                    {
+                        return false;
+                    }
+                    auction.OpeningTime = DateTime.UtcNow;
+                    auction.Status = AuctionStatus.OPENED;
+
+                    db.Entry(auction).State = EntityState.Modified;
+                    db.SaveChanges();
+
+                    return true;
+                }
+            }
+            catch (Exception)
+            {
+                // TODO: log exception
+            }
+            // something went wrong
+            return false;
+        }
         /* Auctions END */
-        
+
 
 
     }

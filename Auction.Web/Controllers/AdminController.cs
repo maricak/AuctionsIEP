@@ -12,7 +12,7 @@ using Auction.Data.Models;
 namespace Auction.Web.Controllers
 {
     [Authorize(Roles = "Admin")]
-    public class DefaultValuesController : Controller
+    public class AdminController : Controller
     {
         private AuctionDB db = new AuctionDB();
         private IAuctionData data = AuctionData.Instance;
@@ -26,11 +26,20 @@ namespace Auction.Web.Controllers
                 TempData.Remove("Message");
             }
 
-            EditDefaultValuesViewModel model = data.GetDetailsDefaultValues();
-            if (model == null)
+            DetailsDefaultValuesViewModel dv = data.GetDetailsDefaultValues();
+            ICollection<AdminAuctionViewModel> auctions = data.GetReadyAuctions();
+
+            if (dv == null || auctions == null)
             {
-                return HttpNotFound();
+                ViewBag.Message = "Data was not found";
             }
+
+            AdminIndexViewModel model = new AdminIndexViewModel
+            {
+                Auctions = auctions,
+                DefaultValues = dv
+            };
+
             return View(model);
         }
 
@@ -40,7 +49,8 @@ namespace Auction.Web.Controllers
             EditDefaultValuesViewModel model = data.GetEditDefaultValues();
             if (model == null)
             {
-                return HttpNotFound();
+                TempData["Message"] = "Data was not found";
+                RedirectToAction("Index");
             }
             return View(model);
         }
@@ -57,14 +67,29 @@ namespace Auction.Web.Controllers
                 if (data.SetDefaultValues(model))
                 {
                     TempData["Message"] = "Changes were made successfully";
-                } 
+                }
                 else
                 {
-                    TempData["Message"] = "Couldn't save changes";
+                    TempData["Message"] = "Couldn't save the changes";
                 }
                 return RedirectToAction("Index");
             }
             return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult OpenAuction(string id)
+        {
+            if (data.OpenAuction(id))
+            {
+                TempData["Message"] = "Auction is opened";
+            }
+            else
+            {
+                TempData["Message"] = "Couldn't save the changes";
+            }
+            return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)

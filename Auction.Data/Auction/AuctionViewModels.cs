@@ -9,6 +9,7 @@ namespace Auction.Data.Models
 {
     public class AdminAuctionViewModel
     {
+        [Display(Name = "Name")]
         public string Name { get; set; }
 
         public long Duration { get; set; }
@@ -24,6 +25,6 @@ namespace Auction.Data.Models
 
         public AuctionStatus Status { get; set; }
 
-        public string Username { get; set; }
+        public string Id { get; set; }
     }
 }

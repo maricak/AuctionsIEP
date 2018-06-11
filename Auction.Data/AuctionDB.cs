@@ -8,9 +8,9 @@ namespace Auction.Data.Models
 {
     public enum CurrencyType { RSD = 0, USD = 1, EUR = 2 }
 
-    public enum AuctionStatus { READY, OPENED, COMPLETED }
+    public enum AuctionStatus { READY = 0, OPENED = 1, COMPLETED = 2 }
 
-    public enum OrderStatus { SUBMITTED, CANCELED, COMPLETED }
+    public enum OrderStatus { SUBMITTED = 0, CANCELED = 1, COMPLETED = 2 }
 
     public class AuctionDB : IdentityDbContext<User>
     {
