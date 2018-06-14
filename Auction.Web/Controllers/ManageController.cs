@@ -57,6 +57,8 @@ namespace Auction.Web.Controllers
             ViewBag.StatusMessage =
                 message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
                 : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
+                : message == ManageMessageId.ChangeNameSuccess ? "Your name has been changed"
+                : message == ManageMessageId.ChangeSurnameSuccess ? "Your surname has been changed"
                 : message == ManageMessageId.SetTwoFactorSuccess ? "Your two-factor authentication provider has been set."
                 : message == ManageMessageId.Error ? "An error has occurred."
                 : message == ManageMessageId.AddPhoneSuccess ? "Your phone number was added."
@@ -67,9 +69,9 @@ namespace Auction.Web.Controllers
             var model = new IndexViewModel
             {
                 HasPassword = HasPassword(),
-                PhoneNumber = await UserManager.GetPhoneNumberAsync(userId),
-                TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
-                Logins = await UserManager.GetLoginsAsync(userId),
+                //PhoneNumber = await UserManager.GetPhoneNumberAsync(userId),
+                //TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
+                //Logins = await UserManager.GetLoginsAsync(userId),
                 BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
             };
             return View(model);
@@ -211,6 +213,72 @@ namespace Auction.Web.Controllers
                 await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
             }
             return RedirectToAction("Index", new { Message = ManageMessageId.RemovePhoneSuccess });
+        }
+
+        // GET: /Manage/ChangeName
+        public ActionResult ChangeName()
+        {
+            return View();
+        }
+
+        //
+        // POST: /Manage/ChangeName
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> ChangeName(ChangeNameViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+            user.Name = model.Name;
+
+            var result = UserManager.Update(user);
+            if (result.Succeeded)
+            {
+                //var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+                //if (user != null)
+                //{
+                //    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                //}
+                return RedirectToAction("Index", new { Message = ManageMessageId.ChangeNameSuccess });
+            }
+            AddErrors(result);
+            return View(model);
+        }
+
+        // GET: /Manage/ChangeSurname
+        public ActionResult ChangeSurname()
+        {
+            return View();
+        }
+
+        //
+        // POST: /Manage/ChangeSurname
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> ChangeSurname(ChangeSurnameViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+            user.Surname = model.Surname;
+
+            var result = UserManager.Update(user);
+            if (result.Succeeded)
+            {
+                //var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+                //if (user != null)
+                //{
+                //    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                //}
+                return RedirectToAction("Index", new { Message = ManageMessageId.ChangeSurnameSuccess });
+            }
+            AddErrors(result);
+            return View(model);
         }
 
         //
@@ -377,6 +445,8 @@ namespace Auction.Web.Controllers
         {
             AddPhoneSuccess,
             ChangePasswordSuccess,
+            ChangeNameSuccess, 
+            ChangeSurnameSuccess,
             SetTwoFactorSuccess,
             SetPasswordSuccess,
             RemoveLoginSuccess,

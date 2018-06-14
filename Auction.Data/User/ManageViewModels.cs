@@ -8,9 +8,9 @@ namespace Auction.Data.Models
     public class IndexViewModel
     {
         public bool HasPassword { get; set; }
-        public IList<UserLoginInfo> Logins { get; set; }
-        public string PhoneNumber { get; set; }
-        public bool TwoFactor { get; set; }
+        //public IList<UserLoginInfo> Logins { get; set; }
+        //public string PhoneNumber { get; set; }
+        //public bool TwoFactor { get; set; }
         public bool BrowserRemembered { get; set; }
     }
 
@@ -23,6 +23,23 @@ namespace Auction.Data.Models
     public class FactorViewModel
     {
         public string Purpose { get; set; }
+    }
+
+    public class ChangeNameViewModel
+    {
+        [Required]
+        [StringLength(100, ErrorMessage = "The {0} must be at most {1} characters long.")]
+        [Display(Name = "Name")]
+        public string Name { get; set; }
+    }
+
+    public class ChangeSurnameViewModel
+    { 
+        [Required]
+        [StringLength(100, ErrorMessage = "The {0} must be at most {1} characters long.")]
+        [Display(Name = "Surname")]
+        public string Surname { get; set; }
+
     }
 
     public class SetPasswordViewModel
