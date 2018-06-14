@@ -80,11 +80,16 @@
         <div class="form-group mb-4">
             <div class="col">
                 &nbsp;
+                <div class="float-left">
+                    @Html.ActionLink("Back", "Index", new { }, new { @class = "btn btn-primary" })
+                </div>
                 <input type="submit" value="Save changes" class="btn btn-primary float-right" />
             </div>
         </div>
     </div>
 }
+
+
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

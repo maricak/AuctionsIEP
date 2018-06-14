@@ -10,15 +10,12 @@
 </h2>
 
 <hr />
-@if (ViewBag.Message != null)
+@if (ViewBag.StatusMessage != "")
 {
-    <div class="alert alert-info alert-dismissible fade show">
-        @ViewBag.Message
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
+    <div class="alert alert-success">
+        @ViewBag.StatusMessage       
     </div>
-    ViewBag.Message = null;
+   
 }
 <div>
     <dl class="row">
@@ -103,7 +100,7 @@
         </th>
     </tr>
 
-    @{ 
+    @{
         var i = 1;
     }
 
@@ -130,13 +127,12 @@
                 @using (Html.BeginForm("OpenAuction", "Admin"))
                 {
                     @Html.AntiForgeryToken();
-                    <input type = "hidden" value = @item.Id name="id" />
-                    <input type = "submit" value = "Open Auction" class="btn btn-primary" />
+                    <input type="hidden" value=@item.Id name="id" />
+                    <input type="submit" value="Open Auction" class="btn btn-primary" />
                 }
             </td>
         </tr>
     }
-
 </table>
 
 

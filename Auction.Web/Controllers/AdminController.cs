@@ -18,20 +18,20 @@ namespace Auction.Web.Controllers
         private IAuctionData data = AuctionData.Instance;
 
         // GET: DefaultValues/
-        public ActionResult Index()
+        public ActionResult Index(AdminMessageId? message)
         {
-            if (TempData["Message"] != null)
-            {
-                ViewBag.Message = TempData["Message"];
-                TempData.Remove("Message");
-            }
+            ViewBag.StatusMessage =
+                message == AdminMessageId.AuctionOpenSuccess ? "Auction is opened."
+                : message == AdminMessageId.ChangeDefaultValuesSuccess ? "Changes were made successfully."
+                : message == AdminMessageId.Error ? "An error has occurred."
+                : "";
 
             DetailsDefaultValuesViewModel dv = data.GetDetailsDefaultValues();
             ICollection<AdminAuctionViewModel> auctions = data.GetReadyAuctions();
 
             if (dv == null || auctions == null)
             {
-                ViewBag.Message = "Data was not found";
+                ViewBag.StatusMessage += "</br> Data was not found.";
             }
 
             AdminIndexViewModel model = new AdminIndexViewModel
@@ -49,8 +49,7 @@ namespace Auction.Web.Controllers
             EditDefaultValuesViewModel model = data.GetEditDefaultValues();
             if (model == null)
             {
-                TempData["Message"] = "Data was not found";
-                RedirectToAction("Index");
+                return RedirectToAction("Index", new { Message = AdminMessageId.Error });
             }
             return View(model);
         }
@@ -66,13 +65,12 @@ namespace Auction.Web.Controllers
             {
                 if (data.SetDefaultValues(model))
                 {
-                    TempData["Message"] = "Changes were made successfully";
+                    return RedirectToAction("Index", new { Message = AdminMessageId.ChangeDefaultValuesSuccess });
                 }
                 else
                 {
-                    TempData["Message"] = "Couldn't save the changes";
+                    return RedirectToAction("Index", new { Message = AdminMessageId.Error });
                 }
-                return RedirectToAction("Index");
             }
             return View(model);
         }
@@ -83,13 +81,12 @@ namespace Auction.Web.Controllers
         {
             if (data.OpenAuction(id))
             {
-                TempData["Message"] = "Auction is opened";
+                return RedirectToAction("Index", new { Message = AdminMessageId.AuctionOpenSuccess });
             }
             else
             {
-                TempData["Message"] = "Couldn't save the changes";
+                return RedirectToAction("Index", new { Message = AdminMessageId.Error });
             }
-            return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)
@@ -99,6 +96,14 @@ namespace Auction.Web.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+
+        public enum AdminMessageId
+        {
+            AuctionOpenSuccess, 
+            ChangeDefaultValuesSuccess,
+            Error
         }
     }
 }
