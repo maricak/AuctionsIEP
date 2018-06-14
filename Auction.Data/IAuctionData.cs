@@ -19,5 +19,9 @@ namespace Auction.Data
         ICollection<AdminAuctionViewModel> GetReadyAuctions();
         bool OpenAuction(string id);
         /* Auctions END */
+
+        /* Orders */
+        ICollection<IndexOrderViewModel> GetOrdersByUserId(string id);
+        /* Orders END */
     }
 }

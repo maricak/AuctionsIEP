@@ -82,6 +82,7 @@
     <Compile Include="DefaultValues\DefaultValues.cs" />
     <Compile Include="DefaultValues\DefaultValuesViewModels.cs" />
     <Compile Include="IAuctionData.cs" />
+    <Compile Include="Order\OrderViewModels.cs" />
     <Compile Include="Order\Order.cs" />
     <Compile Include="Other\AdminIndexViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

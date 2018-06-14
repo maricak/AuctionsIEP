@@ -186,7 +186,42 @@ namespace Auction.Data
         }
         /* Auctions END */
 
+        /* Orders */
+        public ICollection<IndexOrderViewModel> GetOrdersByUserId(string id)
+        {
+            try
+            {
+                using (AuctionDB db = new AuctionDB())
+                {
+                    //Guid.Parse(id); // throws exception if id cannot be converted to guid
+                    var orders = db.Orders.Where(o => o.User.Id == id).ToList();
 
+                    var result = new List<IndexOrderViewModel>();
+                    foreach (var order in orders)
+                    {
+                        result.Add(new IndexOrderViewModel
+                        {
+                            Currency = order.Currency,
+                            Price = order.Price,
+                            Status = order.Status,
+                            NumberOfTokens = order.NumberOfTokens
+                        });
+                    }
+                    return result;
+                }
+            }
+            catch (Exception e)
+            {
+                // TODO: log exception
+
+            }
+
+            //something went wrong
+            return null;
+        }
+
+
+        /* Orders END*/
 
     }
 }

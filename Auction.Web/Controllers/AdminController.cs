@@ -14,7 +14,6 @@ namespace Auction.Web.Controllers
     [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
-        private AuctionDB db = new AuctionDB();
         private IAuctionData data = AuctionData.Instance;
 
         // GET: DefaultValues/
@@ -54,7 +53,7 @@ namespace Auction.Web.Controllers
             return View(model);
         }
 
-        // POST: DefaultValues/Edit/5
+        // POST: DefaultValues/Edit
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -93,7 +92,7 @@ namespace Auction.Web.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                //db.Dispose();
             }
             base.Dispose(disposing);
         }
