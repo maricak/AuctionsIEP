@@ -98,7 +98,6 @@ namespace Auction.Web.Controllers
             base.Dispose(disposing);
         }
 
-
         public enum AdminMessageId
         {
             AuctionOpenSuccess, 

@@ -218,7 +218,12 @@ namespace Auction.Web.Controllers
         // GET: /Manage/ChangeName
         public ActionResult ChangeName()
         {
-            return View();
+            var user = UserManager.FindById(User.Identity.GetUserId());
+            var model = new ChangeNameViewModel
+            {
+                Name = user.Name
+            };
+            return View(model);
         }
 
         //
@@ -251,7 +256,12 @@ namespace Auction.Web.Controllers
         // GET: /Manage/ChangeSurname
         public ActionResult ChangeSurname()
         {
-            return View();
+            var user = UserManager.FindById(User.Identity.GetUserId());
+            var model = new ChangeSurnameViewModel
+            {
+                Surname = user.Surname
+            };
+            return View(model);
         }
 
         //
