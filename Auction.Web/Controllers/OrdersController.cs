@@ -21,6 +21,9 @@ namespace Auction.Web.Controllers
         {
             ViewBag.StatusMessage =
                message == OrderMessageId.Error ? "An error has occurred."
+               : message == OrderMessageId.CompleteSuccess ? "Order was Completed Successfully"
+               : message == OrderMessageId.OrderFail ? "Order has failed"
+               : message == OrderMessageId.SubmitSuccess ? "Order was submitted sucessfully"
                : "";
 
             var model = data.GetOrdersByUserId(User.Identity.GetUserId());
@@ -72,15 +75,62 @@ namespace Auction.Web.Controllers
             return View(model);
         }
 
-        public ActionResult Centili(string clientid, string status)
+        public ActionResult OrderUpdate(string clientid, string status)
         {
-            return View(clientid);
+            if (status == "success")
+            {
+                if (data.SetOrderStatus(clientid, OrderStatus.SUBMITTED))
+                {
+                    return RedirectToAction("index", new { message = OrderMessageId.SubmitSuccess });
+                } else
+                {
+                    return RedirectToAction("index", new { message = OrderMessageId.Error });
+                }
+            }
+            else
+            {
+                if (data.SetOrderStatus(clientid, OrderStatus.CANCELED))
+                {
+                    return RedirectToAction("index", new { message = OrderMessageId.OrderFail });
+                }
+                else
+                {
+                    return RedirectToAction("index", new { message = OrderMessageId.Error });
+                }
+            }
         }
 
-
+        public ActionResult OrderCompleted(string clientid, string status)
+        {
+            if (status == "success")
+            {
+                if (data.SetOrderStatus(clientid, OrderStatus.COMPLETED))
+                {
+                    return RedirectToAction("index", new { message = OrderMessageId.CompleteSuccess });
+                }
+                else
+                {
+                    return RedirectToAction("index", new { message = OrderMessageId.Error });
+                }
+            }
+            else
+            {
+                if (data.SetOrderStatus(clientid, OrderStatus.CANCELED))
+                {
+                    return RedirectToAction("index", new { message = OrderMessageId.OrderFail });
+                }
+                else
+                {
+                    return RedirectToAction("index", new { message = OrderMessageId.Error });
+                }
+            }
+        }
 
         public enum OrderMessageId
         {
+            SubmitSuccess, 
+            CompleteSuccess,
+            OrderFail,
             Error
         }
     }

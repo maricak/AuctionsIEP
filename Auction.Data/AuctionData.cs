@@ -232,7 +232,7 @@ namespace Auction.Data
                     Order order = new Order
                     {
                         Currency = defaultValues.Currency,
-                        Id = new Guid(),
+                        Id = Guid.NewGuid(),
                         UserId = orderUserId,
                         NumberOfTokens = (package == OrderPackage.SILVER ? defaultValues.SilverTokenNumber
                             : package == OrderPackage.GOLD ? defaultValues.GoldTokenNumber
@@ -240,7 +240,6 @@ namespace Auction.Data
                         Status = OrderStatus.SUBMITTED
                     };
                     order.Price = order.NumberOfTokens * defaultValues.TokenValue;
-
 
                     db.Orders.Add(order);
                     db.SaveChanges();
@@ -253,6 +252,30 @@ namespace Auction.Data
                 // TODO: log exception
             }
             return null;
+        }
+
+        public bool SetOrderStatus(string orderID, OrderStatus status)
+        {
+            try
+            {
+                using (AuctionDB db = new AuctionDB())
+                {
+                    var order = db.Orders.Where(o => o.Id.ToString() == orderID).SingleOrDefault();
+                    if (order == null)
+                    {
+                        return false;
+                    }
+                    order.Status = status;
+                    db.Entry(order).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return true;
+                }
+            }
+            catch (Exception e)
+            {
+                // TODO: log exception
+            }
+            return false;
         }
         /* Orders END*/
 

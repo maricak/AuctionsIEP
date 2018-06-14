@@ -23,7 +23,8 @@ namespace Auction.Data
         /* Orders */
         ICollection<IndexOrderViewModel> GetOrdersByUserId(string id);
         Guid? CreateOrder(OrderPackage package, string userId);
-        
+        bool SetOrderStatus(string orderID, OrderStatus status);
+
         /* Orders END */
     }
 }
