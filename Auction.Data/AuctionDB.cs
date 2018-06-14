@@ -12,6 +12,8 @@ namespace Auction.Data.Models
 
     public enum OrderStatus { SUBMITTED = 0, CANCELED = 1, COMPLETED = 2 }
 
+    public enum OrderPackage { SILVER = 0, GOLD = 1, PLATINUM = 2 , ERROR}
+
     public class AuctionDB : IdentityDbContext<User>
     {
         public AuctionDB()

@@ -22,6 +22,8 @@ namespace Auction.Data
 
         /* Orders */
         ICollection<IndexOrderViewModel> GetOrdersByUserId(string id);
+        Guid? CreateOrder(OrderPackage package, string userId);
+        
         /* Orders END */
     }
 }

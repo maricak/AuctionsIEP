@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Auction.Data.Models
 {
+
     public class IndexOrderViewModel
     {
         [Display(Name = "Number of tokens")]
@@ -20,5 +21,12 @@ namespace Auction.Data.Models
 
         [Display(Name = "Status")]
         public OrderStatus Status { get; set; }
+    }
+
+    public class CreateOrderViewModel
+    {
+        [Required(ErrorMessage = "Select package")]
+        [Display(Name = "Package", GroupName = "Package")]
+        public string Package { get; set; }
     }
 }

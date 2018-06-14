@@ -14,10 +14,10 @@ namespace Auction.Web.Controllers
         private IAuctionData data = AuctionData.Instance;
 
         [AllowAnonymous]
-        public ActionResult Index(OrderMessageId? message)
+        public ActionResult Index(AuctionMessageId? message)
         {
             ViewBag.StatusMessage =
-                  message == OrderMessageId.Error ? "An error has occurred."
+                  message == AuctionMessageId.Error ? "An error has occurred."
                  : "";
             return View();
         }
@@ -36,17 +36,9 @@ namespace Auction.Web.Controllers
             return View();
         }
 
-        public ActionResult Orders()
-        {
-            var model = data.GetOrdersByUserId(User.Identity.GetUserId());
-            if (model == null)
-            {
-                return RedirectToAction("Index", new { message = OrderMessageId.Error });
-            }
-            return View(model);
-        }
+        
 
-        public enum OrderMessageId
+        public enum AuctionMessageId
         {
             Error
         }

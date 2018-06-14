@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using Microsoft.AspNet.Identity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Auction.Data.Models;
+
 
 namespace Auction.Data
 {
@@ -194,7 +196,7 @@ namespace Auction.Data
                 using (AuctionDB db = new AuctionDB())
                 {
                     //Guid.Parse(id); // throws exception if id cannot be converted to guid
-                    var orders = db.Orders.Where(o => o.User.Id == id).ToList();
+                    var orders = db.Orders.Where(o => o.UserId == id).ToList();
 
                     var result = new List<IndexOrderViewModel>();
                     foreach (var order in orders)
@@ -220,7 +222,38 @@ namespace Auction.Data
             return null;
         }
 
+        public Guid? CreateOrder(OrderPackage package, string orderUserId)
+        {
+            try
+            {
+                using (AuctionDB db = new AuctionDB())
+                {
+                    var defaultValues = db.DefaultValues.SingleOrDefault();
+                    Order order = new Order
+                    {
+                        Currency = defaultValues.Currency,
+                        Id = new Guid(),
+                        UserId = orderUserId,
+                        NumberOfTokens = (package == OrderPackage.SILVER ? defaultValues.SilverTokenNumber
+                            : package == OrderPackage.GOLD ? defaultValues.GoldTokenNumber
+                            : defaultValues.PlatinuTokenNumber),
+                        Status = OrderStatus.SUBMITTED
+                    };
+                    order.Price = order.NumberOfTokens * defaultValues.TokenValue;
 
+
+                    db.Orders.Add(order);
+                    db.SaveChanges();
+
+                    return order.Id;
+                }
+            }
+            catch (Exception e)
+            {
+                // TODO: log exception
+            }
+            return null;
+        }
         /* Orders END*/
 
     }
