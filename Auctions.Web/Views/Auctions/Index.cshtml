@@ -1,5 +1,5 @@
-﻿@model PagedList.IPagedList<Auctions.Data.Models.AuctionViewModel>
-@using PagedList.Mvc
+﻿@model X.PagedList.IPagedList<Auctions.Data.Models.AuctionViewModel>
+@using X.PagedList.Mvc
 
 @{
     ViewBag.Title = "Auctions";
@@ -79,9 +79,10 @@
 Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
 @Html.PagedListPager(Model, page => Url.Action("Index",
-    new { page,
+    new { page = page,
         searchString = ViewBag.SearchString,
         lowPrice = ViewBag.LowPrice,
         highPrice = ViewBag.HighPrice,
         status = ViewBag.Status
     }))
+

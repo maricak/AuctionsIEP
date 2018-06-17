@@ -13,3 +13,8 @@
 .over {
     z-index: 3;
 }
+
+.pagination {
+    color: yellow;
+}
+

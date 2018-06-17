@@ -9,7 +9,7 @@ using Auctions.Data.Models;
 using System.IO;
 using System.Drawing;
 using System.Collections;
-using PagedList;
+using X.PagedList;
 
 namespace Auctions.Data
 {
