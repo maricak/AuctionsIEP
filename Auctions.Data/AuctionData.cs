@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 using Auctions.Data.Models;
 using System.IO;
 using System.Drawing;
+using System.Collections;
+using PagedList;
 
 namespace Auctions.Data
 {
@@ -143,7 +145,6 @@ namespace Auctions.Data
                     }
                     return result;
                 }
-
             }
             catch (Exception e)
             {
@@ -188,15 +189,68 @@ namespace Auctions.Data
             return false;
         }
 
-        public ICollection<AuctionViewModel> GetAllOpenedAuctions()
+        //class FiltarComparer : IEqualityComparer<string>
+        //{
+        //    public bool Equals(string x, string y)
+        //    {
+        //        return y.Contains(x);
+        //    }
+
+        //    public int GetHashCode(string obj)
+        //    {
+        //        return obj.GetHashCode();
+        //    }
+        //}
+
+        public IPagedList<AuctionViewModel> GetAllOpenedAuctions(string searchString, decimal? lowPrice, decimal? highPrice, AuctionStatus? status, int? page)
         {
             try
             {
                 using (AuctionDB db = new AuctionDB())
                 {
-                    var auctions = db.Auctions.Include(a => a.User).Where(a => a.Status == AuctionStatus.OPENED).ToList();
+                    var auctions = db.Auctions.Include(a => a.User).Where(a => a.Status != AuctionStatus.READY).ToList();
+                    
+                    if (!String.IsNullOrEmpty(searchString))
+                    {
+                        page = 1;
+                        searchString.Trim();
+                        List<Auction> auctionsFiltered = new List<Auction>();
+                        var words = searchString.Split(' ');
+
+                        foreach (var word in words)
+                        {
+                            if (String.IsNullOrEmpty(word))
+                            {
+                                continue;
+                            }
+                            var list = auctions.Where(a => a.Name.Contains(word)).ToList();
+                            auctionsFiltered = auctionsFiltered.Union(list).ToList();
+                        }
+                        auctions = auctionsFiltered;
+                    }
+
+                    if (lowPrice != null)
+                    {
+                        page = 1;
+                        auctions = auctions.Where(a => a.CurrentPrice >= lowPrice).ToList();
+                    }
+
+                    if (highPrice != null)
+                    {
+                        page = 1;
+                        auctions = auctions.Where(a => a.CurrentPrice <= highPrice).ToList();
+                    }
+
+                    if(status != null && status != AuctionStatus.READY)
+                    {
+                        page = 1;
+                        if(status == AuctionStatus.OPENED || status == AuctionStatus.COMPLETED)
+                        {
+                            auctions = auctions.Where(a => a.Status == status).ToList();
+                        }
+                    }
                     var result = new List<AuctionViewModel>();
-                    foreach (var auction in auctions)
+                    foreach (var auction in (auctions))
                     {
                         result.Add(new AuctionViewModel
                         {
@@ -210,7 +264,11 @@ namespace Auctions.Data
                             LastBidder = auction.User != null ? (auction.User.Name + " " + auction.User.Surname) : ""
                         });
                     }
-                    return result;
+
+                    long pageSize = GetDetailsDefaultValues().NumberOfAuctionsPerPage; 
+                    int pageNumber = (page ?? 1);
+
+                    return result.ToPagedList(pageNumber, (int)pageSize);
                 }
             }
             catch (Exception e)
@@ -300,7 +358,6 @@ namespace Auctions.Data
                                 User = bid.User.Name + " " + bid.User.Surname
                             });
                         }
-
                         result.Bids = bids;
                         return result;
                     }
@@ -309,6 +366,44 @@ namespace Auctions.Data
             catch (Exception e)
             {
                 //TODO: log exception
+            }
+            return null;
+        }
+
+        public ICollection<AuctionViewModel> GetAuctionsByWinner(string userId)
+        {
+            try
+            {
+                if (String.IsNullOrEmpty(userId))
+                {
+                    return null;
+                }
+
+                using (AuctionDB db = new AuctionDB())
+                {
+                    var auctions = db.Auctions.Where(a => a.User.Id.Equals(userId)).
+                        Where(a => a.Status == AuctionStatus.COMPLETED).ToList();
+                    var result = new List<AuctionViewModel>();
+                    foreach(var auction in auctions)
+                    {
+                        result.Add(new AuctionViewModel
+                        {
+                            Id = auction.Id.ToString(),
+                            Currency = auction.Currency,
+                            Duration = auction.Duration,
+                            Name = auction.Name,
+                            Status = auction.Status,
+                            CurrentPrice = auction.CurrentPrice,
+                            Image = auction.Image,
+                            LastBidder = auction.User != null ? (auction.User.Name + " " + auction.User.Surname) : ""
+                        });
+                    }
+                    return result;
+                }
+            }
+            catch (Exception e)
+            {
+                // TODO: log exception
             }
             return null;
         }

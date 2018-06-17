@@ -1,4 +1,5 @@
-﻿@model IEnumerable<Auctions.Data.Models.AuctionViewModel>
+﻿@model PagedList.IPagedList<Auctions.Data.Models.AuctionViewModel>
+@using PagedList.Mvc
 
 @{
     ViewBag.Title = "Auctions";
@@ -9,16 +10,49 @@
     <div class="alert alert-success">
         @ViewBag.StatusMessage
     </div>
-
 }
 
-<h2>
+<h2 class="text-primary mb-3">
     Auctions
     @if (User.IsInRole("User"))
     {
         @Html.ActionLink("Create New Auction", "Create", new { }, new { @class = "btn btn-primary float-right" })
     }
 </h2>
+
+<h4>Filters</h4>
+@using (Html.BeginForm("Index", "Auctions", FormMethod.Get, new { @class = "row" }))
+{
+    <div class="form-group col-md-3">
+        <label>Find By Auction Name:</label>
+        @Html.TextBox("searchString", "", new { @class = "form-control" })
+    </div>
+    <div class="form-group col-md-3">
+        <label>Low price:</label>
+        @Html.TextBox("lowPrice", new { }, new { type = "number", @class = "form-control" })
+    </div>
+    <div class="form-group col-md-3">
+        <label>High price:</label>
+        @Html.TextBox("highPrice", new { }, new { type = "number", @class = "form-control" })
+    </div>
+    <div class="form-group col-md-3">
+        <label>Status:</label>
+        @{
+            var option0 = ViewBag.Status == null ? "selected=\"selected\"" : "";
+            var option1 = ViewBag.Status == 1 ? "selected=\"selected\"" : "";
+            var option2 = ViewBag.Status == 2 ? "selected=\"selected\"" : "";
+
+        }
+        <select id="status" name="status" class="form-control">
+            <option @option0 value="0" class="form-control">Select STATUS</option>
+            <option @option1 value="1" class="form-control">OPENED</option>
+            <option @option2 value="2" class="form-control">COMPLETED</option>
+        </select>
+    </div>
+    <div class="form-group col-12 text-center">
+        <input type="submit" value="Search" class="btn btn-primary" />
+    </div>
+}
 
 @{
     var i = 1;
@@ -42,3 +76,12 @@
     @:</div>
 }
 
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page,
+        searchString = ViewBag.SearchString,
+        lowPrice = ViewBag.LowPrice,
+        highPrice = ViewBag.HighPrice,
+        status = ViewBag.Status
+    }))

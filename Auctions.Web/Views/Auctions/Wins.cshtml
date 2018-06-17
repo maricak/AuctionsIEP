@@ -1,0 +1,30 @@
+﻿@model IEnumerable<Auctions.Data.Models.AuctionViewModel>
+@{
+    ViewBag.Title = "Wins";
+}
+
+<h2>Auctions you won</h2>
+
+
+@{
+    var i = 1;
+}
+
+@foreach (var item in Model)
+{
+    if (i % 4 == 1)
+    {
+        @:<div class="row">
+        }
+        @Html.Partial("_AuctionWin", item)
+        if (i % 4 == 0)
+        {
+        @:</div>
+    }
+    i++;
+}
+@if (i % 4 != 1)
+{
+    @:</div>
+}
+

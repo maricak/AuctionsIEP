@@ -1,4 +1,5 @@
 ﻿using Auctions.Data.Models;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,12 +19,14 @@ namespace Auctions.Data
         /* Auctions */
         ICollection<AdminAuctionViewModel> GetReadyAuctions();
         bool OpenAuction(string id);
-        ICollection<AuctionViewModel> GetAllOpenedAuctions();
+        IPagedList<AuctionViewModel> GetAllOpenedAuctions(string searchString, decimal? lowPrice, decimal? highPrice, AuctionStatus? status, int? page);
 
         //bool CreateAuction(CreateAuctionViewModel model, string userId);
         bool CreateAuction(CreateAuctionViewModel model);
 
         DetailsAuctionViewModel GetAuctionById(string id);
+
+        ICollection<AuctionViewModel> GetAuctionsByWinner(string userId);
         /* Auctions END */
 
         /* Orders */

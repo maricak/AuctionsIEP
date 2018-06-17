@@ -10,6 +10,7 @@ using Auctions.Data;
 using Auctions.Data.Models;
 using Microsoft.AspNet.Identity;
 
+
 namespace Auctions.Web.Controllers
 {
     
@@ -19,17 +20,31 @@ namespace Auctions.Web.Controllers
         private IAuctionData data = AuctionData.Instance;
 
         // GET: Auctions
-        public ActionResult Index(AuctionMessageId? message)
+        public ActionResult Index(AuctionMessageId? message, string searchString, decimal? lowPrice, decimal? highPrice, AuctionStatus? status, int? page)
         {
             ViewBag.StatusMessage =
                 message == AuctionMessageId.CreateSuccess ? "Auction was created successfully"
                 : message == AuctionMessageId.Error ? "An error has occurred."
                 : "";
 
-            var auctions = data.GetAllOpenedAuctions();
+            ViewBag.SearchString = searchString;
+            ViewBag.LowPrice = lowPrice;
+            ViewBag.HighPrice = highPrice;
+            ViewBag.Status = status;           
+
+            if (status == null)
+            {
+                ViewBag.Status = 0;
+            }
+            else
+            {
+                ViewBag.Status = (int)status;
+            }
+
+            var auctions = data.GetAllOpenedAuctions(searchString, lowPrice, highPrice, status, page);
             if (auctions == null)
             {
-                ViewBag.StatusMessage += "</br> Data was not found.";
+                ViewBag.StatusMessage += "An error has occurred";
             }
             return View(auctions);
         }
@@ -86,65 +101,21 @@ namespace Auctions.Web.Controllers
 
                 }
             }
-
             return View(model);
         }
 
-        // GET: Auctions/Edit/5
-        public ActionResult Edit(Guid? id)
+        [Authorize(Roles = "User")]
+        public ActionResult Wins()
         {
-            if (id == null)
+            var model = data.GetAuctionsByWinner(User.Identity.GetUserId());
+            if (model == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("Index", new { message = AuctionMessageId.Error });
             }
-            Auction auction = db.Auctions.Find(id);
-            if (auction == null)
+            else
             {
-                return HttpNotFound();
+                return View(model);
             }
-            return View(auction);
-        }
-
-        // POST: Auctions/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Image,Duration,StartPrice,CurrentPrice,Currency,CreatingTime,OpeningTime,ClosingTime,Status")] Auction auction)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(auction).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(auction);
-        }
-
-        // GET: Auctions/Delete/5
-        public ActionResult Delete(Guid? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Auction auction = db.Auctions.Find(id);
-            if (auction == null)
-            {
-                return HttpNotFound();
-            }
-            return View(auction);
-        }
-
-        // POST: Auctions/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(Guid id)
-        {
-            Auction auction = db.Auctions.Find(id);
-            db.Auctions.Remove(auction);
-            db.SaveChanges();
-            return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)

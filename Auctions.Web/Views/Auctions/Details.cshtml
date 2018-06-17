@@ -7,11 +7,7 @@
 
 <h3 class="text-primary">
     @Model.Name
-    @if (Model.Status == Auctions.Data.Models.AuctionStatus.COMPLETED)
-    {
-        @Html.ActionLink("Sold", "", new { }, new { @class = "btn btn-danger disabled bg-danger float-right" })
-    }
-    else
+    @if (Model.Status != Auctions.Data.Models.AuctionStatus.COMPLETED)
     {
         @Html.ActionLink("Bid", "", new { }, new { @class = "btn btn-primary float-right" })
     }
@@ -55,6 +51,17 @@
                 }
                 else
                 {
+                    <span class="font-weight-bold">
+                        @if(Model.Status == Auctions.Data.Models.AuctionStatus.COMPLETED)
+                        {
+                            @:Winner:
+                        }
+                        else
+                        {
+                            @:Last bidder:
+                        }
+                    </span>
+
                     @Html.DisplayFor(model => model.LastBidder)
                 }
             </li>
