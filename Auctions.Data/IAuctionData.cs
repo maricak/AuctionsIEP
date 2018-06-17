@@ -26,7 +26,7 @@ namespace Auctions.Data
 
         DetailsAuctionViewModel GetAuctionById(string id);
 
-        ICollection<AuctionViewModel> GetAuctionsByWinner(string userId);
+        IPagedList<AuctionViewModel> GetAuctionsByWinner(string userId, int? page);
         /* Auctions END */
 
         /* Orders */

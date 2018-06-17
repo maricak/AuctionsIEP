@@ -370,7 +370,7 @@ namespace Auctions.Data
             return null;
         }
 
-        public ICollection<AuctionViewModel> GetAuctionsByWinner(string userId)
+        public IPagedList<AuctionViewModel> GetAuctionsByWinner(string userId, int? page)
         {
             try
             {
@@ -398,7 +398,14 @@ namespace Auctions.Data
                             LastBidder = auction.User != null ? (auction.User.Name + " " + auction.User.Surname) : ""
                         });
                     }
-                    return result;
+                    if(page == null)
+                    {
+                        page = 1;
+                    }
+                    long pageSize = GetDetailsDefaultValues().NumberOfAuctionsPerPage;
+                    int pageNumber = (page ?? 1);
+
+                    return result.ToPagedList(pageNumber, (int)pageSize);
                 }
             }
             catch (Exception e)

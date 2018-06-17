@@ -24,7 +24,8 @@ namespace Auctions.Web
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/Css/lumen-bootstrap.css",
-                      "~/Content/Css/Site.css"));
+                      "~/Content/Css/Site.css", 
+                      "~/Content/Css/Paging.css"));
         }
     }
 }

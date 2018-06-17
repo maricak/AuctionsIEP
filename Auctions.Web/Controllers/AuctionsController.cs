@@ -105,9 +105,9 @@ namespace Auctions.Web.Controllers
         }
 
         [Authorize(Roles = "User")]
-        public ActionResult Wins()
+        public ActionResult Wins(int? page)
         {
-            var model = data.GetAuctionsByWinner(User.Identity.GetUserId());
+            var model = data.GetAuctionsByWinner(User.Identity.GetUserId(), page);
             if (model == null)
             {
                 return RedirectToAction("Index", new { message = AuctionMessageId.Error });

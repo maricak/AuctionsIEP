@@ -1,4 +1,6 @@
-﻿@model IEnumerable<Auctions.Data.Models.AuctionViewModel>
+﻿@model X.PagedList.IPagedList<Auctions.Data.Models.AuctionViewModel>
+@using X.PagedList.Mvc
+
 @{
     ViewBag.Title = "Wins";
 }
@@ -28,3 +30,12 @@
     @:</div>
 }
 
+<center>
+    @Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page = page,
+        searchString = ViewBag.SearchString,
+        lowPrice = ViewBag.LowPrice,
+        highPrice = ViewBag.HighPrice,
+        status = ViewBag.Status
+    }))
+</center>
