@@ -1,0 +1,108 @@
+﻿@model Auctions.Data.Models.DetailsAuctionViewModel
+
+@{
+    ViewBag.Title = "Auction details";
+}
+
+
+<h3 class="text-primary">
+    @Model.Name
+    @if (Model.Status == Auctions.Data.Models.AuctionStatus.COMPLETED)
+    {
+        @Html.ActionLink("Sold", "", new { }, new { @class = "btn btn-danger disabled bg-danger float-right" })
+    }
+    else
+    {
+        @Html.ActionLink("Bid", "", new { }, new { @class = "btn btn-primary float-right" })
+    }
+</h3>
+<hr />
+<div class="row" style="min-height:300px">
+    <div class="col-4">
+        @{
+            var base64 = Convert.ToBase64String(Model.Image);
+            var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+        }
+        <img class="img-fluid img-auction under w-100 rounded" height="100" src="@imgSrc" />
+        @if (Model.Status == Auctions.Data.Models.AuctionStatus.COMPLETED)
+        {
+            <img class="img-fluid img-auction over w-100" src="~/Content/Images/soldout.png" />
+        }
+    </div>
+    <div class="col-8">
+        <ul class="h3">
+            <li>
+                <span class="font-weight-bold">
+                    @Html.DisplayNameFor(model => model.Duration):
+                </span>
+
+                @{
+                    var duration = TimeSpan.FromSeconds(Model.Duration).ToString(@"hh\:mm\:ss");
+                }
+                @duration
+            </li>
+            <li>
+                <span class="font-weight-bold">
+                    @Html.DisplayNameFor(model => model.CurrentPrice):
+                </span>
+                @Html.DisplayFor(model => model.CurrentPrice)
+                @Html.DisplayFor(model => model.Currency)
+            </li>
+            <li>
+                @if (Model.LastBidder == "")
+                {
+                    @:Be the first one to bid!
+                }
+                else
+                {
+                    @Html.DisplayFor(model => model.LastBidder)
+                }
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="row">
+    <table class="table table-striped table-hover">
+        <tr class="bg-primary text-center text-white">
+            <th>
+                #
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Bids.First().NumberOfTokens)
+                @*@Html.DisplayNameFor(model => model.Auctions.Name)*@
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Bids.First().PlacingTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Bids.First().User)
+            </th>
+        </tr>
+
+        @{
+            var i = 1;
+        }
+
+        @foreach (var item in Model.Bids)
+        {
+            <tr class="text-center">
+                <td>
+                    @i
+                    @{ i++; }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NumberOfTokens)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PlacingTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.User)
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+
+@Html.ActionLink("Back", "Index", new { }, new { @class = "btn btn-primary" })
+

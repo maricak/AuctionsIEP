@@ -1,0 +1,44 @@
+﻿@model IEnumerable<Auctions.Data.Models.AuctionViewModel>
+
+@{
+    ViewBag.Title = "Auctions";
+}
+
+@if (ViewBag.StatusMessage != "")
+{
+    <div class="alert alert-success">
+        @ViewBag.StatusMessage
+    </div>
+
+}
+
+<h2>
+    Auctions
+    @if (User.IsInRole("User"))
+    {
+        @Html.ActionLink("Create New Auction", "Create", new { }, new { @class = "btn btn-primary float-right" })
+    }
+</h2>
+
+@{
+    var i = 1;
+}
+
+@foreach (var item in Model)
+{
+    if (i % 4 == 1)
+    {
+        @:<div class="row">
+        }
+        @Html.Partial("_Auction", item)
+        if (i % 4 == 0)
+        {
+        @:</div>
+    }
+    i++;
+}
+@if (i % 4 != 1)
+{
+    @:</div>
+}
+

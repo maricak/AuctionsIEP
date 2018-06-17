@@ -1,0 +1,15 @@
+﻿.img-auction {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 282px;
+    width: 100px;
+}
+
+.under {
+    z-index: 1;
+}
+
+.over {
+    z-index: 3;
+}
