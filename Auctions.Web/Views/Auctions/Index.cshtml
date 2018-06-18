@@ -83,6 +83,56 @@
         searchString = ViewBag.SearchString,
         lowPrice = ViewBag.LowPrice,
         highPrice = ViewBag.HighPrice,
-        status = ViewBag.Status
+        status = (ViewBag.Status == 0 ? null : ViewBag.Status)
     }))
 </center>
+
+@Scripts.Render("~/bundles/jquery")
+
+<script>
+
+    $(function () {
+        $(".time").each(function () {
+            var that = this;
+
+            var timer = setInterval(function () {
+                if (getDuration(that.innerHTML) == 0) {
+
+                    clearInterval(timer);
+
+                    $(that).parent().parent().find()
+
+                } else {
+                    $(that).html(formatTime(getDuration(that.innerHTML) - 1));
+                }
+            }, 1000);
+        })
+    });
+
+    function formatTime(duration) {
+        var hours = parseInt(duration / 3600),
+            remainder = duration % 3600,
+            minutes = parseInt(remainder / 60),
+            seconds = remainder % 60;
+
+        var hoursStr = hours + "";
+        if (hours < 10) hoursStr = "0" + hoursStr;
+        var minutesStr = minutes + "";
+        if (minutes < 10) minutesStr = "0" + minutesStr;
+        var secondsStr = seconds + "";
+        if (seconds < 10) secondsStr = "0" + secondsStr;
+
+        return (hoursStr + ":"
+            + minutesStr + ":"
+            + secondsStr);
+    }
+
+    function getDuration(time) {
+        var arr = time.split(":");
+
+        var seconds = (+arr[0]) * 60 * 60 + (+arr[1]) * 60 + (+arr[2]);
+
+        return seconds;
+    }
+
+</script>

@@ -30,7 +30,7 @@ namespace Auctions.Data
         /* Auctions END */
 
         /* Orders */
-        ICollection<IndexOrderViewModel> GetOrdersByUserId(string id);
+        IPagedList<IndexOrderViewModel> GetOrdersByUserId(string id, int?page);
         Guid? CreateOrder(OrderPackage package, string userId);
         bool SetOrderStatus(string orderID, OrderStatus status);
         /* Orders END */

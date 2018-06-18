@@ -15,7 +15,7 @@ namespace Auctions.Web.Controllers
         private IAuctionData data = AuctionData.Instance;
 
         // GET: Orders       
-        public ActionResult Index(OrderMessageId? message)
+        public ActionResult Index(OrderMessageId? message, int? page)
         {
             ViewBag.StatusMessage =
                message == OrderMessageId.Error ? "An error has occurred."
@@ -24,7 +24,7 @@ namespace Auctions.Web.Controllers
                : message == OrderMessageId.SubmitSuccess ? "Order was submitted sucessfully"
                : "";
 
-            var model = data.GetOrdersByUserId(User.Identity.GetUserId());
+            var model = data.GetOrdersByUserId(User.Identity.GetUserId(), page);
             if (model == null)
             {
                 return RedirectToAction("Index", new { message = OrderMessageId.Error });
@@ -34,6 +34,18 @@ namespace Auctions.Web.Controllers
 
         public ActionResult Create()
         {
+            var dv = data.GetDetailsDefaultValues();
+
+            if(dv == null)
+            {
+                RedirectToAction("Index", new { message = OrderMessageId.Error });
+            }
+            ViewBag.platinum = dv.PlatinuTokenNumber;
+            ViewBag.silver = dv.SilverTokenNumber;
+            ViewBag.gold = dv.GoldTokenNumber;
+            ViewBag.tokenPrice = dv.TokenValue;
+            ViewBag.currency = dv.Currency;
+
             return View();
         }
 
@@ -65,9 +77,18 @@ namespace Auctions.Web.Controllers
             }
             else
             {
-                RedirectToAction("Index", "Auction");
-            }
+                var dv = data.GetDetailsDefaultValues();
 
+                if (dv == null)
+                {
+                   return RedirectToAction("Index", new { message = OrderMessageId.Error });
+                }
+                ViewBag.platinum = dv.PlatinuTokenNumber;
+                ViewBag.silver = dv.SilverTokenNumber;
+                ViewBag.gold = dv.GoldTokenNumber;
+                ViewBag.tokenPrice = dv.TokenValue;
+                ViewBag.currency = dv.Currency;
+            }
             return View(model);
         }
 
@@ -77,21 +98,21 @@ namespace Auctions.Web.Controllers
             {
                 if (data.SetOrderStatus(clientid, OrderStatus.SUBMITTED))
                 {
-                    return RedirectToAction("index", new { message = OrderMessageId.SubmitSuccess });
+                    return RedirectToAction("Index", new { message = OrderMessageId.SubmitSuccess });
                 } else
                 {
-                    return RedirectToAction("index", new { message = OrderMessageId.Error });
+                    return RedirectToAction("Index", new { message = OrderMessageId.Error });
                 }
             }
             else
             {
                 if (data.SetOrderStatus(clientid, OrderStatus.CANCELED))
                 {
-                    return RedirectToAction("index", new { message = OrderMessageId.OrderFail });
+                    return RedirectToAction("Index", new { message = OrderMessageId.OrderFail });
                 }
                 else
                 {
-                    return RedirectToAction("index", new { message = OrderMessageId.Error });
+                    return RedirectToAction("Index", new { message = OrderMessageId.Error });
                 }
             }
         }
@@ -102,22 +123,22 @@ namespace Auctions.Web.Controllers
             {
                 if (data.SetOrderStatus(clientid, OrderStatus.COMPLETED))
                 {
-                    return RedirectToAction("index", new { message = OrderMessageId.CompleteSuccess });
+                    return RedirectToAction("Index", new { message = OrderMessageId.CompleteSuccess });
                 }
                 else
                 {
-                    return RedirectToAction("index", new { message = OrderMessageId.Error });
+                    return RedirectToAction("Index", new { message = OrderMessageId.Error });
                 }
             }
             else
             {
                 if (data.SetOrderStatus(clientid, OrderStatus.CANCELED))
                 {
-                    return RedirectToAction("index", new { message = OrderMessageId.OrderFail });
+                    return RedirectToAction("Index", new { message = OrderMessageId.OrderFail });
                 }
                 else
                 {
-                    return RedirectToAction("index", new { message = OrderMessageId.Error });
+                    return RedirectToAction("Index", new { message = OrderMessageId.Error });
                 }
             }
         }

@@ -23,7 +23,8 @@ namespace Auctions.Data.Models
         [DataType(DataType.DateTime)]
         public DateTime CreatingTime { get; set; }
 
-        public AuctionStatus Status { get; set; }
+        [Display(Name = "Image")]
+        public byte[] Image { get; set; }
 
         public string Id { get; set; }
     }

@@ -17,12 +17,32 @@
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
 
-            @Html.Label("Silver")
-            @Html.RadioButtonFor(model => model.Package, Auctions.Data.Models.OrderPackage.SILVER) &nbsp;
-            @Html.Label("Gold")
-            @Html.RadioButtonFor(model => model.Package, Auctions.Data.Models.OrderPackage.GOLD) &nbsp;
-            @Html.Label("Platinum")
-            @Html.RadioButtonFor(model => model.Package, Auctions.Data.Models.OrderPackage.PLATINUM) &nbsp;
+
+            @Html.RadioButtonFor(model => model.Package, Auctions.Data.Models.OrderPackage.SILVER)
+            @Html.Label("Silver") @ViewBag.silver tokens for
+            @{
+                var price = ViewBag.silver * ViewBag.tokenPrice;
+            }
+            @price
+            @ViewBag.currency
+            <br />
+            @Html.RadioButtonFor(model => model.Package, Auctions.Data.Models.OrderPackage.GOLD)
+            @Html.Label("Gold") @ViewBag.gold tokens for
+            @{
+                price = ViewBag.gold * ViewBag.tokenPrice;
+            }
+            @price
+            @ViewBag.currency
+            <br />
+            @Html.RadioButtonFor(model => model.Package, Auctions.Data.Models.OrderPackage.PLATINUM)
+            @Html.Label("Platinum") @ViewBag.platinum tokens for
+            @{
+                price = ViewBag.platinum * ViewBag.tokenPrice;
+            }
+            @price
+            @ViewBag.currency
+
+            <br />
             @Html.ValidationMessageFor(model => model.Package, "", new { @class = "text-danger" })
 
             <br />

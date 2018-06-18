@@ -139,7 +139,7 @@ namespace Auctions.Data
                             Duration = auction.Duration,
                             Name = auction.Name,
                             StartPrice = auction.StartPrice,
-                            Status = auction.Status,
+                            Image = auction.Image,
                             Id = auction.Id.ToString()
                         });
                     }
@@ -173,6 +173,7 @@ namespace Auctions.Data
                         return false;
                     }
                     auction.OpeningTime = DateTime.UtcNow;
+                    auction.ClosingTime = DateTime.UtcNow.Add(TimeSpan.FromSeconds(auction.Duration));
                     auction.Status = AuctionStatus.OPENED;
 
                     db.Entry(auction).State = EntityState.Modified;
@@ -249,6 +250,8 @@ namespace Auctions.Data
                             auctions = auctions.Where(a => a.Status == status).ToList();
                         }
                     }
+
+                    auctions = auctions.OrderByDescending(a => a.OpeningTime).ToList();
                     var result = new List<AuctionViewModel>();
                     foreach (var auction in (auctions))
                     {
@@ -292,11 +295,6 @@ namespace Auctions.Data
 
                 using (AuctionDB db = new AuctionDB())
                 {
-                    //User user = db.Users.Find(userId);
-                    //if (user == null)
-                    //{
-                    //    return false;
-                    //}
                     Auction auction = new Auction
                     {
                         Id = Guid.NewGuid(),
@@ -308,7 +306,6 @@ namespace Auctions.Data
                         CreatingTime = DateTime.UtcNow,
                         Status = AuctionStatus.READY,
                         Currency = model.Currency,
-                        //User = user
                     };
                     db.Auctions.Add(auction);
                     db.SaveChanges();
@@ -417,7 +414,7 @@ namespace Auctions.Data
         /* Auctions END */
 
         /* Orders */
-        public ICollection<IndexOrderViewModel> GetOrdersByUserId(string id)
+        public IPagedList<IndexOrderViewModel> GetOrdersByUserId(string id, int? page)
         {
             try
             {
@@ -437,7 +434,13 @@ namespace Auctions.Data
                             NumberOfTokens = order.NumberOfTokens
                         });
                     }
-                    return result;
+                    if (page == null)
+                    {
+                        page = 1;
+                    }
+                    long pageSize = 15;
+                    int pageNumber = (page ?? 1);
+                    return result.ToPagedList(pageNumber, (int)pageSize);
                 }
             }
             catch (Exception e)
@@ -493,13 +496,23 @@ namespace Auctions.Data
             {
                 using (AuctionDB db = new AuctionDB())
                 {
-                    var order = db.Orders.Where(o => o.Id.ToString() == orderID).SingleOrDefault();
+                    var order = db.Orders.Include(a => a.User).Where(o => o.Id.ToString() == orderID).SingleOrDefault();
                     if (order == null)
                     {
                         return false;
                     }
                     order.Status = status;
+
+                    if(status == OrderStatus.COMPLETED)
+                    {
+                        // add tokens to the user
+                        order.User.NumberOfTokens += order.NumberOfTokens;
+                        db.Entry(order.User).State = EntityState.Modified;
+                    }
+
                     db.Entry(order).State = EntityState.Modified;
+
+
                     db.SaveChanges();
                     return true;
                 }
