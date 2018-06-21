@@ -9,11 +9,12 @@ using System.Web.Mvc;
 using Auctions.Data;
 using Auctions.Data.Models;
 using Microsoft.AspNet.Identity;
+using X.PagedList;
 
 
 namespace Auctions.Web.Controllers
 {
-    
+
     public class AuctionsController : Controller
     {
         private AuctionDB db = new AuctionDB();
@@ -24,41 +25,40 @@ namespace Auctions.Web.Controllers
         {
             ViewBag.StatusMessage =
                 message == AuctionMessageId.CreateSuccess ? "Auction was created successfully"
+                : message == AuctionMessageId.BidSuccess ? "You made a bid"
                 : message == AuctionMessageId.Error ? "An error has occurred."
                 : "";
 
             ViewBag.SearchString = searchString;
             ViewBag.LowPrice = lowPrice;
             ViewBag.HighPrice = highPrice;
-            ViewBag.Status = status;           
-
-            if (status == null)
-            {
-                ViewBag.Status = 0;
-            }
-            else
-            {
-                ViewBag.Status = (int)status;
-            }
+            ViewBag.Status = status;
 
             var auctions = data.GetAllOpenedAuctions(searchString, lowPrice, highPrice, status, page);
             if (auctions == null)
             {
                 ViewBag.StatusMessage += "An error has occurred";
+                auctions = new PagedList<AuctionViewModel>(new List<AuctionViewModel>(), 1, 10);
             }
             return View(auctions);
         }
 
         // GET: Auctions/Details/5
-        public ActionResult Details(string id)
+        public ActionResult Details(string id, AuctionMessageId? message)
         {
             var model = data.GetAuctionById(id);
             if (model == null)
             {
                 return RedirectToAction("Index", new { message = AuctionMessageId.Error });
             }
-             else
+            else
             {
+                ViewBag.StatusMessage =
+                message == AuctionMessageId.CreateSuccess ? "Auction was created successfully"
+                : message == AuctionMessageId.BidSuccess ? "You made a bid"
+                : message == AuctionMessageId.Error ? "An error has occurred."
+                : "";
+
                 return View(model);
             }
         }
@@ -92,10 +92,11 @@ namespace Auctions.Web.Controllers
             if (ModelState.IsValid)
             {
                 //if (data.CreateAuction(model, User.Identity.GetUserId()))
-                if(data.CreateAuction(model))
+                if (data.CreateAuction(model))
                 {
                     return RedirectToAction("Index", new { message = AuctionMessageId.CreateSuccess });
-                } else
+                }
+                else
                 {
                     return RedirectToAction("Index", new { message = AuctionMessageId.Error });
 
@@ -118,6 +119,36 @@ namespace Auctions.Web.Controllers
             }
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "User")]
+        public ActionResult Bid(string id, long? offer, int? details)
+        {
+            if (offer != null)
+            {
+                if(data.MakeBid(id, offer, User.Identity.GetUserId()))
+                {
+                    if (details != null)
+                    {
+                        return RedirectToAction("Details", new { id, message = AuctionMessageId.BidSuccess });
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", new { message = AuctionMessageId.BidSuccess });
+                    }
+                }
+            }
+            // bad request
+            if (details != null)
+            {
+                return RedirectToAction("Details", new { id, message = AuctionMessageId.Error });
+            }
+            else
+            {
+                return RedirectToAction("Index", new { message = AuctionMessageId.Error });
+            }
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -130,6 +161,7 @@ namespace Auctions.Web.Controllers
         public enum AuctionMessageId
         {
             CreateSuccess,
+            BidSuccess,
             Error
         }
     }

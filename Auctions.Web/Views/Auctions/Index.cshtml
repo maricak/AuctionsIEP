@@ -37,14 +37,14 @@
     </div>
     <div class="form-group col-md-3">
         <label>Status:</label>
-        @{
-            var option0 = ViewBag.Status == null ? "selected=\"selected\"" : "";
-            var option1 = ViewBag.Status == 1 ? "selected=\"selected\"" : "";
-            var option2 = ViewBag.Status == 2 ? "selected=\"selected\"" : "";
+        @{            
+            //var option0 = ViewBag.Status == null ? "selected=\"selected\"" : "";
+            var option1 = ViewBag.Status == Auctions.Data.Models.AuctionStatus.OPENED ? "selected=\"selected\"" : "";
+            var option2 = ViewBag.Status == Auctions.Data.Models.AuctionStatus.COMPLETED ? "selected=\"selected\"" : "";
 
         }
         <select id="status" name="status" class="form-control">
-            <option @option0 value="0" class="form-control">Select STATUS</option>
+            <option @*@option0*@ value="0" class="form-control">Select STATUS</option>
             <option @option1 value="1" class="form-control">OPENED</option>
             <option @option2 value="2" class="form-control">COMPLETED</option>
         </select>
@@ -87,52 +87,3 @@
     }))
 </center>
 
-@Scripts.Render("~/bundles/jquery")
-
-<script>
-
-    $(function () {
-        $(".time").each(function () {
-            var that = this;
-
-            var timer = setInterval(function () {
-                if (getDuration(that.innerHTML) == 0) {
-
-                    clearInterval(timer);
-
-                    $(that).parent().parent().find()
-
-                } else {
-                    $(that).html(formatTime(getDuration(that.innerHTML) - 1));
-                }
-            }, 1000);
-        })
-    });
-
-    function formatTime(duration) {
-        var hours = parseInt(duration / 3600),
-            remainder = duration % 3600,
-            minutes = parseInt(remainder / 60),
-            seconds = remainder % 60;
-
-        var hoursStr = hours + "";
-        if (hours < 10) hoursStr = "0" + hoursStr;
-        var minutesStr = minutes + "";
-        if (minutes < 10) minutesStr = "0" + minutesStr;
-        var secondsStr = seconds + "";
-        if (seconds < 10) secondsStr = "0" + secondsStr;
-
-        return (hoursStr + ":"
-            + minutesStr + ":"
-            + secondsStr);
-    }
-
-    function getDuration(time) {
-        var arr = time.split(":");
-
-        var seconds = (+arr[0]) * 60 * 60 + (+arr[1]) * 60 + (+arr[2]);
-
-        return seconds;
-    }
-
-</script>

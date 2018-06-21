@@ -4,12 +4,41 @@
     ViewBag.Title = "Auction details";
 }
 
+@if (ViewBag.StatusMessage != "")
+{
+    <div class="alert alert-success">
+        @ViewBag.StatusMessage
+    </div>
+}
 
 <h3 class="text-primary">
     @Model.Name
-    @if (Model.Status != Auctions.Data.Models.AuctionStatus.COMPLETED && User.IsInRole("User"))
+
+    @if (Model.Status == Auctions.Data.Models.AuctionStatus.COMPLETED)
     {
-        @Html.ActionLink("Bid", "", new { }, new { @class = "btn btn-primary float-right" })
+        @Html.ActionLink("Sold", "", new { }, new { @class = "btn btn-danger disabled bg-danger btn-sold float-right" })
+        using (Html.BeginForm("Bid", "Auctions", FormMethod.Post, new { @class = "bid-form d-none row float-right" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.TextBox("offer", Model.CurrentNumberOfTokens, new { type = "number", @class = "form-control col-8" })
+
+            <input type="hidden" name="id" value=@Model.Id />
+            <input type="hidden" name="details" value="1" />
+            <input type="submit" value="Bid" class="btn btn-primary col-4" />
+        }
+    }
+    else
+    {
+        @Html.ActionLink("Sold", "", new { }, new { @class = "btn btn-danger disabled bg-danger btn-sold d-none float-right" })
+        using (Html.BeginForm("Bid", "Auctions", FormMethod.Post, new { @class = "row bid-form float-right" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.TextBox("offer", Model.CurrentNumberOfTokens, new { type = "number", @class = "form-control col-8" })
+
+            <input type="hidden" name="id" value=@Model.Id />
+            <input type="hidden" name="details" value="1" />
+            <input type="submit" value="Bid" class="btn btn-primary col-4" />
+        }
     }
 </h3>
 <hr />
@@ -24,6 +53,10 @@
         {
             <img class="img-fluid img-auction over w-100" src="~/Content/Images/soldout.png" />
         }
+        else
+        {
+            <img class="img-fluid img-auction over w-100 d-none" src="~/Content/Images/soldout.png" />
+        }
     </div>
     <div class="col-8">
         <ul class="h3">
@@ -32,10 +65,17 @@
                     @Html.DisplayNameFor(model => model.Duration):
                 </span>
 
-                @{
-                    var duration = TimeSpan.FromSeconds(Model.Duration).ToString(@"hh\:mm\:ss");
-                }
-                @duration
+                <span class="time-details">
+                    @if (Model.Status == Auctions.Data.Models.AuctionStatus.COMPLETED)
+                    {
+                        @Html.DisplayName("--:--:--")
+                    }
+                    else
+                    {
+
+                        @Html.DisplayFor(model => model.Duration)
+                    }
+                </span>
             </li>
             <li>
                 <span class="font-weight-bold">
@@ -45,24 +85,30 @@
                 @Html.DisplayFor(model => model.Currency)
             </li>
             <li>
-                @if (Model.LastBidder == "")
+                @if (Model.Status == Auctions.Data.Models.AuctionStatus.COMPLETED)
                 {
-                    @:Be the first one to bid!
+                    if (Model.LastBidder == "")
+                    {
+                        <span class="font-weight-bold bidder-label"></span>
+                        <span class="bidder">@Html.DisplayName("No winner")</span>
+                    }
+                    else
+                    {
+                        <span class="font-weight-bold bidder-label">Winner: </span>
+                        <span class="bidder">
+                            @Html.DisplayFor(model => model.LastBidder)
+                        </span>
+                    }
+                }
+                else if (Model.LastBidder == "")
+                {
+                    <span class="font-weight-bold bidder-label"></span>
+                    <span class="bidder">Be the first one to bid!</span>
                 }
                 else
                 {
-                    <span class="font-weight-bold">
-                        @if(Model.Status == Auctions.Data.Models.AuctionStatus.COMPLETED)
-                        {
-                            @:Winner:
-                        }
-                        else
-                        {
-                            @:Last bidder:
-                        }
-                    </span>
-
-                    @Html.DisplayFor(model => model.LastBidder)
+                    <span class="font-weight-bold bidder-label">Last bidder: </span>
+                    <span class="bidder">@Html.DisplayFor(model => model.LastBidder)</span>
                 }
             </li>
         </ul>

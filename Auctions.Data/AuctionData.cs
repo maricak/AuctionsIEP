@@ -10,6 +10,7 @@ using System.IO;
 using System.Drawing;
 using System.Collections;
 using X.PagedList;
+using LinqKit;
 
 namespace Auctions.Data
 {
@@ -28,10 +29,10 @@ namespace Auctions.Data
                 return Singleton;
             }
         }
-
         private AuctionData() { }
 
         /* DefaultValues */
+        #region        
         public DetailsDefaultValuesViewModel GetDetailsDefaultValues()
         {
             try
@@ -58,7 +59,6 @@ namespace Auctions.Data
             // something went wrong
             return null;
         }
-
         public EditDefaultValuesViewModel GetEditDefaultValues()
         {
             try
@@ -85,7 +85,6 @@ namespace Auctions.Data
             // something went wrong
             return null;
         }
-
         public bool SetDefaultValues(EditDefaultValuesViewModel model)
         {
             if (model == null)
@@ -120,8 +119,34 @@ namespace Auctions.Data
             return false;
         }
         /* DefaultValues END */
+        #endregion
+
 
         /* Auctions */
+        #region
+        private void CloseAuctions()
+        {
+            try
+            {
+                using (AuctionDB db = new AuctionDB())
+                {
+                    var now = DateTime.UtcNow;
+
+                    var auctions = db.Auctions.Where(a => a.ClosingTime <= now).ToList();
+                    foreach (var auction in auctions)
+                    {
+                        auction.Status = AuctionStatus.COMPLETED;
+                        db.Entry(auction).State = EntityState.Modified;
+                        // TODO: vratiti pare kome treba
+                    }
+                    db.SaveChanges();
+                }
+            }
+            catch (Exception e)
+            {
+                //TODO log exception
+            }
+        }
         public ICollection<AdminAuctionViewModel> GetReadyAuctions()
         {
             try
@@ -134,7 +159,7 @@ namespace Auctions.Data
                     {
                         result.Add(new AdminAuctionViewModel
                         {
-                            CreatingTime = auction.CreatingTime,
+                            CreatingTime = auction.CreatingTime.ToLocalTime(),
                             Currency = auction.Currency,
                             Duration = auction.Duration,
                             Name = auction.Name,
@@ -154,7 +179,6 @@ namespace Auctions.Data
             // something went wrong
             return null;
         }
-
         public bool OpenAuction(string id)
         {
             try
@@ -189,86 +213,86 @@ namespace Auctions.Data
             // something went wrong
             return false;
         }
-
-        //class FiltarComparer : IEqualityComparer<string>
-        //{
-        //    public bool Equals(string x, string y)
-        //    {
-        //        return y.Contains(x);
-        //    }
-
-        //    public int GetHashCode(string obj)
-        //    {
-        //        return obj.GetHashCode();
-        //    }
-        //}
-
         public IPagedList<AuctionViewModel> GetAllOpenedAuctions(string searchString, decimal? lowPrice, decimal? highPrice, AuctionStatus? status, int? page)
         {
             try
             {
                 using (AuctionDB db = new AuctionDB())
                 {
-                    var auctions = db.Auctions.Include(a => a.User).Where(a => a.Status != AuctionStatus.READY).ToList();
-                    
+                    CloseAuctions();
+
+                    var auctions = db.Auctions.Include(a => a.User).Where(a => a.Status != AuctionStatus.READY);
+
                     if (!String.IsNullOrEmpty(searchString))
                     {
                         page = 1;
-                        searchString.Trim();
-                        List<Auction> auctionsFiltered = new List<Auction>();
-                        var words = searchString.Split(' ');
 
+                        searchString.Trim();
+                        var words = searchString.Split();
+
+                        var predicate = PredicateBuilder.New<Auction>(false);
                         foreach (var word in words)
                         {
                             if (String.IsNullOrEmpty(word))
                             {
                                 continue;
                             }
-                            var list = auctions.Where(a => a.Name.Contains(word)).ToList();
-                            auctionsFiltered = auctionsFiltered.Union(list).ToList();
+                            predicate = predicate.Or(a => a.Name.Contains(word));
                         }
-                        auctions = auctionsFiltered;
+                        auctions = auctions.Where(predicate);
                     }
 
                     if (lowPrice != null)
                     {
                         page = 1;
-                        auctions = auctions.Where(a => a.CurrentPrice >= lowPrice).ToList();
+                        auctions = auctions.Where(a => a.CurrentPrice >= lowPrice);
                     }
 
                     if (highPrice != null)
                     {
                         page = 1;
-                        auctions = auctions.Where(a => a.CurrentPrice <= highPrice).ToList();
+                        auctions = auctions.Where(a => a.CurrentPrice <= highPrice);
                     }
 
-                    if(status != null && status != AuctionStatus.READY)
+                    if (status != null && status != AuctionStatus.READY)
                     {
                         page = 1;
-                        if(status == AuctionStatus.OPENED || status == AuctionStatus.COMPLETED)
+                        if (status == AuctionStatus.OPENED || status == AuctionStatus.COMPLETED)
                         {
-                            auctions = auctions.Where(a => a.Status == status).ToList();
+                            auctions = auctions.Where(a => a.Status == status);
                         }
                     }
 
-                    auctions = auctions.OrderByDescending(a => a.OpeningTime).ToList();
+                    auctions = auctions.OrderByDescending(a => a.OpeningTime);
+
                     var result = new List<AuctionViewModel>();
-                    foreach (var auction in (auctions))
+                    var dv = GetDetailsDefaultValues();
+                    if (dv == null)
                     {
+                        return null;
+                    }
+
+                    foreach (var auction in auctions.Include(a => a.Bids).ToList())
+                    {
+                        var span = (auction.ClosingTime - DateTime.UtcNow) ?? new TimeSpan();
+
+                        var token = auction.Bids.Count() == 0 ? 0 : auction.Bids.Max(b => b.NumberOfTokens) + 1;
+
                         result.Add(new AuctionViewModel
                         {
                             Id = auction.Id.ToString(),
                             Currency = auction.Currency,
-                            Duration = auction.Duration,
+                            Duration = auction.Status == AuctionStatus.COMPLETED ? "00:00:00" : GetDuration(span),
                             Name = auction.Name,
                             Status = auction.Status,
                             CurrentPrice = auction.CurrentPrice,
                             Image = auction.Image,
+                            CurrentNumberOfTokens = Math.Max((long)(Math.Ceiling(auction.CurrentPrice / dv.TokenValue)), token),
                             LastBidder = auction.User != null ? (auction.User.Name + " " + auction.User.Surname) : ""
                         });
                     }
 
-                    long pageSize = GetDetailsDefaultValues().NumberOfAuctionsPerPage; 
+                    long pageSize = GetDetailsDefaultValues().NumberOfAuctionsPerPage;
                     int pageNumber = (page ?? 1);
 
                     return result.ToPagedList(pageNumber, (int)pageSize);
@@ -280,8 +304,6 @@ namespace Auctions.Data
             }
             return null;
         }
-
-        //public bool CreateAuction(CreateAuctionViewModel model, string userId)
         public bool CreateAuction(CreateAuctionViewModel model)
         {
             try
@@ -320,13 +342,14 @@ namespace Auctions.Data
             // something went wrong
             return false;
         }
-
         public DetailsAuctionViewModel GetAuctionById(string id)
         {
             try
             {
                 using (AuctionDB db = new AuctionDB())
                 {
+                    CloseAuctions();
+
                     Auction auction = db.Auctions.Include(a => a.Bids).Where(a => a.Id.ToString().Equals(id)).SingleOrDefault();
                     if (auction == null)
                     {
@@ -334,24 +357,34 @@ namespace Auctions.Data
                     }
                     else
                     {
+                        var span = (auction.ClosingTime - DateTime.UtcNow) ?? new TimeSpan();
+                        var dv = GetDetailsDefaultValues();
+                        if (dv == null)
+                        {
+                            return null;
+                        }
+                        var token = auction.Bids.Count() == 0 ? 0 : auction.Bids.Max(b => b.NumberOfTokens) + 1;
+
                         var result = new DetailsAuctionViewModel
                         {
-                            Name = auction.Name, 
-                            Currency = auction.Currency, 
-                            CurrentPrice = auction.CurrentPrice, 
-                            Duration = auction.Duration, 
-                            Image = auction.Image, 
-                            LastBidder = auction.User != null ? (auction.User.Name + " " + auction.User.Surname) : "", 
+                            Id = auction.Id.ToString(),
+                            Name = auction.Name,
+                            Currency = auction.Currency,
+                            CurrentPrice = auction.CurrentPrice,
+                            Duration = auction.Status == AuctionStatus.COMPLETED ? "00:00:00" : GetDuration(span),
+                            Image = auction.Image,
+                            CurrentNumberOfTokens = Math.Max((long)(Math.Ceiling(auction.CurrentPrice / dv.TokenValue)), token),
+                            LastBidder = auction.User != null ? (auction.User.Name + " " + auction.User.Surname) : "",
                             Status = auction.Status
                         };
 
                         var bids = new List<DetailsBidViewModel>();
-                        foreach (var bid in auction.Bids)
+                        foreach (var bid in auction.Bids.OrderByDescending(b => b.PlacingTime))
                         {
                             bids.Add(new DetailsBidViewModel
                             {
-                                NumberOfTokens = bid.NumberOfTokens, 
-                                PlacingTime = bid.PlacingTime, 
+                                NumberOfTokens = bid.NumberOfTokens,
+                                PlacingTime = bid.PlacingTime.ToLocalTime(),
                                 User = bid.User.Name + " " + bid.User.Surname
                             });
                         }
@@ -366,7 +399,6 @@ namespace Auctions.Data
             }
             return null;
         }
-
         public IPagedList<AuctionViewModel> GetAuctionsByWinner(string userId, int? page)
         {
             try
@@ -378,16 +410,20 @@ namespace Auctions.Data
 
                 using (AuctionDB db = new AuctionDB())
                 {
+                    CloseAuctions();
+
                     var auctions = db.Auctions.Where(a => a.User.Id.Equals(userId)).
                         Where(a => a.Status == AuctionStatus.COMPLETED).ToList();
                     var result = new List<AuctionViewModel>();
-                    foreach(var auction in auctions)
+                    foreach (var auction in auctions)
                     {
+                        var span = (auction.ClosingTime - DateTime.UtcNow) ?? new TimeSpan();
+
                         result.Add(new AuctionViewModel
                         {
                             Id = auction.Id.ToString(),
                             Currency = auction.Currency,
-                            Duration = auction.Duration,
+                            Duration = auction.Status == AuctionStatus.COMPLETED ? "00:00:00" : GetDuration(span),
                             Name = auction.Name,
                             Status = auction.Status,
                             CurrentPrice = auction.CurrentPrice,
@@ -395,7 +431,7 @@ namespace Auctions.Data
                             LastBidder = auction.User != null ? (auction.User.Name + " " + auction.User.Surname) : ""
                         });
                     }
-                    if(page == null)
+                    if (page == null)
                     {
                         page = 1;
                     }
@@ -412,8 +448,11 @@ namespace Auctions.Data
             return null;
         }
         /* Auctions END */
+        #endregion
+
 
         /* Orders */
+        #region
         public IPagedList<IndexOrderViewModel> GetOrdersByUserId(string id, int? page)
         {
             try
@@ -503,7 +542,7 @@ namespace Auctions.Data
                     }
                     order.Status = status;
 
-                    if(status == OrderStatus.COMPLETED)
+                    if (status == OrderStatus.COMPLETED)
                     {
                         // add tokens to the user
                         order.User.NumberOfTokens += order.NumberOfTokens;
@@ -523,8 +562,113 @@ namespace Auctions.Data
             }
             return false;
         }
-
         /* Orders END*/
+        #endregion
 
+        /* Bids */
+        #region
+        public bool MakeBid(string auctionId, long? offerTokens, string userId)
+        {
+            if (auctionId == null || offerTokens == null)
+            {
+                return false;
+            }
+            try
+            {
+                var guidId = new Guid(auctionId);
+                using (AuctionDB db = new AuctionDB())
+                {
+                    CloseAuctions();
+                    var auction = db.Auctions.Where(a => a.Id.Equals(guidId)).Include(a => a.Bids).SingleOrDefault();
+                    var user = db.Users.Where(u => u.Id.Equals(userId)).SingleOrDefault();
+                    var dv = db.DefaultValues.SingleOrDefault();
+                    if (auction == null || user == null || dv == null || auction.Status != AuctionStatus.OPENED)
+                    {
+                        return false;
+                    }
+                    var maxBid = auction.Bids.Max(b => (long?)b.NumberOfTokens);
+                    if (maxBid == null)
+                    {
+                        maxBid = (long?)(Math.Ceiling(auction.CurrentPrice / dv.TokenValue));
+                    } else
+                    {
+                        // offer should be one token more than the current max bid
+                        maxBid++;
+                    }
+
+                    // offer is too low
+                    if (offerTokens < maxBid)
+                    {
+                        return false;
+                    }
+
+                    // max offer of this user for this auction
+                    var userMaxBid = auction.Bids.Where(b => b.User.Id.Equals(userId)).Max(b => (long?)b.NumberOfTokens);
+                    long tokensToPay = 0;
+                    if (userMaxBid == null)
+                    {
+                        // this is users first bid
+                        tokensToPay = (long)offerTokens;
+                    }
+                    else
+                    {
+                        // this is not users first bid, should pay only the diffeerence
+                        tokensToPay = (long)offerTokens - (long)userMaxBid;
+                    }
+
+                    if (user.NumberOfTokens >= tokensToPay)
+                    {
+                        user.NumberOfTokens -= tokensToPay;
+                        db.Entry(user).State = EntityState.Modified;
+                    }
+                    else
+                    {
+                        // there is not enough tokens
+                        return false;
+                    }
+
+                    // create new bid
+                    Bid bid = new Bid
+                    {
+                        Id = Guid.NewGuid(),
+                        Auction = auction,
+                        NumberOfTokens = (long)offerTokens,
+                        PlacingTime = DateTime.UtcNow,
+                        User = user
+                    };
+                    db.Bids.Add(bid);
+
+                    // update auction last bidder
+                    auction.User = user;
+                    auction.CurrentPrice = (long)offerTokens * dv.TokenValue;
+                    db.Entry(auction).State = EntityState.Modified;
+
+                    db.SaveChanges();
+
+                    return true;
+                }
+            }
+            catch (Exception e)
+            {
+                // TODO: log exception
+            }
+            return false;
+        }
+        #endregion
+
+        /* Helper functions*/
+        #region
+
+        private string GetDuration(TimeSpan span)
+        {
+            int h = span.Days * 24 + span.Hours;
+            int m = span.Minutes;
+            int s = span.Seconds;
+            return (h < 10 ? "0" : "") + h + ":" + (m < 10 ? "0" : "") + m + ":" + (s < 10 ? "0" : "") + s;
+        }
+
+        #endregion
     }
+
+
 }

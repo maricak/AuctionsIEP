@@ -7,31 +7,51 @@
             @Html.ActionLink(Model.Name, "Details", new { id = Model.Id })
         </h2>
         <ul class="list-group list-group-flush">
-            <li class="list-group-item" style="height:300px">
+            <li class="list-group-item pb-0" style="height:282px">
                 @{
                     var base64 = Convert.ToBase64String(Model.Image);
                     var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
                 }
                 <img class="img-fluid img-auction under w-100" height="100" src="@imgSrc" />
+
                 @if (Model.Status == Auctions.Data.Models.AuctionStatus.COMPLETED)
                 {
                     <img class="img-fluid img-auction over w-100" src="~/Content/Images/soldout.png" />
                 }
+                else
+                {
+                    <img class="img-fluid img-auction over w-100 d-none" src="~/Content/Images/soldout.png" />
+                }
             </li>
             <li class="list-group-item text-center h5 time">
-                @{
-                    var duration = TimeSpan.FromSeconds(Model.Duration).ToString(@"hh\:mm\:ss");
+                @if (Model.Status == Auctions.Data.Models.AuctionStatus.COMPLETED)
+                {
+                    @Html.DisplayName("--:--:--")
                 }
-                @duration
+                else
+                {
+                    @Html.DisplayFor(model => model.Duration)
+                }
             </li>
             <li class="list-group-item text-center h5">
                 @Html.DisplayFor(model => model.CurrentPrice)
                 @Html.DisplayFor(model => model.Currency)
             </li>
-            <li class="list-group-item text-center h5">
-                @if (Model.LastBidder == "")
+            <li class="list-group-item text-center h5 bidder">
+                @if (Model.Status == Auctions.Data.Models.AuctionStatus.COMPLETED)
                 {
-                    @:Be the first one to bid!
+                    if (Model.LastBidder == "")
+                    {
+                        @Html.DisplayName("No winner")
+                    }
+                    else
+                    {
+                        @Html.DisplayFor(model => model.LastBidder)
+                    }
+                }
+                else if (Model.LastBidder == "")
+                {
+                    <span class="first-one">Be the first one to bid!</span>
                 }
                 else
                 {
@@ -42,11 +62,29 @@
         <div class="card-footer text-center">
             @if (Model.Status == Auctions.Data.Models.AuctionStatus.COMPLETED)
             {
-                @Html.ActionLink("Sold", "", new { }, new { @class = "btn btn-danger disabled bg-danger" })
+                @Html.ActionLink("Sold", "", new { }, new { @class = "btn btn-danger disabled bg-danger btn-sold" })
+                using (Html.BeginForm("Bid", "Auctions", FormMethod.Post, new { @class = "bid-form d-none row" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.TextBox("offer", Model.CurrentNumberOfTokens, new { type = "number", @class = "form-control col-8" })
+
+                    <input type="hidden" name="id" value="@Model.Id" />
+                    <input type="hidden" name="index" value="1" />
+                    <input type="submit" value="Bid" class="btn btn-primary col-4" />
+                }
             }
             else
             {
-                @Html.ActionLink("Bid", "", new { }, new { @class = "btn btn-primary" })
+                @Html.ActionLink("Sold", "", new { }, new { @class = "btn btn-danger disabled bg-danger btn-sold d-none" })
+                using (Html.BeginForm("Bid", "Auctions", FormMethod.Post, new { @class = "row bid-form" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.TextBox("offer", Model.CurrentNumberOfTokens, new { type = "", @class = "form-control col-8" })
+
+                    <input type="hidden" name="id" value=@Model.Id />
+                    <input type="hidden" name="index" value="1" />
+                    <input type="submit" value="Bid" class="btn btn-primary col-4" />
+                }
             }
         </div>
     </div>

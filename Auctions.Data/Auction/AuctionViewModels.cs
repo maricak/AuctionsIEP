@@ -56,15 +56,18 @@ namespace Auctions.Data.Models
     public class AuctionViewModel
     {
         public string Id { get; set; }
+
         public string Name { get; set; }
 
         public byte[] Image { get; set; }
 
-        public long Duration { get; set; }
+        public string Duration { get; set; }
 
         public decimal CurrentPrice { get; set; }
 
         public CurrencyType Currency { get; set; }
+
+        public long CurrentNumberOfTokens { get; set; }
 
         public AuctionStatus Status { get; set; }
 
@@ -73,15 +76,19 @@ namespace Auctions.Data.Models
 
     public class DetailsAuctionViewModel
     {
+        public string Id { get; set; }
+
         public string Name { get; set; }
 
         public byte[] Image { get; set; }
 
-        public long Duration { get; set; }
+        public string Duration { get; set; }
 
         public decimal CurrentPrice { get; set; }
 
         public CurrencyType Currency { get; set; }
+
+        public long CurrentNumberOfTokens { get; set; }
 
         public AuctionStatus Status { get; set; }
 

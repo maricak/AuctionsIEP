@@ -7,7 +7,7 @@
             @Html.ActionLink(Model.Name, "Details", new { id = Model.Id })
         </h2>
         <ul class="list-group list-group-flush">
-            <li class="list-group-item" style="height:300px">
+            <li class="list-group-item" style="height:282px">
                 @{
                     var base64 = Convert.ToBase64String(Model.Image);
                     var imgSrc = String.Format("data:image/gif;base64,{0}", base64);

@@ -20,12 +20,8 @@ namespace Auctions.Data
         ICollection<AdminAuctionViewModel> GetReadyAuctions();
         bool OpenAuction(string id);
         IPagedList<AuctionViewModel> GetAllOpenedAuctions(string searchString, decimal? lowPrice, decimal? highPrice, AuctionStatus? status, int? page);
-
-        //bool CreateAuction(CreateAuctionViewModel model, string userId);
         bool CreateAuction(CreateAuctionViewModel model);
-
         DetailsAuctionViewModel GetAuctionById(string id);
-
         IPagedList<AuctionViewModel> GetAuctionsByWinner(string userId, int? page);
         /* Auctions END */
 
@@ -33,6 +29,11 @@ namespace Auctions.Data
         IPagedList<IndexOrderViewModel> GetOrdersByUserId(string id, int?page);
         Guid? CreateOrder(OrderPackage package, string userId);
         bool SetOrderStatus(string orderID, OrderStatus status);
+
         /* Orders END */
+
+        /* Bids */
+        bool MakeBid(string id, long? offer, string userId);
+        /* Bids END */
     }
 }
