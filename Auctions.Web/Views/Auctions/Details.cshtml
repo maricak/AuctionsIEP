@@ -12,147 +12,153 @@
     </div>
 }
 
-<h3 class="text-primary">
-    @Model.Name
+<div id="auction-@Model.Id" name="@Model.Id">
+    <h3 class="text-primary">
+        @Model.Name
 
-    @if (Model.Status == Auctions.Data.Models.AuctionStatus.COMPLETED)
-    {
-        @Html.ActionLink("Sold", "", new { }, new { @class = "btn btn-danger disabled bg-danger btn-sold float-right" })
-        using (Html.BeginForm("BidDetails", "Auctions", FormMethod.Post, new { @class = "bid-form d-none row float-right" }))
-        {
-            @Html.AntiForgeryToken()
-            @Html.TextBox("offer", Model.CurrentNumberOfTokens, new { type = "number", @class = "form-control col-8" })
-
-            <input type="hidden" name="id" value=@Model.Id />
-            <input type="submit" value="Bid" class="btn btn-primary col-4" />
-        }
-    }
-    else
-    {
-        @Html.ActionLink("Sold", "", new { }, new { @class = "btn btn-danger disabled bg-danger btn-sold d-none float-right" })
-        using (Html.BeginForm("BidDetails", "Auctions", FormMethod.Post, new { @class = "row bid-form float-right" }))
-        {
-            @Html.AntiForgeryToken()
-            @Html.TextBox("offer", Model.CurrentNumberOfTokens, new { type = "number", @class = "form-control col-8" })
-
-            <input type="hidden" name="id" value=@Model.Id />
-            <input type="submit" value="Bid" class="btn btn-primary col-4" />
-        }
-    }
-</h3>
-<hr />
-<div class="row" style="min-height:300px">
-    <div class="col-4">
-        @{
-            var base64 = Convert.ToBase64String(Model.Image);
-            var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
-        }
-        <img class="img-fluid img-auction under w-100 rounded" height="100" src="@imgSrc" />
         @if (Model.Status == Auctions.Data.Models.AuctionStatus.COMPLETED)
         {
-            <img class="img-fluid img-auction over w-100" src="~/Content/Images/soldout.png" />
+            @Html.ActionLink("Sold", "", new { }, new { @class = "btn btn-danger disabled bg-danger btn-sold float-right" })
+            using (Html.BeginForm("Bid", "Auctions", FormMethod.Post, new { @class = "bid-form d-none row float-right" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.TextBox("offer", Model.CurrentNumberOfTokens, new { type = "number", @class = "form-control col-8" })
+
+                <input type="hidden" name="id" value=@Model.Id />
+                <input type="submit" value="Bid" class="btn btn-primary col-4" />
+            }
         }
         else
         {
-            <img class="img-fluid img-auction over w-100 d-none" src="~/Content/Images/soldout.png" />
-        }
-    </div>
-    <div class="col-8">
-        <ul class="h3">
-            <li>
-                <span class="font-weight-bold">
-                    @Html.DisplayNameFor(model => model.Duration):
-                </span>
+            @Html.ActionLink("Sold", "", new { }, new { @class = "btn btn-danger disabled bg-danger btn-sold d-none float-right" })
+            using (Html.BeginForm("Bid", "Auctions", FormMethod.Post, new { @class = "row bid-form float-right" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.TextBox("offer", Model.CurrentNumberOfTokens, new { type = "number", @class = "form-control col-8" })
 
-                <span class="time-details">
+                <input type="hidden" name="id" value=@Model.Id />
+                <input type="submit" value="Bid" class="btn btn-primary col-4" />
+            }
+        }
+    </h3>
+    <hr />
+    <div class="row" style="min-height:300px">
+        <div class="col-4">
+            @{
+                var base64 = Convert.ToBase64String(Model.Image);
+                var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+            }
+            <img class="img-fluid img-auction under w-100 rounded" height="100" src="@imgSrc" />
+            @if (Model.Status == Auctions.Data.Models.AuctionStatus.COMPLETED)
+            {
+                <img class="img-fluid img-auction over w-100" src="~/Content/Images/soldout.png" />
+            }
+            else
+            {
+                <img class="img-fluid img-auction over w-100 d-none" src="~/Content/Images/soldout.png" />
+            }
+        </div>
+        <div class="col-8">
+            <ul class="h3">
+                <li>
+                    <span class="font-weight-bold">
+                        @Html.DisplayNameFor(model => model.Duration):
+                    </span>
+
+                    <span class="time-details">
+                        @if (Model.Status == Auctions.Data.Models.AuctionStatus.COMPLETED)
+                        {
+                            @Html.DisplayName("--:--:--")
+                        }
+                        else
+                        {
+
+                            @Html.DisplayFor(model => model.Duration)
+                        }
+                    </span>
+                </li>
+                <li>
+                    <span class="font-weight-bold">
+                        @Html.DisplayNameFor(model => model.CurrentPrice):
+                    </span>
+                    <span class="price">@Html.DisplayFor(model => model.CurrentPrice)</span>
+                    @Html.DisplayFor(model => model.Currency)
+                </li>
+                <li>
                     @if (Model.Status == Auctions.Data.Models.AuctionStatus.COMPLETED)
                     {
-                        @Html.DisplayName("--:--:--")
+                        if (Model.LastBidder == "")
+                        {
+                            <span class="font-weight-bold bidder-label"></span>
+                            <span class="bidder">@Html.DisplayName("No winner")</span>
+                        }
+                        else
+                        {
+                            <span class="font-weight-bold bidder-label">Winner: </span>
+                            <span class="bidder">
+                                @Html.DisplayFor(model => model.LastBidder)
+                            </span>
+                        }
                     }
-                    else
-                    {
-
-                        @Html.DisplayFor(model => model.Duration)
-                    }
-                </span>
-            </li>
-            <li>
-                <span class="font-weight-bold">
-                    @Html.DisplayNameFor(model => model.CurrentPrice):
-                </span>
-                @Html.DisplayFor(model => model.CurrentPrice)
-                @Html.DisplayFor(model => model.Currency)
-            </li>
-            <li>
-                @if (Model.Status == Auctions.Data.Models.AuctionStatus.COMPLETED)
-                {
-                    if (Model.LastBidder == "")
+                    else if (Model.LastBidder == "")
                     {
                         <span class="font-weight-bold bidder-label"></span>
-                        <span class="bidder">@Html.DisplayName("No winner")</span>
+                        <span class="bidder">Be the first one to bid!</span>
                     }
                     else
                     {
-                        <span class="font-weight-bold bidder-label">Winner: </span>
-                        <span class="bidder">
-                            @Html.DisplayFor(model => model.LastBidder)
-                        </span>
+                        <span class="font-weight-bold bidder-label">Last bidder: </span>
+                        <span class="bidder">@Html.DisplayFor(model => model.LastBidder)</span>
                     }
-                }
-                else if (Model.LastBidder == "")
-                {
-                    <span class="font-weight-bold bidder-label"></span>
-                    <span class="bidder">Be the first one to bid!</span>
-                }
-                else
-                {
-                    <span class="font-weight-bold bidder-label">Last bidder: </span>
-                    <span class="bidder">@Html.DisplayFor(model => model.LastBidder)</span>
-                }
-            </li>
-        </ul>
+                </li>
+            </ul>
+        </div>
     </div>
 </div>
+
 <div class="row">
-    <table class="table table-striped table-hover">
-        <tr class="bg-primary text-center text-white">
-            <th>
-                #
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Bids.First().NumberOfTokens)
-                @*@Html.DisplayNameFor(model => model.Auctions.Name)*@
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Bids.First().PlacingTime)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Bids.First().User)
-            </th>
-        </tr>
-
-        @{
-            var i = (ViewBag.Page-1) * 15 + 1;
-        }
-
-        @foreach (var item in Model.Bids)
-        {
-            <tr class="text-center">
-                <td>
-                    @i
-                    @{ i++; }
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NumberOfTokens)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PlacingTime)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.User)
-                </td>
+    <table class="table table-striped table-hover bids-table">
+        <thead>
+            <tr class="bg-primary text-center text-white">
+                <th>
+                    #
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Bids.First().NumberOfTokens)
+                    @*@Html.DisplayNameFor(model => model.Auctions.Name)*@
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Bids.First().PlacingTime)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Bids.First().User)
+                </th>
             </tr>
-        }
+        </thead>
+        <tbody>
+            @{
+                var i = (ViewBag.Page - 1) * 15 + 1;
+            }
+
+            @foreach (var item in Model.Bids)
+            {
+                <tr class="text-center">
+                    <td>
+                        @i
+                        @{ i++; }
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NumberOfTokens)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PlacingTime)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.User)
+                    </td>
+                </tr>
+            }
+        </tbody>
     </table>
 </div>
 

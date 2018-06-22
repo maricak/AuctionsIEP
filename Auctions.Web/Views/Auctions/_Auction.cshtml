@@ -63,7 +63,7 @@
             @if (Model.Status == Auctions.Data.Models.AuctionStatus.COMPLETED)
             {
                 @Html.ActionLink("Sold", "", new { }, new { @class = "btn btn-danger disabled bg-danger btn-sold" })
-                using (Ajax.BeginForm("Bid", "Auctions", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "auction-" + Model.Id, InsertionMode = InsertionMode.ReplaceWith, OnSuccess = "update" }, new { @class = "row bid-form d-none" }))
+                using (Ajax.BeginForm("Bid", "Auctions", new AjaxOptions { HttpMethod = "POST", OnSuccess = "update" }, new { @class = "row bid-form d-none" }))
                 {
                     @Html.AntiForgeryToken()
                     <input type="number" id="offer" name="offer" class="form-control col-8" value="@Model.CurrentNumberOfTokens" />
@@ -74,7 +74,7 @@
             else
             {
                 @Html.ActionLink("Sold", "", new { }, new { @class = "btn btn-danger disabled bg-danger btn-sold d-none" })
-                using (Ajax.BeginForm("Bid", "Auctions", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "auction-" + Model.Id, InsertionMode = InsertionMode.ReplaceWith, OnSuccess = "update" }, new { @class = "row bid-form" }))
+                using (Ajax.BeginForm("Bid", "Auctions", new AjaxOptions { HttpMethod = "POST", OnSuccess = "update" }, new { @class = "row bid-form" }))
                 {
                     @Html.AntiForgeryToken()
                     <input type="number" id="offer" name="offer" class="form-control col-8" value="@Model.CurrentNumberOfTokens" />
@@ -83,7 +83,7 @@
                 }
             }
 
-            <span class="text-danger">
+            <span class="text-danger message">
                 @Html.DisplayFor(m => m.Message)
             </span>
         </div>

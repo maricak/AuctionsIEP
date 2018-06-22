@@ -7,33 +7,8 @@
         if (this.innerText === "--:--:--") {
             return;
         }
+        startTimer(that);
 
-        var timer = setInterval(function () {
-            var duration = getDuration(that.innerText);
-            if (duration === 0) {
-                clearInterval(timer);
-
-                $(that).html("--:--:--");
-                $(that).removeClass("text-warning");
-
-                // set sold picture
-                $(that).parent().find(".over").removeClass("d-none");
-
-                // if there is no winner set this text
-                $(that).parent().find(".first-one").html("No winner");
-
-                // set buttons. Remove Bid and add Sold
-                $(that).parent().parent().find(".bid-form").addClass("d-none");
-                $(that).parent().parent().find(".btn-sold").removeClass("d-none");
-
-            } else {
-                if (duration <= 11) {
-                    $(that).addClass("text-warning");
-                }
-                // count down
-                $(that).html(formatTime(getDuration(that.innerHTML) - 1));
-            }
-        }, 1000);
     });
 
     // odbrojava vremen na details stranici
@@ -43,39 +18,8 @@
         if (this.innerText === "--:--:--") {
             return;
         }
-        var timer = setInterval(function () {
-            var duration = getDuration(that.innerText);
 
-            if (duration === 0) {
-
-                clearInterval(timer);
-
-                $(that).html("--:--:--");
-                $(that).removeClass("text-warning");
-
-                // set sold picture
-                $(that).parent().parent().parent().parent().find(".over").removeClass("d-none");
-
-                if ($(that).parent().parent().parent().parent().find(".bidder-label").innerHTML === "") {
-                    // no winner
-                    $(that).parent().parent().parent().parent().find(".first-one").html("No winner");
-                } else {
-                    //winner
-                    $(that).parent().parent().parent().parent().find(".bidder-label").html("Winner: ");
-                }
-
-                // set buttons. Remove Bid and add Sold
-                $(that).parent().parent().parent().parent().parent().find(".bid-form").addClass("d-none");
-                $(that).parent().parent().parent().parent().parent().find(".btn-sold").removeClass("d-none");
-
-            } else {
-                if (duration <= 11) {
-                    $(that).addClass("text-warning");
-                }
-                // count down
-                $(that).html(formatTime(duration - 1));
-            }
-        }, 1000);
+        startDetailsTimer(that);
     });
 });
 
@@ -105,30 +49,135 @@ function getDuration(time) {
     return seconds;
 }
 
-//var bidAuction = function (auctionId, offer) {
-//    $.post("@Url.Action("Bid", "Auctions")",
-//        { id: auctionId
-//        },
-//        function (result) {
-//            $("span").html(result);
-//        }
-//    );
-//}
+var update;
 
-function update(data) {
-    //console.log(data);
-}
+
+//$(function () {
+//    var connection = $.hubConnection();
+//    var hub = connection.createHubProxy("AuctionsHub");
+//    hub.on("update", function (auctionId, data) {
+//        var auction = $("#auction-" + auctionId);
+
+//        console.log(data);
+
+//        //$(auction).find(".price").html(data.currentPrice);
+//        //$(auction).find(".bidder").html(data.bidder);
+//        //$(auction).find(".first-one").hide();
+//        //$(auction).find(".offer").val(data.tokens);
+
+//    });
+
+//    connection.start();
+//});
 
 $(function () {
-    var connection = $.hubConnection();
-    var hub = connection.createHubProxy("AuctionsHub");
-    hub.on("update", function (auctionId, data) {
-        var auction = $("#auction-" + auctionId);
 
-        $(auction).find(".price").html(data.currentPrice);
-        console.log(auction);
-       
-    });
+    // Declare a proxy to reference the hub.
+    var auctionHub = $.connection.auctionsHub;
+    // Create a function that the hub can call to broadcast messages.
+    auctionHub.client.update = function (data) {
 
-    connection.start();
+        console.log("call from server" + data);
+        data = JSON.parse(data);
+        console.log(data.bidder);
+        var auction = "#auction-" + data.id;
+
+        if (data.success) {
+            $(auction).find(".price").html(data.currentPrice);
+            $(auction).find(".bidder").html(data.bidder);
+            $(auction).find(".bidder-label").html("Last bidder: ")
+            $(auction).find(".first-one").hide();
+            $(auction).find("#offer").val(data.tokens);
+            if ($(auction).parent().find("#bids-table")) {
+                $("<tr class=\"text-center\"><td>new</td><td>" + data.lastBid.NumberOfTokens + "</td><td>" + new Date(data.lastBid.PlacingTime).toLocaleString() + "</td><td>" + data.bidder + "</td></tr>").prependTo("table > tbody");
+            }
+        }
+        //$(auction).find(".message").html(data.message);
+    };
+
+    $.connection.hub.start().done(function () { });
+
+    update = function (data) {
+        console.log(data);
+        data = JSON.parse(data);
+        var auction = "#auction-" + data.id;
+
+        if (data.success) {
+            $(auction).find(".price").html(data.currentPrice);
+            $(auction).find(".bidder").html(data.bidder);
+            $(auction).find(".first-one").hide();
+            $(auction).find("#offer").val(data.tokens);
+
+            console.log("calling chat server");
+
+            auctionHub.server.update(JSON.stringify(data));
+        }
+        $(auction).find(".message").html(data.message);
+    }
 });
+   
+function startTimer(that) {
+    var timer = setInterval(function () {
+        var duration = getDuration(that.innerText);
+        if (duration === 0) {
+            clearInterval(timer);
+
+            $(that).html("--:--:--");
+            $(that).removeClass("text-warning");
+            $(that).parent().parent().find(".message").hide();
+
+            // set sold picture
+            $(that).parent().find(".over").removeClass("d-none");
+
+            // if there is no winner set this text
+            $(that).parent().find(".first-one").html("No winner");
+
+            // set buttons. Remove Bid and add Sold
+            $(that).parent().parent().find(".bid-form").addClass("d-none");
+            $(that).parent().parent().find(".btn-sold").removeClass("d-none");
+
+        } else {
+            if (duration <= 11) {
+                $(that).addClass("text-warning");
+            }
+            // count down
+            $(that).html(formatTime(getDuration(that.innerHTML) - 1));
+        }
+    }, 1000);
+}
+
+function startDetailsTimer(that) {
+    var timer = setInterval(function () {
+        var duration = getDuration(that.innerText);
+
+        if (duration === 0) {
+
+            clearInterval(timer);
+
+            $(that).html("--:--:--");
+            $(that).removeClass("text-warning");
+
+            // set sold picture
+            $(that).parent().parent().parent().parent().find(".over").removeClass("d-none");
+
+            if ($(that).parent().parent().parent().parent().find(".bidder-label").innerHTML === "") {
+                // no winner
+                $(that).parent().parent().parent().parent().find(".first-one").html("No winner");
+            } else {
+                //winner
+                $(that).parent().parent().parent().parent().find(".bidder-label").html("Winner: ");
+            }
+
+            // set buttons. Remove Bid and add Sold
+            $(that).parent().parent().parent().parent().parent().find(".bid-form").addClass("d-none");
+            $(that).parent().parent().parent().parent().parent().find(".btn-sold").removeClass("d-none");
+
+        } else {
+            if (duration <= 11) {
+                $(that).addClass("text-warning");
+            }
+            // count down
+            $(that).html(formatTime(duration - 1));
+        }
+    }, 1000);
+} 

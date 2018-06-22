@@ -36,8 +36,8 @@ namespace Auctions.Data.Models
 
         [Required]
         [Display(Name = "Value of a token")]
-        [Range(1, Int64.MaxValue, ErrorMessage = "The value must be positive")]
-        public long TokenValue { get; set; }
+        [Range(0.0, Double.MaxValue, ErrorMessage = "The value must be positive")]
+        public decimal TokenValue { get; set; }
 
         [Required]
         [EnumDataType(typeof(CurrencyType))]
@@ -62,7 +62,7 @@ namespace Auctions.Data.Models
         public long PlatinuTokenNumber { get; set; }
 
         [Display(Name = "Value of a token")]
-        public long TokenValue { get; set; }
+        public decimal TokenValue { get; set; }
 
         [Display(Name = "Currency")]
         //[EnumDataType(typeof(CurrencyType))]

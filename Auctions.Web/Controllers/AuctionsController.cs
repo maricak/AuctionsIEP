@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using Auctions.Data;
 using Auctions.Data.Models;
 using Microsoft.AspNet.Identity;
+using Newtonsoft.Json;
 using X.PagedList;
 
 
@@ -121,47 +122,54 @@ namespace Auctions.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "User")]
-        public PartialViewResult Bid(string id, long? offer)
+        //[Authorize(Roles = "User")]
+        public dynamic Bid(string id, long? offer)
         {
-            AuctionViewModel auction = null;
-            if (offer != null)
+            if (Request.IsAuthenticated && User.IsInRole("User"))
             {
-                if (data.MakeBid(id, offer, User.Identity.GetUserId()))
+                DetailsAuctionViewModel auction = null;
+                if (offer != null)
                 {
-                    auction = data.GetAuctionById(id);
-                    if (auction == null)
+                    if (data.MakeBid(id, offer, User.Identity.GetUserId()))
                     {
-                        auction = new AuctionViewModel
+                        auction = data.GetAuctionDetailsById(id, 1);
+                        if (auction != null)
                         {
-                            Message = "Error has occured"
-                        };
-                    }
-                    else
-                    {
-                        var hubContext = Microsoft.AspNet.SignalR.GlobalHost.ConnectionManager.GetHubContext<AuctionsHub>();
-                        if (hubContext != null)
-                        {
-                            hubContext.Clients.All.update(auction.Id.ToString(), new
+                            //var hubContext = Microsoft.AspNet.SignalR.GlobalHost.ConnectionManager.GetHubContext<AuctionsHub>();
+                            //if (hubContext != null)
+                            //{
+                            //    hubContext.Clients.All.update(auction.Id.ToString(), new
+                            return JsonConvert.SerializeObject(new
                             {
-                                bidder = auction.LastBidder, 
-                                currentPrice = auction.CurrentPrice, 
-                                currency = auction.Currency, 
-                                tokens = auction.CurrentNumberOfTokens
+                                id,
+                                bidder = auction.LastBidder,
+                                currentPrice = auction.CurrentPrice,
+                                currency = auction.Currency,
+                                tokens = auction.CurrentNumberOfTokens,
+                                success = true,
+                                message = "You made a bid", 
+                                lastBid = auction.Bids[0]
                             });
                         }
-                        auction.Message = "You made a bid";
                     }
                 }
-            }
-            if (auction == null)
+                return JsonConvert.SerializeObject(new
+                {
+                    id,
+                    success = false,
+                    message = "Error has occured"
+                });
+            } else
             {
-                auction = data.GetAuctionById(id);
-                auction = auction ?? new AuctionViewModel();
-                auction.Message = "Error has occured";
+                return JsonConvert.SerializeObject(new
+                {
+                    id,
+                    success = false,
+                    message = "You have to log in"
+                });
             }
-            return PartialView("_Auction", auction);
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "User")]

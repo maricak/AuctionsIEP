@@ -8,9 +8,9 @@ namespace Auctions.Web
 {
     public class AuctionsHub : Hub
     {
-        public void Update(string auctionId, string content)
+        public void Update(dynamic data)
         {
-            //Clients.All.update(auctionId, content);
+            Clients.All.update(data);
         }
     }
 }

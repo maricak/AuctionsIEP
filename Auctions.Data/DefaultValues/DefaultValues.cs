@@ -17,7 +17,7 @@ namespace Auctions.Data.Models
         public long SilverTokenNumber { get; set; }
         public long GoldTokenNumber { get; set; }
         public long PlatinuTokenNumber { get; set; }
-        public long TokenValue { get; set; }
+        public decimal TokenValue { get; set; }
         public CurrencyType Currency { get; set; }
 
         //public DefaultValues()
