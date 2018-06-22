@@ -1,6 +1,7 @@
 ﻿using Auctions.Data;
 using Auctions.Data.Models;
 using Microsoft.AspNet.Identity;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,10 +14,18 @@ namespace Auctions.Web.Controllers
     public class OrdersController : Controller
     {
         private IAuctionData data = AuctionData.Instance;
+        readonly log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         // GET: Orders       
         public ActionResult Index(OrderMessageId? message, int? page)
         {
+            logger.InfoFormat("Index: {0}", JsonConvert.SerializeObject(new
+            {
+                user = User.Identity.GetUserName(),
+                message, 
+                page
+            }));
+
             ViewBag.StatusMessage =
                message == OrderMessageId.Error ? "An error has occurred."
                : message == OrderMessageId.CompleteSuccess ? "Order was Completed Successfully"
@@ -34,6 +43,11 @@ namespace Auctions.Web.Controllers
 
         public ActionResult Create()
         {
+            logger.InfoFormat("Create: {0}", JsonConvert.SerializeObject(new
+            {
+                user = User.Identity.GetUserName(),
+            }));
+
             var dv = data.GetDetailsDefaultValues();
 
             if(dv == null)
@@ -53,6 +67,12 @@ namespace Auctions.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(CreateOrderViewModel model)
         {
+            logger.InfoFormat("Create-POST: {0}", JsonConvert.SerializeObject(new
+            {
+                user = User.Identity.GetUserName(),
+                model
+            }));
+
             if (ModelState.IsValid)
             {
                 OrderPackage package = model.Package == "SILVER" ? OrderPackage.SILVER
@@ -94,6 +114,13 @@ namespace Auctions.Web.Controllers
 
         public ActionResult OrderUpdate(string clientid, string status)
         {
+            logger.InfoFormat("OrderUpdate: {0}", JsonConvert.SerializeObject(new
+            {
+                user = User.Identity.GetUserName(),
+                clientid,
+                status
+            }));
+
             if (status == "success")
             {
                 if (data.SetOrderStatus(clientid, OrderStatus.SUBMITTED))
@@ -119,6 +146,13 @@ namespace Auctions.Web.Controllers
 
         public ActionResult OrderCompleted(string clientid, string status)
         {
+            logger.InfoFormat("OrderCompleted: {0}", JsonConvert.SerializeObject(new
+            {
+                user = User.Identity.GetUserName(),
+                clientid,
+                status
+            }));
+
             if (status == "success")
             {
                 if (data.SetOrderStatus(clientid, OrderStatus.COMPLETED))

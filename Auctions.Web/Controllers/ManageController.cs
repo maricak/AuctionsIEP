@@ -7,6 +7,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Auctions.Data.Models;
+using Newtonsoft.Json;
 
 namespace Auctions.Web.Controllers
 {
@@ -15,6 +16,8 @@ namespace Auctions.Web.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+
+        readonly log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         public ManageController()
         {
@@ -54,6 +57,12 @@ namespace Auctions.Web.Controllers
         // GET: /Manage/Index
         public async Task<ActionResult> Index(ManageMessageId? message)
         {
+            logger.InfoFormat("Index: {0}", JsonConvert.SerializeObject(new
+            {
+                user = User.Identity.GetUserName(),
+                message,
+            }));
+
             ViewBag.StatusMessage =
                 message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
                 : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
@@ -218,6 +227,11 @@ namespace Auctions.Web.Controllers
         // GET: /Manage/ChangeName
         public ActionResult ChangeName()
         {
+            logger.InfoFormat("ChangeName: {0}", JsonConvert.SerializeObject(new
+            {
+                user = User.Identity.GetUserName(),
+            }));
+
             var user = UserManager.FindById(User.Identity.GetUserId());
             var model = new ChangeNameViewModel
             {
@@ -232,6 +246,12 @@ namespace Auctions.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ChangeName(ChangeNameViewModel model)
         {
+            logger.InfoFormat("ChangeName-POST: {0}", JsonConvert.SerializeObject(new
+            {
+                user = User.Identity.GetUserName(),
+                model
+            }));
+
             if (!ModelState.IsValid)
             {
                 return View(model);
@@ -256,6 +276,11 @@ namespace Auctions.Web.Controllers
         // GET: /Manage/ChangeSurname
         public ActionResult ChangeSurname()
         {
+            logger.InfoFormat("ChangeSurname: {0}", JsonConvert.SerializeObject(new
+            {
+                user = User.Identity.GetUserName(),
+            }));
+
             var user = UserManager.FindById(User.Identity.GetUserId());
             var model = new ChangeSurnameViewModel
             {
@@ -270,6 +295,12 @@ namespace Auctions.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ChangeSurname(ChangeSurnameViewModel model)
         {
+            logger.InfoFormat("ChangeSurname-POST: {0}", JsonConvert.SerializeObject(new
+            {
+                user = User.Identity.GetUserName(),
+                model
+            }));
+
             if (!ModelState.IsValid)
             {
                 return View(model);
@@ -295,6 +326,10 @@ namespace Auctions.Web.Controllers
         // GET: /Manage/ChangePassword
         public ActionResult ChangePassword()
         {
+            logger.InfoFormat("ChangePassword: {0}", JsonConvert.SerializeObject(new
+            {
+                user = User.Identity.GetUserName(),
+            }));
             return View();
         }
 
@@ -304,6 +339,12 @@ namespace Auctions.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ChangePassword(ChangePasswordViewModel model)
         {
+            logger.InfoFormat("ChangePassword-POST: {0}", JsonConvert.SerializeObject(new
+            {
+                user = User.Identity.GetUserName(),
+                model
+            }));
+
             if (!ModelState.IsValid)
             {
                 return View(model);
@@ -326,6 +367,11 @@ namespace Auctions.Web.Controllers
         // GET: /Manage/SetPassword
         public ActionResult SetPassword()
         {
+            logger.InfoFormat("SetPassword: {0}", JsonConvert.SerializeObject(new
+            {
+                user = User.Identity.GetUserName(),
+            }));
+
             return View();
         }
 
@@ -335,6 +381,12 @@ namespace Auctions.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> SetPassword(SetPasswordViewModel model)
         {
+            logger.InfoFormat("SetPassword-POST: {0}", JsonConvert.SerializeObject(new
+            {
+                user = User.Identity.GetUserName(),
+                model
+            }));
+
             if (ModelState.IsValid)
             {
                 var result = await UserManager.AddPasswordAsync(User.Identity.GetUserId(), model.NewPassword);

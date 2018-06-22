@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Auctions.Data.Models;
+using Newtonsoft.Json;
 
 namespace Auctions.Web.Controllers
 {
@@ -17,6 +18,8 @@ namespace Auctions.Web.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+
+        readonly log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         public AccountController()
         {
@@ -57,6 +60,11 @@ namespace Auctions.Web.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
+            logger.InfoFormat("Login: {0}", JsonConvert.SerializeObject(new
+            {
+                user = User.Identity.GetUserName(),
+                returnUrl
+            }));
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
@@ -68,6 +76,12 @@ namespace Auctions.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
+            logger.InfoFormat("Login-POST: {0}", JsonConvert.SerializeObject(new
+            {
+                user = User.Identity.GetUserName(),
+                model,
+                returnUrl
+            }));
             if (!ModelState.IsValid)
             {
                 return View(model);
@@ -139,6 +153,10 @@ namespace Auctions.Web.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
+            logger.InfoFormat("Register: {0}", JsonConvert.SerializeObject(new
+            {
+                user = User.Identity.GetUserName(),
+            }));
             return View();
         }
 
@@ -149,6 +167,11 @@ namespace Auctions.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
+            logger.InfoFormat("Register-POST: {0}", JsonConvert.SerializeObject(new
+            {
+                user = User.Identity.GetUserName(),
+                model
+            }));
             if (ModelState.IsValid)
             {
                 var user = new User
@@ -197,6 +220,10 @@ namespace Auctions.Web.Controllers
         [AllowAnonymous]
         public ActionResult ForgotPassword()
         {
+            logger.InfoFormat("ForgotPassword: {0}", JsonConvert.SerializeObject(new
+            {
+                user = User.Identity.GetUserName(),
+            }));
             return View();
         }
 
@@ -207,6 +234,11 @@ namespace Auctions.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ForgotPassword(ForgotPasswordViewModel model)
         {
+            logger.InfoFormat("ForgotPassword: {0}", JsonConvert.SerializeObject(new
+            {
+                user = User.Identity.GetUserName(),
+                model
+            }));
             if (ModelState.IsValid)
             {
                 var user = await UserManager.FindByNameAsync(model.Email);
@@ -233,6 +265,10 @@ namespace Auctions.Web.Controllers
         [AllowAnonymous]
         public ActionResult ForgotPasswordConfirmation()
         {
+            logger.InfoFormat("ForgotPasswordConfirmation: {0}", JsonConvert.SerializeObject(new
+            {
+                user = User.Identity.GetUserName(),
+            }));
             return View();
         }
 
@@ -241,6 +277,11 @@ namespace Auctions.Web.Controllers
         [AllowAnonymous]
         public ActionResult ResetPassword(string code)
         {
+            logger.InfoFormat("ResetPassword: {0}", JsonConvert.SerializeObject(new
+            {
+                user = User.Identity.GetUserName(),
+                code
+            }));
             return code == null ? View("Error") : View();
         }
 
@@ -251,6 +292,11 @@ namespace Auctions.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ResetPassword(ResetPasswordViewModel model)
         {
+            logger.InfoFormat("ResetPassword-POST: {0}", JsonConvert.SerializeObject(new
+            {
+                user = User.Identity.GetUserName(),
+                model
+            }));
             if (!ModelState.IsValid)
             {
                 return View(model);
@@ -275,6 +321,10 @@ namespace Auctions.Web.Controllers
         [AllowAnonymous]
         public ActionResult ResetPasswordConfirmation()
         {
+            logger.InfoFormat("ResetPasswordConfirmation: {0}", JsonConvert.SerializeObject(new
+            {
+                user = User.Identity.GetUserName(),
+            }));
             return View();
         }
 
@@ -398,6 +448,10 @@ namespace Auctions.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
+            logger.InfoFormat("LogOff: {0}", JsonConvert.SerializeObject(new
+            {
+                user = User.Identity.GetUserName(),
+            }));
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             return RedirectToAction("Index", "Auctions");
         }

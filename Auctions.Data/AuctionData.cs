@@ -11,12 +11,15 @@ using System.Drawing;
 using System.Collections;
 using X.PagedList;
 using LinqKit;
+using Newtonsoft.Json;
 
+[assembly: log4net.Config.XmlConfigurator(ConfigFile = "App.config", Watch = true)]
 namespace Auctions.Data
 {
     public class AuctionData : IAuctionData
     {
         private static AuctionData Singleton = null;
+        readonly log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         public static AuctionData Instance
         {
@@ -34,60 +37,102 @@ namespace Auctions.Data
         #region DefaultValues
         public DetailsDefaultValuesViewModel GetDetailsDefaultValues()
         {
+            logger.InfoFormat("GetDetailsDefaultValues: {0}", JsonConvert.SerializeObject(new
+            {
+            }));
+
             try
             {
                 using (AuctionDB db = new AuctionDB())
                 {
                     var defaultValues = db.DefaultValues.SingleOrDefault();
-                    return new DetailsDefaultValuesViewModel
+                    if (defaultValues != null)
                     {
-                        AuctionDuration = defaultValues.AuctionDuration,
-                        Currency = defaultValues.Currency,
-                        SilverTokenNumber = defaultValues.SilverTokenNumber,
-                        GoldTokenNumber = defaultValues.GoldTokenNumber,
-                        PlatinuTokenNumber = defaultValues.PlatinuTokenNumber,
-                        NumberOfAuctionsPerPage = defaultValues.NumberOfAuctionsPerPage,
-                        TokenValue = defaultValues.TokenValue
-                    };
+                        logger.InfoFormat("GetDetailsDefaultValues: {0}", JsonConvert.SerializeObject(new
+                        {
+                            defaultValues
+                        }));
+                        return new DetailsDefaultValuesViewModel
+                        {
+                            AuctionDuration = defaultValues.AuctionDuration,
+                            Currency = defaultValues.Currency,
+                            SilverTokenNumber = defaultValues.SilverTokenNumber,
+                            GoldTokenNumber = defaultValues.GoldTokenNumber,
+                            PlatinuTokenNumber = defaultValues.PlatinuTokenNumber,
+                            NumberOfAuctionsPerPage = defaultValues.NumberOfAuctionsPerPage,
+                            TokenValue = defaultValues.TokenValue
+                        };
+                    }
+                    else
+                    {
+                        logger.ErrorFormat("GetDetailsDefaultValues: {0} defaultValues is null", JsonConvert.SerializeObject(new
+                        {
+                        }));
+                        return null;
+                    }
                 }
             }
-            catch
+            catch (Exception e)
             {
-                // TODO : log exception
+                logger.Error("GetDetailsDefaultValues: ", e);
             }
             // something went wrong
             return null;
         }
         public EditDefaultValuesViewModel GetEditDefaultValues()
         {
+            logger.InfoFormat("GetEditDefaultValues: {0}", JsonConvert.SerializeObject(new
+            {
+            }));
             try
             {
                 using (AuctionDB db = new AuctionDB())
                 {
                     var defaultValues = db.DefaultValues.SingleOrDefault();
-                    return new EditDefaultValuesViewModel
+                    if (defaultValues != null)
                     {
-                        AuctionDuration = defaultValues.AuctionDuration,
-                        Currency = defaultValues.Currency,
-                        SilverTokenNumber = defaultValues.SilverTokenNumber,
-                        GoldTokenNumber = defaultValues.GoldTokenNumber,
-                        PlatinuTokenNumber = defaultValues.PlatinuTokenNumber,
-                        NumberOfAuctionsPerPage = defaultValues.NumberOfAuctionsPerPage,
-                        TokenValue = defaultValues.TokenValue
-                    };
+                        logger.InfoFormat("GetDetailsDefaultValues: {0}", JsonConvert.SerializeObject(new
+                        {
+                            defaultValues
+                        }));
+                        return new EditDefaultValuesViewModel
+                        {
+                            AuctionDuration = defaultValues.AuctionDuration,
+                            Currency = defaultValues.Currency,
+                            SilverTokenNumber = defaultValues.SilverTokenNumber,
+                            GoldTokenNumber = defaultValues.GoldTokenNumber,
+                            PlatinuTokenNumber = defaultValues.PlatinuTokenNumber,
+                            NumberOfAuctionsPerPage = defaultValues.NumberOfAuctionsPerPage,
+                            TokenValue = defaultValues.TokenValue
+                        };
+                    }
+                    else
+                    {
+                        logger.ErrorFormat("GetEditDefaultValues: {0} defaultValues is null", JsonConvert.SerializeObject(new
+                        {
+                        }));
+                    }
                 }
             }
-            catch
+            catch (Exception e)
             {
-                // TODO : log exception
+                logger.Error("GetDetailsDefaultValues: ", e);
             }
             // something went wrong
             return null;
         }
         public bool SetDefaultValues(EditDefaultValuesViewModel model)
         {
+            logger.InfoFormat("SetDefaultValues: {0}", JsonConvert.SerializeObject(new
+            {
+                model
+            }));
+
             if (model == null)
             {
+                logger.ErrorFormat("GetEditDefaultValues: {0} model is null", JsonConvert.SerializeObject(new
+                {
+                }));
                 return false;
             }
             try
@@ -95,6 +140,18 @@ namespace Auctions.Data
                 using (AuctionDB db = new AuctionDB())
                 {
                     DefaultValues defaultValues = db.DefaultValues.SingleOrDefault();
+                    if (defaultValues == null)
+                    {
+                        logger.InfoFormat("SetDefaultValues: {0} defaultValues is null", JsonConvert.SerializeObject(new
+                        {
+                        }));
+                        defaultValues = new DefaultValues();
+                        db.Entry(defaultValues).State = EntityState.Added;
+                    }
+                    else
+                    {
+                        db.Entry(defaultValues).State = EntityState.Modified;
+                    }
                     defaultValues.AuctionDuration = model.AuctionDuration;
                     defaultValues.Currency = model.Currency;
                     defaultValues.NumberOfAuctionsPerPage = model.NumberOfAuctionsPerPage;
@@ -103,27 +160,32 @@ namespace Auctions.Data
                     defaultValues.PlatinuTokenNumber = model.PlatinuTokenNumber;
                     defaultValues.TokenValue = model.TokenValue;
 
-                    db.Entry(defaultValues).State = EntityState.Modified;
                     db.SaveChanges();
+
+                    logger.InfoFormat("SetDefaultValues: {0} new defaultValues", JsonConvert.SerializeObject(new
+                    {
+                    }));
 
                     return true;
                 }
             }
             catch (Exception e)
             {
-                // TODO: log exception
+                logger.Error("SetDefaultValues", e);
             }
 
             //something went wrong
             return false;
         }
-        /* DefaultValues END */
         #endregion
 
 
         #region Auctions
         private void CloseAuctions()
         {
+            logger.InfoFormat("CloseAuctions: {0}", JsonConvert.SerializeObject(new
+            {
+            }));
             try
             {
                 using (AuctionDB db = new AuctionDB())
@@ -133,6 +195,11 @@ namespace Auctions.Data
                     var auctions = db.Auctions.Where(a => a.ClosingTime <= now && a.Status != AuctionStatus.COMPLETED).Include(a => a.Bids.Select(b => b.User)).ToList();
                     foreach (var auction in auctions)
                     {
+                        logger.InfoFormat("CloseAuctions: Auction {0} is closed", JsonConvert.SerializeObject(new
+                        {
+                            auction
+                        }));
+
                         auction.Status = AuctionStatus.COMPLETED;
                         db.Entry(auction).State = EntityState.Modified;
 
@@ -144,11 +211,16 @@ namespace Auctions.Data
                         });
 
                         // vratiti tokene svima koji nisu pobedili
-                        foreach(var result in results)
+                        foreach (var result in results)
                         {
                             // nije pobednik
-                            if(auction.User != result.user)
+                            if (auction.User != result.user)
                             {
+                                logger.InfoFormat("CloseAuctions: user is getting tokens back {0}", JsonConvert.SerializeObject(new
+                                {
+                                    result
+                                }));
+
                                 result.user.NumberOfTokens += result.tokens;
                                 db.Entry(result.user).State = EntityState.Modified;
                             }
@@ -159,11 +231,14 @@ namespace Auctions.Data
             }
             catch (Exception e)
             {
-                //TODO log exception
+                logger.Error("CloseAuctions", e);
             }
         }
         public ICollection<AdminAuctionViewModel> GetReadyAuctions()
         {
+            logger.InfoFormat("GetReadyAuctions: {0}", JsonConvert.SerializeObject(new
+            {
+            }));
             try
             {
                 using (AuctionDB db = new AuctionDB())
@@ -188,7 +263,7 @@ namespace Auctions.Data
             }
             catch (Exception e)
             {
-                // TODO: log exception
+                logger.Error("GetReadyAuctions", e);
             }
 
             // something went wrong
@@ -196,11 +271,19 @@ namespace Auctions.Data
         }
         public bool OpenAuction(string id)
         {
+            logger.InfoFormat("OpenAuction: {0}", JsonConvert.SerializeObject(new
+            {
+                id
+            }));
             try
             {
                 if (String.IsNullOrEmpty(id))
                 {
-                    // TODO: log
+
+                    logger.ErrorFormat("OpenAuction: {0} id is null", JsonConvert.SerializeObject(new
+                    {
+                        id
+                    }));
                     return false;
                 }
                 var guidId = new Guid(id);
@@ -209,6 +292,10 @@ namespace Auctions.Data
                     var auction = db.Auctions.Where(a => a.Id.Equals(guidId)).SingleOrDefault();
                     if (auction == null)
                     {
+                        logger.ErrorFormat("OpenAuction: Auction {0} doesn't exist", JsonConvert.SerializeObject(new
+                        {
+                            auction
+                        }));
                         return false;
                     }
                     auction.OpeningTime = DateTime.UtcNow;
@@ -218,18 +305,32 @@ namespace Auctions.Data
                     db.Entry(auction).State = EntityState.Modified;
                     db.SaveChanges();
 
+                    logger.InfoFormat("OpenAuction: Auction is {0} open", JsonConvert.SerializeObject(new
+                    {
+                        auction
+                    }));
+
                     return true;
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                // TODO: log exception
+                logger.Error("OpenAuction", e);
             }
             // something went wrong
             return false;
         }
         public IPagedList<AuctionViewModel> GetAllOpenedAuctions(string searchString, decimal? lowPrice, decimal? highPrice, AuctionStatus? status, int? page)
         {
+            logger.InfoFormat("GetAllOpenedAuctions: {0}", JsonConvert.SerializeObject(new
+            {
+                searchString,
+                lowPrice,
+                highPrice,
+                status,
+                page
+            }));
+
             try
             {
                 using (AuctionDB db = new AuctionDB())
@@ -284,6 +385,10 @@ namespace Auctions.Data
                     var dv = GetDetailsDefaultValues();
                     if (dv == null)
                     {
+                        logger.ErrorFormat("GetAllOpenedAuctions: defaul values {0} is null", JsonConvert.SerializeObject(new
+                        {
+                            dv
+                        }));
                         return null;
                     }
 
@@ -315,12 +420,17 @@ namespace Auctions.Data
             }
             catch (Exception e)
             {
-                // TODO log exception
+                logger.Error("GetAllOpenedAuctions", e);
             }
             return null;
         }
         public bool CreateAuction(CreateAuctionViewModel model)
         {
+            logger.InfoFormat("CreateAuction: {0}", JsonConvert.SerializeObject(new
+            {
+                model
+            }));
+
             try
             {
                 // make image
@@ -347,18 +457,28 @@ namespace Auctions.Data
                     db.Auctions.Add(auction);
                     db.SaveChanges();
 
+                    logger.InfoFormat("CreateAuction: new Auction {0}", JsonConvert.SerializeObject(new
+                    {
+                        auction
+                    }));
+
                     return true;
                 }
             }
             catch (Exception e)
             {
-                // TODO log exception
+                logger.Error("CreateAuction", e);
             }
             // something went wrong
             return false;
         }
         public AuctionViewModel GetAuctionById(string id)
         {
+            logger.InfoFormat("GetAuctionById: {0}", JsonConvert.SerializeObject(new
+            {
+                id
+            }));
+
             try
             {
                 using (AuctionDB db = new AuctionDB())
@@ -368,6 +488,11 @@ namespace Auctions.Data
                     Auction auction = db.Auctions.Include(a => a.Bids).Where(a => a.Id.ToString().Equals(id)).SingleOrDefault();
                     if (auction == null)
                     {
+                        logger.ErrorFormat("GetAuctionById: Auction {0} is null", JsonConvert.SerializeObject(new
+                        {
+                            auction
+                        }));
+
                         return null;
                     }
                     else
@@ -376,6 +501,10 @@ namespace Auctions.Data
                         var dv = GetDetailsDefaultValues();
                         if (dv == null)
                         {
+                            logger.ErrorFormat("GetAuctionById: Default values {0} is null", JsonConvert.SerializeObject(new
+                            {
+                                dv
+                            }));
                             return null;
                         }
                         var token = auction.Bids.Count() == 0 ? 0 : auction.Bids.Max(b => b.NumberOfTokens) + 1;
@@ -393,18 +522,28 @@ namespace Auctions.Data
                             Status = auction.Status
                         };
 
+                        logger.InfoFormat("GetAuctionById: Auction {0} ", JsonConvert.SerializeObject(new
+                        {
+                            result
+                        }));
+
                         return result;
                     }
                 }
             }
             catch (Exception e)
             {
-                //TODO: log exception
+                logger.Error("GetAuctionById", e);
             }
             return null;
         }
         public DetailsAuctionViewModel GetAuctionDetailsById(string id, int? page)
         {
+            logger.InfoFormat("GetAuctionDetailsById: {0} ", JsonConvert.SerializeObject(new
+            {
+                id,
+                page
+            }));
             try
             {
                 using (AuctionDB db = new AuctionDB())
@@ -414,6 +553,10 @@ namespace Auctions.Data
                     Auction auction = db.Auctions.Include(a => a.Bids).Where(a => a.Id.ToString().Equals(id)).SingleOrDefault();
                     if (auction == null)
                     {
+                        logger.ErrorFormat("GetAuctionDetailsById: auction {0} is null", JsonConvert.SerializeObject(new
+                        {
+                            auction
+                        }));
                         return null;
                     }
                     else
@@ -422,6 +565,10 @@ namespace Auctions.Data
                         var dv = GetDetailsDefaultValues();
                         if (dv == null)
                         {
+                            logger.ErrorFormat("GetAuctionDetailsById: default values {0} is null", JsonConvert.SerializeObject(new
+                            {
+                                dv
+                            }));
                             return null;
                         }
                         var token = auction.Bids.Count() == 0 ? 0 : auction.Bids.Max(b => b.NumberOfTokens) + 1;
@@ -453,22 +600,37 @@ namespace Auctions.Data
                         int pageNumber = (page ?? 1);
 
                         result.Bids = bids.ToPagedList(pageNumber, (int)pageSize);
+
+                        logger.InfoFormat("GetAuctionDetailsById: auction {0} ", JsonConvert.SerializeObject(new
+                        {
+                            result
+                        }));
+
                         return result;
                     }
                 }
             }
             catch (Exception e)
             {
-                //TODO: log exception
+                logger.Error("GetAuctionDetailsById", e);
             }
             return null;
         }
         public IPagedList<AuctionViewModel> GetAuctionsByWinner(string userId, int? page)
         {
+            logger.InfoFormat("GetAuctionsByWinner: {0} ", JsonConvert.SerializeObject(new
+            {
+                userId,
+                page
+            }));
             try
             {
                 if (String.IsNullOrEmpty(userId))
                 {
+                    logger.ErrorFormat("GetAuctionsByWinner: userId {0} is null ", JsonConvert.SerializeObject(new
+                    {
+                        userId,
+                    }));
                     return null;
                 }
 
@@ -502,23 +664,31 @@ namespace Auctions.Data
                     long pageSize = GetDetailsDefaultValues().NumberOfAuctionsPerPage;
                     int pageNumber = (page ?? 1);
 
+                    logger.InfoFormat("GetAuctionsByWinner: Result before paging {0} ", JsonConvert.SerializeObject(new
+                    {
+                        result,
+                    }));
+
                     return result.ToPagedList(pageNumber, (int)pageSize);
                 }
             }
             catch (Exception e)
             {
-                // TODO: log exception
+                logger.Error("GetAuctionsByWinner", e);
             }
             return null;
         }
-        /* Auctions END */
         #endregion
 
 
-        /* Orders */
-        #region
+        #region Orders
         public IPagedList<IndexOrderViewModel> GetOrdersByUserId(string id, int? page)
         {
+            logger.InfoFormat("GetOrdersByUserId: {0} ", JsonConvert.SerializeObject(new
+            {
+                id,
+                page
+            }));
             try
             {
                 using (AuctionDB db = new AuctionDB())
@@ -543,13 +713,18 @@ namespace Auctions.Data
                     }
                     long pageSize = 15;
                     int pageNumber = (page ?? 1);
+
+                    logger.InfoFormat("GetOrdersByUserId: orders before paging {0} ", JsonConvert.SerializeObject(new
+                    {
+                        result
+                    }));
+
                     return result.ToPagedList(pageNumber, (int)pageSize);
                 }
             }
             catch (Exception e)
             {
-                // TODO: log exception
-
+                logger.Error("GetOrdersByUserId", e);
             }
 
             //something went wrong
@@ -558,6 +733,11 @@ namespace Auctions.Data
 
         public Guid? CreateOrder(OrderPackage package, string orderUserId)
         {
+            logger.InfoFormat("CreateOrder: {0} ", JsonConvert.SerializeObject(new
+            {
+                package,
+                orderUserId
+            }));
             try
             {
                 using (AuctionDB db = new AuctionDB())
@@ -566,6 +746,11 @@ namespace Auctions.Data
                     var orderUser = db.Users.Where(u => u.Id.Equals(orderUserId)).SingleOrDefault();
                     if (orderUser == null || defaultValues == null)
                     {
+                        logger.ErrorFormat("CreateOrder: Something is null {0} ", JsonConvert.SerializeObject(new
+                        {
+                            orderUser,
+                            defaultValues
+                        }));
                         return null;
                     }
                     Order order = new Order
@@ -583,18 +768,29 @@ namespace Auctions.Data
                     db.Orders.Add(order);
                     db.SaveChanges();
 
+                    logger.InfoFormat("CreateOrder: new order {0} ", JsonConvert.SerializeObject(new
+                    {
+                        order
+                    }));
+
                     return order.Id;
                 }
             }
             catch (Exception e)
             {
-                // TODO: log exception
+                logger.Error("CreateOrder", e);
             }
             return null;
         }
 
         public bool SetOrderStatus(string orderID, OrderStatus status)
         {
+            logger.InfoFormat("SetOrderStatus: {0} ", JsonConvert.SerializeObject(new
+            {
+                orderID,
+                status
+            }));
+
             try
             {
                 using (AuctionDB db = new AuctionDB())
@@ -602,6 +798,10 @@ namespace Auctions.Data
                     var order = db.Orders.Include(a => a.User).Where(o => o.Id.ToString() == orderID).SingleOrDefault();
                     if (order == null)
                     {
+                        logger.ErrorFormat("SetOrderStatus: order {0} is null ", JsonConvert.SerializeObject(new
+                        {
+                            order
+                        }));
                         return false;
                     }
                     order.Status = status;
@@ -615,25 +815,41 @@ namespace Auctions.Data
 
                     db.Entry(order).State = EntityState.Modified;
 
-
                     db.SaveChanges();
+
+                    logger.InfoFormat("SetOrderStatus: updated order {0} ", JsonConvert.SerializeObject(new
+                    {
+                        order
+                    }));
+
                     return true;
                 }
             }
             catch (Exception e)
             {
-                // TODO: log exception
+                logger.Error("SetOrderStatus", e);
             }
             return false;
         }
-        /* Orders END*/
         #endregion
 
         #region Bids 
         public bool MakeBid(string auctionId, long? offerTokens, string userId)
         {
+            logger.InfoFormat("MakeBid: {0} ", JsonConvert.SerializeObject(new
+            {
+                auctionId,
+                offerTokens,
+                userId
+            }));
+
             if (auctionId == null || offerTokens == null)
             {
+                logger.ErrorFormat("MakeBid: something is null {0} ", JsonConvert.SerializeObject(new
+                {
+                    auctionId,
+                    offerTokens,
+                }));
                 return false;
             }
             try
@@ -647,13 +863,20 @@ namespace Auctions.Data
                     var dv = db.DefaultValues.SingleOrDefault();
                     if (auction == null || user == null || dv == null || auction.Status != AuctionStatus.OPENED)
                     {
+                        logger.ErrorFormat("MakeBid: something is null or auction is not open {0} ", JsonConvert.SerializeObject(new
+                        {
+                            auction,
+                            user,
+                            dv
+                        }));
                         return false;
                     }
                     var maxBid = auction.Bids.Max(b => (long?)b.NumberOfTokens);
                     if (maxBid == null)
                     {
                         maxBid = (long?)(Math.Ceiling(auction.CurrentPrice / dv.TokenValue));
-                    } else
+                    }
+                    else
                     {
                         // offer should be one token more than the current max bid
                         maxBid++;
@@ -681,11 +904,22 @@ namespace Auctions.Data
 
                     if (user.NumberOfTokens >= tokensToPay)
                     {
+                        logger.InfoFormat("MakeBid: user has to pay {0} ", JsonConvert.SerializeObject(new
+                        {
+                            tokensToPay,
+                            user,
+                        }));
+
                         user.NumberOfTokens -= tokensToPay;
                         db.Entry(user).State = EntityState.Modified;
                     }
                     else
                     {
+                        logger.ErrorFormat("MakeBid: user doesn't have enough tokens {0} ", JsonConvert.SerializeObject(new
+                        {
+                            tokensToPay,
+                            user,
+                        }));
                         // there is not enough tokens
                         return false;
                     }
@@ -708,12 +942,18 @@ namespace Auctions.Data
 
                     db.SaveChanges();
 
+                    logger.InfoFormat("MakeBid: new bid and updated auction {0} ", JsonConvert.SerializeObject(new
+                    {
+                        bid,
+                        auction,
+                    }));
+
                     return true;
                 }
             }
             catch (Exception e)
             {
-                // TODO: log exception
+                logger.Error("MakeBid", e);
             }
             return false;
         }

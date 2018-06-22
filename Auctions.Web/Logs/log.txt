@@ -1,0 +1,23 @@
+2018-06-22 18:47:13,026 INFO Auctions.Web.Controllers.AuctionsController - Index: message = 
+2018-06-22 18:47:56,317 INFO Auctions.Web.Controllers.AuctionsController - Index: message = 
+2018-06-22 18:49:47,911 INFO Auctions.Web.Controllers.AuctionsController - Index: message = , searchString = 
+2018-06-22 18:50:09,488 INFO Auctions.Web.Controllers.AuctionsController - Index: message = , searchString = auk 
+2018-06-22 18:52:40,840 INFO Auctions.Web.Controllers.AuctionsController - Index: message = , searchString = auk 
+2018-06-22 18:52:41,893 INFO Auctions.Web.Controllers.AuctionsController - Index: message = , searchString = auk 
+2018-06-22 18:53:20,690 INFO Auctions.Web.Controllers.AuctionsController - {"user":"maraa@gmail.com","message":null,"searchString":null,"lowPrice":null,"highPrice":null,"status":null,"page":null}
+2018-06-22 18:53:28,716 INFO Auctions.Web.Controllers.AuctionsController - {"user":"maraa@gmail.com","message":null,"searchString":"dsadsa","lowPrice":null,"highPrice":null,"status":0,"page":null}
+2018-06-22 19:12:04,562 INFO Auctions.Web.Controllers.AuctionsController - Index: {"user":"maraa@gmail.com","message":null,"searchString":null,"lowPrice":null,"highPrice":null,"status":null,"page":null}
+2018-06-22 19:12:06,617 INFO Auctions.Data.AuctionData - Index: {}
+2018-06-22 19:12:06,814 INFO Auctions.Data.AuctionData - Index: {}
+2018-06-22 19:12:14,411 INFO Auctions.Web.Controllers.AccountController - Login: {"user":"maraa@gmail.com","returnUrl":"/Admin"}
+2018-06-22 19:12:18,483 INFO Auctions.Web.Controllers.AccountController - Login-POST: {"user":"maraa@gmail.com","model":{"Email":"marija@gmail.com","Password":"Student.96","RememberMe":true},"returnUrl":"/Admin"}
+2018-06-22 19:12:18,793 INFO Auctions.Web.Controllers.AdminController - Index: {"user":"marija@gmail.com","message":null}
+2018-06-22 19:12:18,795 INFO Auctions.Data.AuctionData - Index: {}
+2018-06-22 19:13:06,405 INFO Auctions.Web.Controllers.AuctionsController - Index: {"user":"marija@gmail.com","message":null,"searchString":null,"lowPrice":null,"highPrice":null,"status":null,"page":null}
+2018-06-22 19:13:26,848 INFO Auctions.Data.AuctionData - Index: {}
+2018-06-22 19:17:38,462 INFO Auctions.Web.Controllers.AuctionsController - Index: {"user":"marija@gmail.com","message":null,"searchString":null,"lowPrice":null,"highPrice":null,"status":null,"page":null}
+2018-06-22 19:17:38,916 INFO Auctions.Data.AuctionData - Index: {}
+2018-06-22 19:17:39,029 INFO Auctions.Data.AuctionData - Index: {}
+2018-06-22 19:17:54,798 INFO Auctions.Web.Controllers.AdminController - Index: {"user":"marija@gmail.com","message":null}
+2018-06-22 19:17:54,800 INFO Auctions.Data.AuctionData - Index: {}
+2018-06-22 19:17:57,313 INFO Auctions.Web.Controllers.AdminController - Edit: {"user":"marija@gmail.com"}

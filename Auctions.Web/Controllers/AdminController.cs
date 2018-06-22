@@ -8,6 +8,8 @@ using System.Web;
 using System.Web.Mvc;
 using Auctions.Data;
 using Auctions.Data.Models;
+using Microsoft.AspNet.Identity;
+using Newtonsoft.Json;
 
 namespace Auctions.Web.Controllers
 {
@@ -15,10 +17,17 @@ namespace Auctions.Web.Controllers
     public class AdminController : Controller
     {
         private IAuctionData data = AuctionData.Instance;
+        readonly log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         // GET: DefaultValues/
         public ActionResult Index(AdminMessageId? message)
         {
+            logger.InfoFormat("Index: {0}", JsonConvert.SerializeObject(new
+            {
+                user = User.Identity.GetUserName(),
+                message,
+            }));
+
             ViewBag.StatusMessage =
                 message == AdminMessageId.AuctionOpenSuccess ? "Auction is opened."
                 : message == AdminMessageId.ChangeDefaultValuesSuccess ? "Changes were made successfully."
@@ -42,9 +51,14 @@ namespace Auctions.Web.Controllers
             return View(model);
         }
 
-        // GET: DefaultValues/Edit/5
+        // GET: DefaultValues/Edit/
         public ActionResult Edit()
         {
+            logger.InfoFormat("Edit: {0}", JsonConvert.SerializeObject(new
+            {
+                user = User.Identity.GetUserName(),
+            }));
+
             EditDefaultValuesViewModel model = data.GetEditDefaultValues();
             if (model == null)
             {
@@ -60,6 +74,12 @@ namespace Auctions.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "NumberOfAuctionsPerPage,AuctionDuration,SilverTokenNumber,GoldTokenNumber,PlatinuTokenNumber,TokenValue,Currency")] EditDefaultValuesViewModel model)
         {
+            logger.InfoFormat("Edit-POST: {0}", JsonConvert.SerializeObject(new
+            {
+                user = User.Identity.GetUserName(),
+                model
+            }));
+
             if (ModelState.IsValid)
             {
                 if (data.SetDefaultValues(model))
@@ -78,6 +98,11 @@ namespace Auctions.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult OpenAuction(string id)
         {
+            logger.InfoFormat("OpenAuction: {0}", JsonConvert.SerializeObject(new
+            {
+                user = User.Identity.GetUserName(),
+                id
+            }));
             if (data.OpenAuction(id))
             {
                 return RedirectToAction("Index", new { Message = AdminMessageId.AuctionOpenSuccess });

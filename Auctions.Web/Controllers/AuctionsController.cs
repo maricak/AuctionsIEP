@@ -15,14 +15,25 @@ using X.PagedList;
 
 namespace Auctions.Web.Controllers
 {
-
     public class AuctionsController : Controller
     {
         private IAuctionData data = AuctionData.Instance;
+        readonly log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         // GET: Auctions
         public ActionResult Index(AuctionMessageId? message, string searchString, decimal? lowPrice, decimal? highPrice, AuctionStatus? status, int? page)
         {
+            logger.InfoFormat("Index: {0}", JsonConvert.SerializeObject(new
+            {
+                user = User.Identity.GetUserName(),
+                message,
+                searchString,
+                lowPrice,
+                highPrice,
+                status,
+                page
+            }));
+
             ViewBag.StatusMessage =
                 message == AuctionMessageId.CreateSuccess ? "Auction was created successfully"
                 : message == AuctionMessageId.BidSuccess ? "You made a bid"
@@ -46,6 +57,14 @@ namespace Auctions.Web.Controllers
         // GET: Auctions/Details/5
         public ActionResult Details(string id, AuctionMessageId? message, int? page)
         {
+            logger.InfoFormat("DEtails: {0}", JsonConvert.SerializeObject(new
+            {
+                user = User.Identity.GetUserName(),
+                message,
+                id,
+                page
+            }));
+
             var model = data.GetAuctionDetailsById(id, page);
             if (model == null)
             {
@@ -68,6 +87,10 @@ namespace Auctions.Web.Controllers
         // GET: Auctions/Create
         public ActionResult Create()
         {
+            logger.InfoFormat("Create: {0}", JsonConvert.SerializeObject(new
+            {
+                user = User.Identity.GetUserName(),
+            }));
             var dv = data.GetDetailsDefaultValues();
             if (dv == null)
             {
@@ -90,6 +113,12 @@ namespace Auctions.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Name,Image,Duration,StartPrice,Currency")] CreateAuctionViewModel model)
         {
+            logger.InfoFormat("Create-POST: {0}", JsonConvert.SerializeObject(new
+            {
+                user = User.Identity.GetUserName(),
+                model,
+            }));
+
             if (ModelState.IsValid)
             {
                 //if (data.CreateAuction(model, User.Identity.GetUserId()))
@@ -109,6 +138,12 @@ namespace Auctions.Web.Controllers
         [Authorize(Roles = "User")]
         public ActionResult Wins(int? page)
         {
+            logger.InfoFormat("Wins: {0}", JsonConvert.SerializeObject(new
+            {
+                user = User.Identity.GetUserName(),
+                page
+            }));
+
             var model = data.GetAuctionsByWinner(User.Identity.GetUserId(), page);
             if (model == null)
             {
@@ -125,6 +160,12 @@ namespace Auctions.Web.Controllers
         //[Authorize(Roles = "User")]
         public dynamic Bid(string id, long? offer)
         {
+            logger.InfoFormat("Bid: {0}", JsonConvert.SerializeObject(new
+            {
+                user = User.Identity.GetUserName(),
+                id,
+                offer
+            }));
             if (Request.IsAuthenticated && User.IsInRole("User"))
             {
                 DetailsAuctionViewModel auction = null;
@@ -135,10 +176,6 @@ namespace Auctions.Web.Controllers
                         auction = data.GetAuctionDetailsById(id, 1);
                         if (auction != null)
                         {
-                            //var hubContext = Microsoft.AspNet.SignalR.GlobalHost.ConnectionManager.GetHubContext<AuctionsHub>();
-                            //if (hubContext != null)
-                            //{
-                            //    hubContext.Clients.All.update(auction.Id.ToString(), new
                             return JsonConvert.SerializeObject(new
                             {
                                 id,
@@ -147,7 +184,7 @@ namespace Auctions.Web.Controllers
                                 currency = auction.Currency,
                                 tokens = auction.CurrentNumberOfTokens,
                                 success = true,
-                                message = "You made a bid", 
+                                message = "You made a bid",
                                 lastBid = auction.Bids[0]
                             });
                         }
@@ -159,7 +196,8 @@ namespace Auctions.Web.Controllers
                     success = false,
                     message = "Error has occured"
                 });
-            } else
+            }
+            else
             {
                 return JsonConvert.SerializeObject(new
                 {
@@ -168,22 +206,6 @@ namespace Auctions.Web.Controllers
                     message = "You have to log in"
                 });
             }
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [Authorize(Roles = "User")]
-        public ActionResult BidDetails(string id, long? offer)
-        {
-            if (offer != null)
-            {
-                if (data.MakeBid(id, offer, User.Identity.GetUserId()))
-                {
-                    return RedirectToAction("Details", new { id, message = AuctionMessageId.BidSuccess });
-                }
-            }
-            // bad request
-            return RedirectToAction("Details", new { id, message = AuctionMessageId.Error });
         }
 
         public enum AuctionMessageId
