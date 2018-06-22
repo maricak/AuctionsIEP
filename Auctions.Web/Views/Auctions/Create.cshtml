@@ -26,7 +26,7 @@
         @Html.LabelFor(model => model.Image, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-6">
             @Html.TextBoxFor(model => model.Image, new { type = "file" } )
-            @*@Html.TextBoxFor(model => model.Image, htmlAttributes: new { @type = "file", @accept = ".png, .jpg, .jpeg", @class = "btn btn-primary" })*@
+            @*@Html.TextBoxFor(model => model.Image, htmlAttributes: new { @type = "file", @accept = ".png, .jpg, .jpeg", @class = "btn btn-success" })*@
             @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -56,9 +56,9 @@
         <div class="col-md-6 mb-4">
 
             <div>
-                @Html.ActionLink("Back to List", "Index", new { }, new { @class = "btn btn-primary float-left" })
+                @Html.ActionLink("Back to List", "Index", new { }, new { @class = "btn btn-success float-left" })
             </div>
-            <input type="submit" value="Create" class="btn btn-primary float-right" />
+            <input type="submit" value="Create" class="btn btn-success float-right" />
             &nbsp;
         </div>
     </div>

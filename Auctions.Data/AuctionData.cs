@@ -197,7 +197,11 @@ namespace Auctions.Data
                     {
                         logger.InfoFormat("CloseAuctions: Auction {0} is closed", JsonConvert.SerializeObject(new
                         {
-                            auction
+                            auction.Id, 
+                            auction.Name, 
+                            auction.CurrentPrice, 
+                            auction.Currency, 
+                            auction.User.UserName
                         }));
 
                         auction.Status = AuctionStatus.COMPLETED;
@@ -218,7 +222,8 @@ namespace Auctions.Data
                             {
                                 logger.InfoFormat("CloseAuctions: user is getting tokens back {0}", JsonConvert.SerializeObject(new
                                 {
-                                    result
+                                    result.tokens, 
+                                    result.user.UserName
                                 }));
 
                                 result.user.NumberOfTokens += result.tokens;
@@ -307,7 +312,13 @@ namespace Auctions.Data
 
                     logger.InfoFormat("OpenAuction: Auction is {0} open", JsonConvert.SerializeObject(new
                     {
-                        auction
+                        auction.Id, 
+                        auction.Name, 
+                        auction.OpeningTime, 
+                        auction.Duration, 
+                        auction.ClosingTime, 
+                        auction.CurrentPrice, 
+                        auction.Currency
                     }));
 
                     return true;
@@ -428,7 +439,10 @@ namespace Auctions.Data
         {
             logger.InfoFormat("CreateAuction: {0}", JsonConvert.SerializeObject(new
             {
-                model
+                model.Currency, 
+                model.Duration, 
+                model.Name, 
+                model.StartPrice
             }));
 
             try
@@ -459,7 +473,12 @@ namespace Auctions.Data
 
                     logger.InfoFormat("CreateAuction: new Auction {0}", JsonConvert.SerializeObject(new
                     {
-                        auction
+                        auction.Id, 
+                        auction.Name, 
+                        auction.Duration, 
+                        auction.StartPrice, 
+                        auction.CreatingTime, 
+                        auction.Status, 
                     }));
 
                     return true;
@@ -524,7 +543,14 @@ namespace Auctions.Data
 
                         logger.InfoFormat("GetAuctionById: Auction {0} ", JsonConvert.SerializeObject(new
                         {
-                            result
+                            result.Id, 
+                            result.Name, 
+                            result.Currency, 
+                            result.Duration, 
+                            result.CurrentPrice, 
+                            result.CurrentNumberOfTokens, 
+                            result.LastBidder, 
+                            result.Status
                         }));
 
                         return result;
@@ -601,11 +627,6 @@ namespace Auctions.Data
 
                         result.Bids = bids.ToPagedList(pageNumber, (int)pageSize);
 
-                        logger.InfoFormat("GetAuctionDetailsById: auction {0} ", JsonConvert.SerializeObject(new
-                        {
-                            result
-                        }));
-
                         return result;
                     }
                 }
@@ -664,11 +685,6 @@ namespace Auctions.Data
                     long pageSize = GetDetailsDefaultValues().NumberOfAuctionsPerPage;
                     int pageNumber = (page ?? 1);
 
-                    logger.InfoFormat("GetAuctionsByWinner: Result before paging {0} ", JsonConvert.SerializeObject(new
-                    {
-                        result,
-                    }));
-
                     return result.ToPagedList(pageNumber, (int)pageSize);
                 }
             }
@@ -713,11 +729,6 @@ namespace Auctions.Data
                     }
                     long pageSize = 15;
                     int pageNumber = (page ?? 1);
-
-                    logger.InfoFormat("GetOrdersByUserId: orders before paging {0} ", JsonConvert.SerializeObject(new
-                    {
-                        result
-                    }));
 
                     return result.ToPagedList(pageNumber, (int)pageSize);
                 }
@@ -770,7 +781,11 @@ namespace Auctions.Data
 
                     logger.InfoFormat("CreateOrder: new order {0} ", JsonConvert.SerializeObject(new
                     {
-                        order
+                        order.Id, 
+                        order.Currency, 
+                        order.NumberOfTokens, 
+                        order.Status, 
+                        order.Price, 
                     }));
 
                     return order.Id;
@@ -819,7 +834,10 @@ namespace Auctions.Data
 
                     logger.InfoFormat("SetOrderStatus: updated order {0} ", JsonConvert.SerializeObject(new
                     {
-                        order
+                        order.Id, 
+                        order.NumberOfTokens, 
+                        order.Status, 
+                        order.User.UserName
                     }));
 
                     return true;
@@ -907,7 +925,7 @@ namespace Auctions.Data
                         logger.InfoFormat("MakeBid: user has to pay {0} ", JsonConvert.SerializeObject(new
                         {
                             tokensToPay,
-                            user,
+                            user.UserName,
                         }));
 
                         user.NumberOfTokens -= tokensToPay;
@@ -918,7 +936,7 @@ namespace Auctions.Data
                         logger.ErrorFormat("MakeBid: user doesn't have enough tokens {0} ", JsonConvert.SerializeObject(new
                         {
                             tokensToPay,
-                            user,
+                            user.UserName,
                         }));
                         // there is not enough tokens
                         return false;
@@ -944,8 +962,12 @@ namespace Auctions.Data
 
                     logger.InfoFormat("MakeBid: new bid and updated auction {0} ", JsonConvert.SerializeObject(new
                     {
-                        bid,
-                        auction,
+                        bid.Auction.Name,
+                        bid.PlacingTime, 
+                        bid.NumberOfTokens, 
+                        bid.User.UserName, 
+                        auctionUser = auction.User.UserName, 
+                        auction.CurrentPrice
                     }));
 
                     return true;
@@ -971,6 +993,4 @@ namespace Auctions.Data
 
         #endregion
     }
-
-
 }

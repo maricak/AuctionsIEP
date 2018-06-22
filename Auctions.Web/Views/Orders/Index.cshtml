@@ -11,16 +11,16 @@
 
 @if (ViewBag.StatusMessage != "")
 {
-    <div class="alert alert-success">
+    <div class="alert alert-secondary">
         @ViewBag.StatusMessage
     </div>
 
 }
 
-@Html.ActionLink("Create new order", "Create", new { }, new { @class = "btn btn-primary mb-2" })
+@Html.ActionLink("Create new order", "Create", new { }, new { @class = "btn btn-success mb-2" })
 
 <table class="table table-striped">
-    <tr class="bg-primary text-center text-white">
+    <tr class="bg-success text-center text-white">
         <th>
             #
         </th>

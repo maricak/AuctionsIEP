@@ -6,13 +6,13 @@
 
 <h2 class="w-100">
     <span>Default Values for the System</span>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }, new { @class = "btn btn-primary float-right" })
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }, new { @class = "btn btn-success float-right" })
 </h2>
 
 <hr />
 @if (ViewBag.StatusMessage != "")
 {
-    <div class="alert alert-success">
+    <div class="alert alert-secondary">
         @ViewBag.StatusMessage
     </div>
 
@@ -78,7 +78,7 @@
 </div>
 
 <table class="table table-striped table-hover">
-    <tr class="bg-primary text-center text-white">
+    <tr class="bg-success text-center text-white">
         <th>
             #
         </th>
@@ -138,7 +138,7 @@
                 {
                     @Html.AntiForgeryToken();
                     <input type="hidden" value=@item.Id name="id" />
-                    <input type="submit" value="Open Auction" class="btn btn-primary" />
+                    <input type="submit" value="Open Auction" class="btn btn-success" />
                 }
             </td>
         </tr>

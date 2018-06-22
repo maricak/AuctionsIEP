@@ -3,9 +3,9 @@
 
 <div class="col-lg-3 col-sm-6 mb-3" id="auction-@Model.Id" name="@Model.Id">
     <div class="card">
-        <h2 class="text-center text-primary card-header">
+        <h4 class="text-center text-primary card-header">
             @Html.ActionLink(Model.Name, "Details", new { id = Model.Id })
-        </h2>
+        </h4>
         <ul class="list-group list-group-flush">
             <li class="list-group-item pb-0" style="height:282px">
                 @{
@@ -68,7 +68,7 @@
                     @Html.AntiForgeryToken()
                     <input type="number" id="offer" name="offer" class="form-control col-8" value="@Model.CurrentNumberOfTokens" />
                     <input type="hidden" name="id" value="@Model.Id" />
-                    <input type="submit" value="Bid" class="btn btn-primary col-4" />
+                    <input type="submit" value="Bid" class="btn btn-success col-4" />
                 }
             }
             else
@@ -79,7 +79,7 @@
                     @Html.AntiForgeryToken()
                     <input type="number" id="offer" name="offer" class="form-control col-8" value="@Model.CurrentNumberOfTokens" />
                     <input type="hidden" id="id" name="id" value=@Model.Id />
-                    <input type="submit" value="Bid" class="btn btn-primary col-4" />
+                    <input type="submit" value="Bid" class="btn btn-success col-4" />
                 }
             }
 

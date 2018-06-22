@@ -26,7 +26,7 @@ namespace Auctions.Web
                         "~/Scripts/script.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/Css/lumen-bootstrap.css",
+                      "~/Content/Css/flatly-bootstrap.css",
                       "~/Content/Css/Site.css", 
                       "~/Content/Css/Paging.css"));
         }

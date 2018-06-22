@@ -17,9 +17,8 @@
             margin-left: -1px;
             line-height: 1.428571429;
             text-decoration: none;
-            background-color: #f0f0f0;
-            border: solid #dddddd;
-            border-width: 0 1px 4px 1px
+            color: #ecf0f1;
+            background-color: #18bc9c;
         }
 
         .pagination > li:first-child > a,
@@ -39,7 +38,7 @@
         .pagination > li > span:hover,
         .pagination > li > a:focus,
         .pagination > li > span:focus {
-            background-color: #eeeeee;
+            background-color: #0f7864;
         }
 
     .pagination > .active > a,
@@ -49,9 +48,9 @@
     .pagination > .active > a:focus,
     .pagination > .active > span:focus {
         z-index: 2;
-        color: #fff;
+        color: #ecf0f1;
         cursor: default;
-        background-color: #158CBA;
+        background-color: #0f7864;
         border-color: #127ba3;
     }
 
@@ -65,10 +64,10 @@
     .pagination > .disabled > a,
     .pagination > .disabled > a:hover,
     .pagination > .disabled > a:focus {
-        color: #999999;
+        color: #ecf0f1;
         cursor: not-allowed;
-        background-color: #f0f0f0;
-        border-color: #dee2e6;
+        background-color: #3be6c4;
+        /*border-color: #dee2e6;*/
     }
 
 .pagination-lg > li > a,
@@ -167,7 +166,7 @@
     .pager .disabled > a:hover,
     .pager .disabled > a:focus,
     .pager .disabled > span {
-        color: #999999;
+        color: #ecf0f1;
         cursor: not-allowed;
         background-color: #ffffff;
     }

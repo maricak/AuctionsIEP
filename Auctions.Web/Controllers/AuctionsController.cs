@@ -55,12 +55,11 @@ namespace Auctions.Web.Controllers
         }
 
         // GET: Auctions/Details/5
-        public ActionResult Details(string id, AuctionMessageId? message, int? page)
+        public ActionResult Details(string id, int? page)
         {
-            logger.InfoFormat("DEtails: {0}", JsonConvert.SerializeObject(new
+            logger.InfoFormat("Details: {0}", JsonConvert.SerializeObject(new
             {
                 user = User.Identity.GetUserName(),
-                message,
                 id,
                 page
             }));
@@ -72,11 +71,6 @@ namespace Auctions.Web.Controllers
             }
             else
             {
-                ViewBag.StatusMessage =
-                message == AuctionMessageId.CreateSuccess ? "Auction was created successfully"
-                : message == AuctionMessageId.BidSuccess ? "You made a bid"
-                : message == AuctionMessageId.Error ? "An error has occurred."
-                : "";
                 page = page ?? 1;
                 ViewBag.Page = page;
                 return View(model);
@@ -116,7 +110,10 @@ namespace Auctions.Web.Controllers
             logger.InfoFormat("Create-POST: {0}", JsonConvert.SerializeObject(new
             {
                 user = User.Identity.GetUserName(),
-                model,
+                model.Name,
+                model.Duration, 
+                model.Currency, 
+                model.StartPrice
             }));
 
             if (ModelState.IsValid)

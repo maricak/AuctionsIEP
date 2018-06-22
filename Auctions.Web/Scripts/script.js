@@ -52,24 +52,6 @@ function getDuration(time) {
 var update;
 
 
-//$(function () {
-//    var connection = $.hubConnection();
-//    var hub = connection.createHubProxy("AuctionsHub");
-//    hub.on("update", function (auctionId, data) {
-//        var auction = $("#auction-" + auctionId);
-
-//        console.log(data);
-
-//        //$(auction).find(".price").html(data.currentPrice);
-//        //$(auction).find(".bidder").html(data.bidder);
-//        //$(auction).find(".first-one").hide();
-//        //$(auction).find(".offer").val(data.tokens);
-
-//    });
-
-//    connection.start();
-//});
-
 $(function () {
 
     // Declare a proxy to reference the hub.

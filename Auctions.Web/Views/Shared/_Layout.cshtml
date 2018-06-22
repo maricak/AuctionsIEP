@@ -3,14 +3,14 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - Auctions</title>
+    <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-5">
-        @Html.ActionLink("Auctions", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+    <nav class="navbar navbar-expand-lg navbar-dark bg-success mb-5">
+        @Html.ActionLink("Auctions", "Index", "Auctions", new { area = "" }, new { @class = "navbar-brand" })
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -18,14 +18,23 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    @Html.ActionLink("Home", "Index", "Home", new { @class = "nav-link" })
+                    @Html.ActionLink("Auctions", "Index", "Auctions", new { },  new { @class = "nav-link" })
                 </li>
+                @if (Request.IsAuthenticated && User.IsInRole("User"))
+                {
+                    <li class="nav-item">
+                        @Html.ActionLink("My wins", "Wins", "Auctions", new { }, new { @class = "nav-link" })
+                    </li>
+                    <li class="nav-item">
+                        @Html.ActionLink("My orders", "Index", "Orders", new { }, new { @class = "nav-link" })
+                    </li>
+                }
+                else if (Request.IsAuthenticated && User.IsInRole("Admin"))
+                {
                 <li class="nav-item">
-                    @Html.ActionLink("About", "About", "Home", new { @class = "nav-link" })
+                    @Html.ActionLink("Admin", "Index", "Admin", new { }, new { @class = "nav-link" })
                 </li>
-                <li class="nav-item">
-                    @Html.ActionLink("Contact", "Contact", "Home", new { @class = "nav-link" })
-                </li>
+                }
             </ul>
             @Html.Partial("_LoginPartial")
         </div>
