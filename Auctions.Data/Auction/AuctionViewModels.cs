@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Web;
+using X.PagedList;
 
 namespace Auctions.Data.Models
 {
@@ -72,6 +73,8 @@ namespace Auctions.Data.Models
         public AuctionStatus Status { get; set; }
 
         public string LastBidder { get; set; }
+
+        public string Message { get; set; }
     }
 
     public class DetailsAuctionViewModel
@@ -94,6 +97,6 @@ namespace Auctions.Data.Models
 
         public string LastBidder { get; set; }
 
-        public ICollection<DetailsBidViewModel> Bids { get; set; }
+        public IPagedList<DetailsBidViewModel> Bids { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿@model Auctions.Data.Models.DetailsAuctionViewModel
+@using X.PagedList.Mvc
 
 @{
     ViewBag.Title = "Auction details";
@@ -17,26 +18,24 @@
     @if (Model.Status == Auctions.Data.Models.AuctionStatus.COMPLETED)
     {
         @Html.ActionLink("Sold", "", new { }, new { @class = "btn btn-danger disabled bg-danger btn-sold float-right" })
-        using (Html.BeginForm("Bid", "Auctions", FormMethod.Post, new { @class = "bid-form d-none row float-right" }))
+        using (Html.BeginForm("BidDetails", "Auctions", FormMethod.Post, new { @class = "bid-form d-none row float-right" }))
         {
             @Html.AntiForgeryToken()
             @Html.TextBox("offer", Model.CurrentNumberOfTokens, new { type = "number", @class = "form-control col-8" })
 
             <input type="hidden" name="id" value=@Model.Id />
-            <input type="hidden" name="details" value="1" />
             <input type="submit" value="Bid" class="btn btn-primary col-4" />
         }
     }
     else
     {
         @Html.ActionLink("Sold", "", new { }, new { @class = "btn btn-danger disabled bg-danger btn-sold d-none float-right" })
-        using (Html.BeginForm("Bid", "Auctions", FormMethod.Post, new { @class = "row bid-form float-right" }))
+        using (Html.BeginForm("BidDetails", "Auctions", FormMethod.Post, new { @class = "row bid-form float-right" }))
         {
             @Html.AntiForgeryToken()
             @Html.TextBox("offer", Model.CurrentNumberOfTokens, new { type = "number", @class = "form-control col-8" })
 
             <input type="hidden" name="id" value=@Model.Id />
-            <input type="hidden" name="details" value="1" />
             <input type="submit" value="Bid" class="btn btn-primary col-4" />
         }
     }
@@ -133,7 +132,7 @@
         </tr>
 
         @{
-            var i = 1;
+            var i = (ViewBag.Page-1) * 15 + 1;
         }
 
         @foreach (var item in Model.Bids)
@@ -159,3 +158,9 @@
 
 @Html.ActionLink("All Auctions", "Index", new { }, new { @class = "btn btn-primary" })
 
+<center>
+    @Html.PagedListPager(Model.Bids, page => Url.Action("Details",
+    new { page = page,
+        id = Model.Id,
+    }))
+</center>

@@ -29,15 +29,15 @@
     </div>
     <div class="form-group col-md-3">
         <label>Low price:</label>
-        @Html.TextBox("lowPrice", new { }, new { type = "number", @class = "form-control" })
+        @Html.TextBox("lowPrice", null, new { @type = "number", @class = "form-control" })
     </div>
     <div class="form-group col-md-3">
         <label>High price:</label>
-        @Html.TextBox("highPrice", new { }, new { type = "number", @class = "form-control" })
+        @Html.TextBox("highPrice", null, new { type = "number", @class = "form-control" })
     </div>
     <div class="form-group col-md-3">
         <label>Status:</label>
-        @{            
+        @{
             //var option0 = ViewBag.Status == null ? "selected=\"selected\"" : "";
             var option1 = ViewBag.Status == Auctions.Data.Models.AuctionStatus.OPENED ? "selected=\"selected\"" : "";
             var option2 = ViewBag.Status == Auctions.Data.Models.AuctionStatus.COMPLETED ? "selected=\"selected\"" : "";
@@ -86,4 +86,10 @@
         status = (ViewBag.Status == 0 ? null : ViewBag.Status)
     }))
 </center>
+
+<div id="demo">
+    demo
+</div>
+
+
 

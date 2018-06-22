@@ -17,7 +17,6 @@ namespace Auctions.Web.Controllers
 
     public class AuctionsController : Controller
     {
-        private AuctionDB db = new AuctionDB();
         private IAuctionData data = AuctionData.Instance;
 
         // GET: Auctions
@@ -44,9 +43,9 @@ namespace Auctions.Web.Controllers
         }
 
         // GET: Auctions/Details/5
-        public ActionResult Details(string id, AuctionMessageId? message)
+        public ActionResult Details(string id, AuctionMessageId? message, int? page)
         {
-            var model = data.GetAuctionById(id);
+            var model = data.GetAuctionDetailsById(id, page);
             if (model == null)
             {
                 return RedirectToAction("Index", new { message = AuctionMessageId.Error });
@@ -58,7 +57,8 @@ namespace Auctions.Web.Controllers
                 : message == AuctionMessageId.BidSuccess ? "You made a bid"
                 : message == AuctionMessageId.Error ? "An error has occurred."
                 : "";
-
+                page = page ?? 1;
+                ViewBag.Page = page;
                 return View(model);
             }
         }
@@ -122,40 +122,60 @@ namespace Auctions.Web.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "User")]
-        public ActionResult Bid(string id, long? offer, int? details)
+        public PartialViewResult Bid(string id, long? offer)
         {
+            AuctionViewModel auction = null;
             if (offer != null)
             {
-                if(data.MakeBid(id, offer, User.Identity.GetUserId()))
+                if (data.MakeBid(id, offer, User.Identity.GetUserId()))
                 {
-                    if (details != null)
+                    auction = data.GetAuctionById(id);
+                    if (auction == null)
                     {
-                        return RedirectToAction("Details", new { id, message = AuctionMessageId.BidSuccess });
+                        auction = new AuctionViewModel
+                        {
+                            Message = "Error has occured"
+                        };
                     }
                     else
                     {
-                        return RedirectToAction("Index", new { message = AuctionMessageId.BidSuccess });
+                        var hubContext = Microsoft.AspNet.SignalR.GlobalHost.ConnectionManager.GetHubContext<AuctionsHub>();
+                        if (hubContext != null)
+                        {
+                            hubContext.Clients.All.update(auction.Id.ToString(), new
+                            {
+                                bidder = auction.LastBidder, 
+                                currentPrice = auction.CurrentPrice, 
+                                currency = auction.Currency, 
+                                tokens = auction.CurrentNumberOfTokens
+                            });
+                        }
+                        auction.Message = "You made a bid";
                     }
                 }
             }
-            // bad request
-            if (details != null)
+            if (auction == null)
             {
-                return RedirectToAction("Details", new { id, message = AuctionMessageId.Error });
+                auction = data.GetAuctionById(id);
+                auction = auction ?? new AuctionViewModel();
+                auction.Message = "Error has occured";
             }
-            else
-            {
-                return RedirectToAction("Index", new { message = AuctionMessageId.Error });
-            }
+            return PartialView("_Auction", auction);
         }
-
-        protected override void Dispose(bool disposing)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "User")]
+        public ActionResult BidDetails(string id, long? offer)
         {
-            if (disposing)
+            if (offer != null)
             {
-                db.Dispose();
+                if (data.MakeBid(id, offer, User.Identity.GetUserId()))
+                {
+                    return RedirectToAction("Details", new { id, message = AuctionMessageId.BidSuccess });
+                }
             }
-            base.Dispose(disposing);
+            // bad request
+            return RedirectToAction("Details", new { id, message = AuctionMessageId.Error });
         }
 
         public enum AuctionMessageId

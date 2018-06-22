@@ -1,4 +1,6 @@
 ﻿$(function () {
+
+    // odbrojava vreme na index stranici
     $(".time").each(function () {
         var that = this;
 
@@ -7,7 +9,8 @@
         }
 
         var timer = setInterval(function () {
-            if (getDuration(that.innerText) === 0) {
+            var duration = getDuration(that.innerText);
+            if (duration === 0) {
                 clearInterval(timer);
 
                 $(that).html("--:--:--");
@@ -33,6 +36,7 @@
         }, 1000);
     });
 
+    // odbrojava vremen na details stranici
     $(".time-details").each(function () {
         var that = this;
 
@@ -100,3 +104,31 @@ function getDuration(time) {
 
     return seconds;
 }
+
+//var bidAuction = function (auctionId, offer) {
+//    $.post("@Url.Action("Bid", "Auctions")",
+//        { id: auctionId
+//        },
+//        function (result) {
+//            $("span").html(result);
+//        }
+//    );
+//}
+
+function update(data) {
+    //console.log(data);
+}
+
+$(function () {
+    var connection = $.hubConnection();
+    var hub = connection.createHubProxy("AuctionsHub");
+    hub.on("update", function (auctionId, data) {
+        var auction = $("#auction-" + auctionId);
+
+        $(auction).find(".price").html(data.currentPrice);
+        console.log(auction);
+       
+    });
+
+    connection.start();
+});

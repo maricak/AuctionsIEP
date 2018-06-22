@@ -1,7 +1,7 @@
 ﻿@model Auctions.Data.Models.AuctionViewModel
 
 
-<div class="col-lg-3 col-sm-6 mb-3">
+<div class="col-lg-3 col-sm-6 mb-3" id="auction-@Model.Id" name="@Model.Id">
     <div class="card">
         <h2 class="text-center text-primary card-header">
             @Html.ActionLink(Model.Name, "Details", new { id = Model.Id })
@@ -34,7 +34,7 @@
                 }
             </li>
             <li class="list-group-item text-center h5">
-                @Html.DisplayFor(model => model.CurrentPrice)
+                <span class="price">@Html.DisplayFor(model => model.CurrentPrice)</span>
                 @Html.DisplayFor(model => model.Currency)
             </li>
             <li class="list-group-item text-center h5 bidder">
@@ -63,29 +63,29 @@
             @if (Model.Status == Auctions.Data.Models.AuctionStatus.COMPLETED)
             {
                 @Html.ActionLink("Sold", "", new { }, new { @class = "btn btn-danger disabled bg-danger btn-sold" })
-                using (Html.BeginForm("Bid", "Auctions", FormMethod.Post, new { @class = "bid-form d-none row" }))
+                using (Ajax.BeginForm("Bid", "Auctions", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "auction-" + Model.Id, InsertionMode = InsertionMode.ReplaceWith, OnSuccess = "update" }, new { @class = "row bid-form d-none" }))
                 {
                     @Html.AntiForgeryToken()
-                    @Html.TextBox("offer", Model.CurrentNumberOfTokens, new { type = "number", @class = "form-control col-8" })
-
+                    <input type="number" id="offer" name="offer" class="form-control col-8" value="@Model.CurrentNumberOfTokens" />
                     <input type="hidden" name="id" value="@Model.Id" />
-                    <input type="hidden" name="index" value="1" />
                     <input type="submit" value="Bid" class="btn btn-primary col-4" />
                 }
             }
             else
             {
                 @Html.ActionLink("Sold", "", new { }, new { @class = "btn btn-danger disabled bg-danger btn-sold d-none" })
-                using (Html.BeginForm("Bid", "Auctions", FormMethod.Post, new { @class = "row bid-form" }))
+                using (Ajax.BeginForm("Bid", "Auctions", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "auction-" + Model.Id, InsertionMode = InsertionMode.ReplaceWith, OnSuccess = "update" }, new { @class = "row bid-form" }))
                 {
                     @Html.AntiForgeryToken()
-                    @Html.TextBox("offer", Model.CurrentNumberOfTokens, new { type = "", @class = "form-control col-8" })
-
-                    <input type="hidden" name="id" value=@Model.Id />
-                    <input type="hidden" name="index" value="1" />
+                    <input type="number" id="offer" name="offer" class="form-control col-8" value="@Model.CurrentNumberOfTokens" />
+                    <input type="hidden" id="id" name="id" value=@Model.Id />
                     <input type="submit" value="Bid" class="btn btn-primary col-4" />
                 }
             }
+
+            <span class="text-danger">
+                @Html.DisplayFor(m => m.Message)
+            </span>
         </div>
     </div>
 </div>

@@ -21,7 +21,8 @@ namespace Auctions.Data
         bool OpenAuction(string id);
         IPagedList<AuctionViewModel> GetAllOpenedAuctions(string searchString, decimal? lowPrice, decimal? highPrice, AuctionStatus? status, int? page);
         bool CreateAuction(CreateAuctionViewModel model);
-        DetailsAuctionViewModel GetAuctionById(string id);
+        AuctionViewModel GetAuctionById(string id);
+        DetailsAuctionViewModel GetAuctionDetailsById(string id, int? page);
         IPagedList<AuctionViewModel> GetAuctionsByWinner(string userId, int? page);
         /* Auctions END */
 

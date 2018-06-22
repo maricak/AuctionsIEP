@@ -31,8 +31,7 @@ namespace Auctions.Data
         }
         private AuctionData() { }
 
-        /* DefaultValues */
-        #region        
+        #region DefaultValues
         public DetailsDefaultValuesViewModel GetDetailsDefaultValues()
         {
             try
@@ -122,8 +121,7 @@ namespace Auctions.Data
         #endregion
 
 
-        /* Auctions */
-        #region
+        #region Auctions
         private void CloseAuctions()
         {
             try
@@ -132,12 +130,29 @@ namespace Auctions.Data
                 {
                     var now = DateTime.UtcNow;
 
-                    var auctions = db.Auctions.Where(a => a.ClosingTime <= now).ToList();
+                    var auctions = db.Auctions.Where(a => a.ClosingTime <= now && a.Status != AuctionStatus.COMPLETED).Include(a => a.Bids.Select(b => b.User)).ToList();
                     foreach (var auction in auctions)
                     {
                         auction.Status = AuctionStatus.COMPLETED;
                         db.Entry(auction).State = EntityState.Modified;
-                        // TODO: vratiti pare kome treba
+
+                        // za svakog korisnika vraca najveci bid
+                        var results = auction.Bids.GroupBy(b => b.User).Select(g => new
+                        {
+                            tokens = g.Max(b => b.NumberOfTokens),
+                            user = g.Key
+                        });
+
+                        // vratiti tokene svima koji nisu pobedili
+                        foreach(var result in results)
+                        {
+                            // nije pobednik
+                            if(auction.User != result.user)
+                            {
+                                result.user.NumberOfTokens += result.tokens;
+                                db.Entry(result.user).State = EntityState.Modified;
+                            }
+                        }
                     }
                     db.SaveChanges();
                 }
@@ -342,7 +357,53 @@ namespace Auctions.Data
             // something went wrong
             return false;
         }
-        public DetailsAuctionViewModel GetAuctionById(string id)
+        public AuctionViewModel GetAuctionById(string id)
+        {
+            try
+            {
+                using (AuctionDB db = new AuctionDB())
+                {
+                    CloseAuctions();
+
+                    Auction auction = db.Auctions.Include(a => a.Bids).Where(a => a.Id.ToString().Equals(id)).SingleOrDefault();
+                    if (auction == null)
+                    {
+                        return null;
+                    }
+                    else
+                    {
+                        var span = (auction.ClosingTime - DateTime.UtcNow) ?? new TimeSpan();
+                        var dv = GetDetailsDefaultValues();
+                        if (dv == null)
+                        {
+                            return null;
+                        }
+                        var token = auction.Bids.Count() == 0 ? 0 : auction.Bids.Max(b => b.NumberOfTokens) + 1;
+
+                        var result = new AuctionViewModel
+                        {
+                            Id = auction.Id.ToString(),
+                            Name = auction.Name,
+                            Currency = auction.Currency,
+                            CurrentPrice = auction.CurrentPrice,
+                            Duration = auction.Status == AuctionStatus.COMPLETED ? "00:00:00" : GetDuration(span),
+                            Image = auction.Image,
+                            CurrentNumberOfTokens = Math.Max((long)(Math.Ceiling(auction.CurrentPrice / dv.TokenValue)), token),
+                            LastBidder = auction.User != null ? (auction.User.Name + " " + auction.User.Surname) : "",
+                            Status = auction.Status
+                        };
+
+                        return result;
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                //TODO: log exception
+            }
+            return null;
+        }
+        public DetailsAuctionViewModel GetAuctionDetailsById(string id, int? page)
         {
             try
             {
@@ -388,7 +449,10 @@ namespace Auctions.Data
                                 User = bid.User.Name + " " + bid.User.Surname
                             });
                         }
-                        result.Bids = bids;
+                        long pageSize = 15;
+                        int pageNumber = (page ?? 1);
+
+                        result.Bids = bids.ToPagedList(pageNumber, (int)pageSize);
                         return result;
                     }
                 }
@@ -565,8 +629,7 @@ namespace Auctions.Data
         /* Orders END*/
         #endregion
 
-        /* Bids */
-        #region
+        #region Bids 
         public bool MakeBid(string auctionId, long? offerTokens, string userId)
         {
             if (auctionId == null || offerTokens == null)
@@ -656,8 +719,7 @@ namespace Auctions.Data
         }
         #endregion
 
-        /* Helper functions*/
-        #region
+        #region Helper functions
 
         private string GetDuration(TimeSpan span)
         {
