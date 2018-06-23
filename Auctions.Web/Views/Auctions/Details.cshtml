@@ -20,7 +20,7 @@
             using (Ajax.BeginForm("Bid", "Auctions", new AjaxOptions { HttpMethod = "POST", OnSuccess = "update" }, new { @class = "bid-form d-none row float-right" }))
             {
                 @Html.AntiForgeryToken()
-                <input type="number" id="offer" name="offer" class="form-control col-8"  value="@Model.CurrentNumberOfTokens"/>
+                <input type="number" id="offer" name="offer" class="form-control col-8" value="@Model.CurrentNumberOfTokens" />
                 <input type="hidden" name="id" value=@Model.Id />
                 <input type="submit" value="Bid" class="btn btn-success col-4" />
             }
@@ -61,7 +61,8 @@
             <ul class="h4">
                 <li>
                     <span class="font-weight-bold">
-                        @Html.DisplayNameFor(model => model.Duration):
+                        Duration: 
+                        @*@Html.DisplayNameFor(model => model.Duration):*@
                     </span>
 
                     <span class="time-details">
@@ -71,7 +72,16 @@
                         }
                         else
                         {
-                            @Html.DisplayFor(model => model.Duration)
+                            var duration = Model.ClosingTime.ToLocalTime() - DateTime.UtcNow.ToLocalTime();
+
+                            int h = duration.Days * 24 + duration.Hours;
+                            int m = duration.Minutes;
+                            int s = duration.Seconds;
+
+                            @Html.DisplayName("" + (h < 10 ? "0" : "") + h + ":" + (m < 10 ? "0" : "") + m + ":" + (s < 10 ? "0" : "") + s)
+
+                            @*@Html.DisplayName(duration.ToString(@"hh\:mm\:ss"))*@
+                            @*@Html.DisplayFor(model => model.Duration)*@
                         }
                     </span>
                 </li>

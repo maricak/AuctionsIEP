@@ -4,62 +4,61 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Create</h2>
-
+<h2>Create Auction</h2>
+<hr />
 @using (Html.BeginForm("Create", "Auctions", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
-<div class="form-horizontal">
-    <h4>CreateAuctionViewModel</h4>
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    <div class="form-group">
-        @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-6">
-            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-        </div>
-    </div>
+    <div class="form-horizontal">
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Image, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-6">
-            @Html.TextBoxFor(model => model.Image, new { type = "file" } )
-            @*@Html.TextBoxFor(model => model.Image, htmlAttributes: new { @type = "file", @accept = ".png, .jpg, .jpeg", @class = "btn btn-success" })*@
-            @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.Duration, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-6">
-            @Html.EditorFor(model => model.Duration, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Duration, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        <div class="col-md-6">
-            @Html.LabelFor(model => model.StartPrice, htmlAttributes: new { @class = "control-label" })
-            (in @Html.DisplayFor(model => model.Currency))
-        </div>
-        <div class="col-md-6">
-            @Html.EditorFor(model => model.StartPrice, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.StartPrice, "", new { @class = "text-danger" })
-        </div>
-    </div>
-    <input type="hidden" id="currency" name="currency" value="@Model.Currency" />
-    <div class="form-group">
-        <div class="col-md-6 mb-4">
-
-            <div>
-                @Html.ActionLink("Back to List", "Index", new { }, new { @class = "btn btn-success float-left" })
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-6">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
             </div>
-            <input type="submit" value="Create" class="btn btn-success float-right" />
-            &nbsp;
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Image, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-6">
+                @Html.TextBoxFor(model => model.Image, new { type = "file" })
+                @*@Html.TextBoxFor(model => model.Image, htmlAttributes: new { @type = "file", @accept = ".png, .jpg, .jpeg", @class = "btn btn-success" })*@
+                @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Duration, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-6">
+                @Html.EditorFor(model => model.Duration, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Duration, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-6">
+                @Html.LabelFor(model => model.StartPrice, htmlAttributes: new { @class = "control-label" })
+                (in @Html.DisplayFor(model => model.Currency))
+            </div>
+            <div class="col-md-6">
+                @Html.EditorFor(model => model.StartPrice, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.StartPrice, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <input type="hidden" id="currency" name="currency" value="@Model.Currency" />
+        <div class="form-group">
+            <div class="col-md-6 mb-4">
+
+                <div>
+                    @Html.ActionLink("Back to List", "Index", new { }, new { @class = "btn btn-success float-left" })
+                </div>
+                <input type="submit" value="Create" class="btn btn-success float-right" />
+                &nbsp;
+            </div>
         </div>
     </div>
-</div>
 }
 

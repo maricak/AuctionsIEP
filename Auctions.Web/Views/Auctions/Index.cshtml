@@ -77,7 +77,7 @@
 }
 
 @*Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount*@
-<center>
+<div class="text-center" align="center">
     @Html.PagedListPager(Model, page => Url.Action("Index",
     new { page = page,
         searchString = ViewBag.SearchString,
@@ -85,6 +85,6 @@
         highPrice = ViewBag.HighPrice,
         status = (ViewBag.Status == 0 ? null : ViewBag.Status)
     }))
-</center>
+</div>
 
 

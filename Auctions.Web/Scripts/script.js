@@ -120,7 +120,7 @@ function startTimer(that) {
 
         } else {
             if (duration <= 11) {
-                $(that).addClass("text-warning");
+                $(that).addClass("text-danger");
             }
             // count down
             $(that).html(formatTime(getDuration(that.innerHTML) - 1));
@@ -156,7 +156,7 @@ function startDetailsTimer(that) {
 
         } else {
             if (duration <= 11) {
-                $(that).addClass("text-warning");
+                $(that).addClass("text-danger");
             }
             // count down
             $(that).html(formatTime(duration - 1));

@@ -30,7 +30,14 @@
                 }
                 else
                 {
-                    @Html.DisplayFor(model => model.Duration)
+                    var duration = Model.ClosingTime.ToLocalTime() - DateTime.UtcNow.ToLocalTime();
+                    int h = duration.Days * 24 + duration.Hours;
+                    int m = duration.Minutes;
+                    int s = duration.Seconds;
+
+                    @Html.DisplayName("" + (h < 10 ? "0" : "") + h + ":" + (m < 10 ? "0" : "") + m + ":" + (s < 10 ? "0" : "") + s)
+                    //@Html.DisplayName(duration.ToString(@"hh\:mm\:ss"))
+                    //@Html.DisplayFor(model => model.Duration)
                 }
             </li>
             <li class="list-group-item text-center h5">

@@ -2,8 +2,8 @@
     position: absolute;
     top: 0px;
     left: 0px;
-    height: 282px;
-    width: 100px;
+    height: 282px !important;
+    width: 100px !important;
 }
 
 .under {
@@ -14,7 +14,4 @@
     z-index: 3;
 }
 
-.pagination {
-    color: yellow;
-}
 

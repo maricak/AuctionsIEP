@@ -405,7 +405,7 @@ namespace Auctions.Data
 
                     foreach (var auction in auctions.Include(a => a.Bids).ToList())
                     {
-                        var span = (auction.ClosingTime - DateTime.UtcNow) ?? new TimeSpan();
+                        //var span = (auction.ClosingTime - DateTime.UtcNow) ?? new TimeSpan();
 
                         var token = auction.Bids.Count() == 0 ? 0 : auction.Bids.Max(b => b.NumberOfTokens) + 1;
 
@@ -413,7 +413,8 @@ namespace Auctions.Data
                         {
                             Id = auction.Id.ToString(),
                             Currency = auction.Currency,
-                            Duration = auction.Status == AuctionStatus.COMPLETED ? "00:00:00" : GetDuration(span),
+                            //Duration = auction.Status == AuctionStatus.COMPLETED ? "00:00:00" : GetDuration(span),
+                            ClosingTime = auction.ClosingTime.GetValueOrDefault(),
                             Name = auction.Name,
                             Status = auction.Status,
                             CurrentPrice = auction.CurrentPrice,
@@ -527,7 +528,7 @@ namespace Auctions.Data
                     }
                     else
                     {
-                        var span = (auction.ClosingTime - DateTime.UtcNow) ?? new TimeSpan();
+                        //var span = (auction.ClosingTime - DateTime.UtcNow) ?? new TimeSpan();
                         var dv = GetDetailsDefaultValues();
                         if (dv == null)
                         {
@@ -545,7 +546,8 @@ namespace Auctions.Data
                             Name = auction.Name,
                             Currency = auction.Currency,
                             CurrentPrice = auction.CurrentPrice,
-                            Duration = auction.Status == AuctionStatus.COMPLETED ? "00:00:00" : GetDuration(span),
+                            //Duration = auction.Status == AuctionStatus.COMPLETED ? "00:00:00" : GetDuration(span),
+                            ClosingTime = auction.ClosingTime.GetValueOrDefault(),
                             Image = auction.Image,
                             CurrentNumberOfTokens = Math.Max((long)(Math.Ceiling(auction.CurrentPrice / dv.TokenValue)), token),
                             LastBidder = auction.User != null ? (auction.User.Name + " " + auction.User.Surname) : "",
@@ -557,7 +559,7 @@ namespace Auctions.Data
                             result.Id,
                             result.Name,
                             result.Currency,
-                            result.Duration,
+                            result.ClosingTime,
                             result.CurrentPrice,
                             result.CurrentNumberOfTokens,
                             result.LastBidder,
@@ -598,7 +600,7 @@ namespace Auctions.Data
                     }
                     else
                     {
-                        var span = (auction.ClosingTime - DateTime.UtcNow) ?? new TimeSpan();
+                        //var span = (auction.ClosingTime - DateTime.UtcNow) ?? new TimeSpan();
                         var dv = GetDetailsDefaultValues();
                         if (dv == null)
                         {
@@ -616,7 +618,8 @@ namespace Auctions.Data
                             Name = auction.Name,
                             Currency = auction.Currency,
                             CurrentPrice = auction.CurrentPrice,
-                            Duration = auction.Status == AuctionStatus.COMPLETED ? "00:00:00" : GetDuration(span),
+                            //Duration = auction.Status == AuctionStatus.COMPLETED ? "00:00:00" : GetDuration(span),
+                            ClosingTime = auction.ClosingTime.GetValueOrDefault(),
                             Image = auction.Image,
                             CurrentNumberOfTokens = Math.Max((long)(Math.Ceiling(auction.CurrentPrice / dv.TokenValue)), token),
                             LastBidder = auction.User != null ? (auction.User.Name + " " + auction.User.Surname) : "",
@@ -681,7 +684,6 @@ namespace Auctions.Data
                         {
                             Id = auction.Id.ToString(),
                             Currency = auction.Currency,
-                            Duration = auction.Status == AuctionStatus.COMPLETED ? "00:00:00" : GetDuration(span),
                             Name = auction.Name,
                             Status = auction.Status,
                             CurrentPrice = auction.CurrentPrice,

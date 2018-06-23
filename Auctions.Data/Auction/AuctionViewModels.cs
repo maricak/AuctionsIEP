@@ -62,7 +62,8 @@ namespace Auctions.Data.Models
 
         public byte[] Image { get; set; }
 
-        public string Duration { get; set; }
+        [DataType(DataType.DateTime)]
+        public DateTime ClosingTime { get; set; }
 
         public decimal CurrentPrice { get; set; }
 
@@ -85,7 +86,8 @@ namespace Auctions.Data.Models
 
         public byte[] Image { get; set; }
 
-        public string Duration { get; set; }
+        [DataType(DataType.DateTime)]
+        public DateTime ClosingTime { get; set; }
 
         public decimal CurrentPrice { get; set; }
 
