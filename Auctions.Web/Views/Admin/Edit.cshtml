@@ -74,6 +74,7 @@
             <div class="col">
                 @Html.EnumDropDownListFor(model => model.Currency, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.Currency, "", new { @class = "text-danger" })
+                <div class="text-danger">Do not change this property while there are not finished auctions</div>
             </div>
         </div>
 

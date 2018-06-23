@@ -24,8 +24,8 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Image, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-6">
-                @Html.TextBoxFor(model => model.Image, new { type = "file" })
-                @*@Html.TextBoxFor(model => model.Image, htmlAttributes: new { @type = "file", @accept = ".png, .jpg, .jpeg", @class = "btn btn-success" })*@
+                @*@Html.TextBoxFor(model => model.Image, new { type = "file" })*@
+                @Html.TextBoxFor(model => model.Image, htmlAttributes: new { @type = "file", @accept = ".png, .jpg, .jpeg", @class = "btn btn-success" })
                 @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
             </div>
         </div>

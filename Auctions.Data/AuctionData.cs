@@ -933,18 +933,7 @@ namespace Auctions.Data
                         tokensToPay = (long)offerTokens - (long)userMaxBid;
                     }
 
-                    if (user.NumberOfTokens >= tokensToPay)
-                    {
-                        logger.InfoFormat("MakeBid: user has to pay {0} ", JsonConvert.SerializeObject(new
-                        {
-                            tokensToPay,
-                            user.UserName,
-                        }));
-
-                        user.NumberOfTokens -= tokensToPay;
-                        db.Entry(user).State = EntityState.Modified;
-                    }
-                    else
+                    if (user.NumberOfTokens < tokensToPay)
                     {
                         logger.ErrorFormat("MakeBid: user doesn't have enough tokens {0} ", JsonConvert.SerializeObject(new
                         {
@@ -955,7 +944,27 @@ namespace Auctions.Data
                         return false;
                     }
 
-                    // create new bid
+                    // update auction last bidder
+                    auction.User = user;
+                    auction.CurrentPrice = (long)offerTokens * dv.TokenValue;
+                    //db.Entry(auction).State = EntityState.Modified;
+
+                    try
+                    {
+                        db.SaveChanges();
+                    }
+                    catch (System.Data.Entity.Infrastructure.DbUpdateException e)
+                    {
+                        // catch possible concurrency exception
+                        logger.Error("Make Bid", e);
+                        return false;
+                    }
+
+                    // update user token
+                    user.NumberOfTokens -= tokensToPay;
+                    db.Entry(user).State = EntityState.Modified;
+
+                    // create and add new bid
                     Bid bid = new Bid
                     {
                         Id = Guid.NewGuid(),
@@ -965,11 +974,6 @@ namespace Auctions.Data
                         User = user
                     };
                     db.Bids.Add(bid);
-
-                    // update auction last bidder
-                    auction.User = user;
-                    auction.CurrentPrice = (long)offerTokens * dv.TokenValue;
-                    db.Entry(auction).State = EntityState.Modified;
 
                     db.SaveChanges();
 

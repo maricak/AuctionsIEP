@@ -446,3 +446,282 @@
 2018-06-23 16:09:32,127 INFO Auctions.Data.AuctionData - GetDetailsDefaultValues: {"defaultValues":{"Id":"0dcf4a36-7779-48a8-be90-a7b825d80a92","NumberOfAuctionsPerPage":20,"AuctionDuration":86400,"SilverTokenNumber":30,"GoldTokenNumber":50,"PlatinuTokenNumber":100,"TokenValue":5.10,"Currency":1}}
 2018-06-23 16:10:30,941 INFO Auctions.Data.AuctionData - GetDetailsDefaultValues: {}
 2018-06-23 16:10:31,256 INFO Auctions.Data.AuctionData - GetDetailsDefaultValues: {"defaultValues":{"Id":"0dcf4a36-7779-48a8-be90-a7b825d80a92","NumberOfAuctionsPerPage":20,"AuctionDuration":86400,"SilverTokenNumber":30,"GoldTokenNumber":50,"PlatinuTokenNumber":100,"TokenValue":5.10,"Currency":1}}
+2018-06-23 19:09:04,422 INFO Auctions.Web.Controllers.AuctionsController - Index: {"user":"","message":null,"searchString":null,"lowPrice":null,"highPrice":null,"status":null,"page":null}
+2018-06-23 19:09:04,448 INFO Auctions.Data.AuctionData - GetAllOpenedAuctions: {"searchString":null,"lowPrice":null,"highPrice":null,"status":null,"page":null}
+2018-06-23 19:09:04,450 INFO Auctions.Data.AuctionData - CloseAuctions: {}
+2018-06-23 19:09:10,540 INFO Auctions.Data.AuctionData - GetDetailsDefaultValues: {}
+2018-06-23 19:09:10,895 INFO Auctions.Data.AuctionData - GetDetailsDefaultValues: {"defaultValues":{"Id":"0dcf4a36-7779-48a8-be90-a7b825d80a92","NumberOfAuctionsPerPage":20,"AuctionDuration":86400,"SilverTokenNumber":30,"GoldTokenNumber":50,"PlatinuTokenNumber":100,"TokenValue":6.10,"Currency":1}}
+2018-06-23 19:09:37,274 INFO Auctions.Data.AuctionData - GetDetailsDefaultValues: {}
+2018-06-23 19:09:37,591 INFO Auctions.Data.AuctionData - GetDetailsDefaultValues: {"defaultValues":{"Id":"0dcf4a36-7779-48a8-be90-a7b825d80a92","NumberOfAuctionsPerPage":20,"AuctionDuration":86400,"SilverTokenNumber":30,"GoldTokenNumber":50,"PlatinuTokenNumber":100,"TokenValue":6.10,"Currency":1}}
+2018-06-23 19:10:13,371 INFO Auctions.Web.Controllers.AccountController - Login: {"user":"","returnUrl":null}
+2018-06-23 19:10:53,962 INFO Auctions.Web.Controllers.AuctionsController - Index: {"user":"","message":null,"searchString":null,"lowPrice":null,"highPrice":null,"status":null,"page":null}
+2018-06-23 19:10:53,962 INFO Auctions.Data.AuctionData - GetAllOpenedAuctions: {"searchString":null,"lowPrice":null,"highPrice":null,"status":null,"page":null}
+2018-06-23 19:10:53,962 INFO Auctions.Data.AuctionData - CloseAuctions: {}
+2018-06-23 19:10:54,356 INFO Auctions.Data.AuctionData - GetDetailsDefaultValues: {}
+2018-06-23 19:10:54,671 INFO Auctions.Data.AuctionData - GetDetailsDefaultValues: {"defaultValues":{"Id":"0dcf4a36-7779-48a8-be90-a7b825d80a92","NumberOfAuctionsPerPage":20,"AuctionDuration":86400,"SilverTokenNumber":30,"GoldTokenNumber":50,"PlatinuTokenNumber":100,"TokenValue":6.10,"Currency":1}}
+2018-06-23 19:10:55,780 INFO Auctions.Web.Controllers.AuctionsController - Index: {"user":"","message":null,"searchString":null,"lowPrice":null,"highPrice":null,"status":null,"page":null}
+2018-06-23 19:10:55,781 INFO Auctions.Data.AuctionData - GetAllOpenedAuctions: {"searchString":null,"lowPrice":null,"highPrice":null,"status":null,"page":null}
+2018-06-23 19:10:55,781 INFO Auctions.Data.AuctionData - CloseAuctions: {}
+2018-06-23 19:10:57,854 INFO Auctions.Data.AuctionData - GetDetailsDefaultValues: {}
+2018-06-23 19:10:58,169 INFO Auctions.Data.AuctionData - GetDetailsDefaultValues: {"defaultValues":{"Id":"0dcf4a36-7779-48a8-be90-a7b825d80a92","NumberOfAuctionsPerPage":20,"AuctionDuration":86400,"SilverTokenNumber":30,"GoldTokenNumber":50,"PlatinuTokenNumber":100,"TokenValue":6.10,"Currency":1}}
+2018-06-23 19:11:42,202 INFO Auctions.Data.AuctionData - GetDetailsDefaultValues: {}
+2018-06-23 19:11:42,522 INFO Auctions.Data.AuctionData - GetDetailsDefaultValues: {"defaultValues":{"Id":"0dcf4a36-7779-48a8-be90-a7b825d80a92","NumberOfAuctionsPerPage":20,"AuctionDuration":86400,"SilverTokenNumber":30,"GoldTokenNumber":50,"PlatinuTokenNumber":100,"TokenValue":6.10,"Currency":1}}
+2018-06-23 19:11:44,892 INFO Auctions.Data.AuctionData - GetDetailsDefaultValues: {}
+2018-06-23 19:11:45,208 INFO Auctions.Data.AuctionData - GetDetailsDefaultValues: {"defaultValues":{"Id":"0dcf4a36-7779-48a8-be90-a7b825d80a92","NumberOfAuctionsPerPage":20,"AuctionDuration":86400,"SilverTokenNumber":30,"GoldTokenNumber":50,"PlatinuTokenNumber":100,"TokenValue":6.10,"Currency":1}}
+2018-06-23 19:12:21,290 INFO Auctions.Web.Controllers.AuctionsController - Index: {"user":"","message":null,"searchString":null,"lowPrice":null,"highPrice":null,"status":null,"page":null}
+2018-06-23 19:12:21,290 INFO Auctions.Data.AuctionData - GetAllOpenedAuctions: {"searchString":null,"lowPrice":null,"highPrice":null,"status":null,"page":null}
+2018-06-23 19:12:21,290 INFO Auctions.Data.AuctionData - CloseAuctions: {}
+2018-06-23 19:12:21,686 INFO Auctions.Data.AuctionData - GetDetailsDefaultValues: {}
+2018-06-23 19:12:22,019 INFO Auctions.Data.AuctionData - GetDetailsDefaultValues: {"defaultValues":{"Id":"0dcf4a36-7779-48a8-be90-a7b825d80a92","NumberOfAuctionsPerPage":20,"AuctionDuration":86400,"SilverTokenNumber":30,"GoldTokenNumber":50,"PlatinuTokenNumber":100,"TokenValue":6.10,"Currency":1}}
+2018-06-23 19:13:06,527 INFO Auctions.Data.AuctionData - GetDetailsDefaultValues: {}
+2018-06-23 19:13:06,856 INFO Auctions.Data.AuctionData - GetDetailsDefaultValues: {"defaultValues":{"Id":"0dcf4a36-7779-48a8-be90-a7b825d80a92","NumberOfAuctionsPerPage":20,"AuctionDuration":86400,"SilverTokenNumber":30,"GoldTokenNumber":50,"PlatinuTokenNumber":100,"TokenValue":6.10,"Currency":1}}
+2018-06-23 19:13:44,973 INFO Auctions.Web.Controllers.AuctionsController - Index: {"user":"","message":null,"searchString":null,"lowPrice":null,"highPrice":null,"status":null,"page":null}
+2018-06-23 19:13:44,995 INFO Auctions.Data.AuctionData - GetAllOpenedAuctions: {"searchString":null,"lowPrice":null,"highPrice":null,"status":null,"page":null}
+2018-06-23 19:13:44,997 INFO Auctions.Data.AuctionData - CloseAuctions: {}
+2018-06-23 19:13:53,683 INFO Auctions.Data.AuctionData - GetDetailsDefaultValues: {}
+2018-06-23 19:13:54,040 INFO Auctions.Data.AuctionData - GetDetailsDefaultValues: {"defaultValues":{"Id":"0dcf4a36-7779-48a8-be90-a7b825d80a92","NumberOfAuctionsPerPage":20,"AuctionDuration":86400,"SilverTokenNumber":30,"GoldTokenNumber":50,"PlatinuTokenNumber":100,"TokenValue":6.10,"Currency":1}}
+2018-06-23 19:14:53,319 ERROR Auctions.Data.AuctionData - GetAllOpenedAuctions
+System.Data.Entity.Core.EntityCommandExecutionException: An error occurred while reading from the store provider's data reader. See the inner exception for details. ---> System.Data.SqlClient.SqlException: Execution Timeout Expired.  The timeout period elapsed prior to completion of the operation or the server is not responding. ---> System.ComponentModel.Win32Exception: The wait operation timed out
+   --- End of inner exception stack trace ---
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlDataReader.TryReadInternal(Boolean setTimeout, Boolean& more)
+   at System.Data.SqlClient.SqlDataReader.Read()
+   at System.Data.Entity.Core.Common.Internal.Materialization.Shaper`1.StoreRead()
+   --- End of inner exception stack trace ---
+   at System.Data.Entity.Core.Common.Internal.Materialization.Shaper`1.HandleReaderException(Exception e)
+   at System.Data.Entity.Core.Common.Internal.Materialization.Shaper`1.StoreRead()
+   at System.Data.Entity.Core.Common.Internal.Materialization.Shaper`1.RowNestedResultEnumerator.MoveNext()
+   at System.Data.Entity.Core.Common.Internal.Materialization.Shaper`1.ObjectQueryNestedEnumerator.TryReadToNextElement()
+   at System.Data.Entity.Core.Common.Internal.Materialization.Shaper`1.ObjectQueryNestedEnumerator.ReadElement()
+   at System.Data.Entity.Core.Common.Internal.Materialization.Shaper`1.ObjectQueryNestedEnumerator.MoveNext()
+   at System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   at System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   at System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   at Auctions.Data.AuctionData.GetAllOpenedAuctions(String searchString, Nullable`1 lowPrice, Nullable`1 highPrice, Nullable`1 status, Nullable`1 page) in E:\FAKS\3\Infrastruktura\REŠENJE\Auctions\Auctions.Data\AuctionData.cs:line 406
+2018-06-23 19:16:32,012 INFO Auctions.Web.Controllers.AuctionsController - Index: {"user":"","message":null,"searchString":null,"lowPrice":null,"highPrice":null,"status":null,"page":null}
+2018-06-23 19:16:32,012 INFO Auctions.Data.AuctionData - GetAllOpenedAuctions: {"searchString":null,"lowPrice":null,"highPrice":null,"status":null,"page":null}
+2018-06-23 19:16:32,012 INFO Auctions.Data.AuctionData - CloseAuctions: {}
+2018-06-23 19:16:32,406 INFO Auctions.Data.AuctionData - GetDetailsDefaultValues: {}
+2018-06-23 19:16:32,743 INFO Auctions.Data.AuctionData - GetDetailsDefaultValues: {"defaultValues":{"Id":"0dcf4a36-7779-48a8-be90-a7b825d80a92","NumberOfAuctionsPerPage":20,"AuctionDuration":86400,"SilverTokenNumber":30,"GoldTokenNumber":50,"PlatinuTokenNumber":100,"TokenValue":6.10,"Currency":1}}
+2018-06-23 19:17:25,820 INFO Auctions.Data.AuctionData - GetDetailsDefaultValues: {}
+2018-06-23 19:17:26,139 INFO Auctions.Data.AuctionData - GetDetailsDefaultValues: {"defaultValues":{"Id":"0dcf4a36-7779-48a8-be90-a7b825d80a92","NumberOfAuctionsPerPage":20,"AuctionDuration":86400,"SilverTokenNumber":30,"GoldTokenNumber":50,"PlatinuTokenNumber":100,"TokenValue":6.10,"Currency":1}}
+2018-06-23 19:17:36,920 INFO Auctions.Web.Controllers.AuctionsController - Bid: {"user":"","id":"6cf22b16-e6e6-4429-a0fe-93d2847868ee","offer":2}
+2018-06-23 19:17:40,397 INFO Auctions.Web.Controllers.AccountController - Login: {"user":"","returnUrl":null}
+2018-06-23 19:17:46,173 INFO Auctions.Web.Controllers.AccountController - Login-POST: {"user":"","model":{"Email":"maraa@gmail.com","Password":"Student.96","RememberMe":false},"returnUrl":null}
+2018-06-23 19:17:48,136 INFO Auctions.Web.Controllers.AuctionsController - Index: {"user":"maraa@gmail.com","message":null,"searchString":null,"lowPrice":null,"highPrice":null,"status":null,"page":null}
+2018-06-23 19:17:48,136 INFO Auctions.Data.AuctionData - GetAllOpenedAuctions: {"searchString":null,"lowPrice":null,"highPrice":null,"status":null,"page":null}
+2018-06-23 19:17:48,137 INFO Auctions.Data.AuctionData - CloseAuctions: {}
+2018-06-23 19:17:48,530 INFO Auctions.Data.AuctionData - GetDetailsDefaultValues: {}
+2018-06-23 19:17:48,846 INFO Auctions.Data.AuctionData - GetDetailsDefaultValues: {"defaultValues":{"Id":"0dcf4a36-7779-48a8-be90-a7b825d80a92","NumberOfAuctionsPerPage":20,"AuctionDuration":86400,"SilverTokenNumber":30,"GoldTokenNumber":50,"PlatinuTokenNumber":100,"TokenValue":6.10,"Currency":1}}
+2018-06-23 19:19:34,244 INFO Auctions.Data.AuctionData - GetDetailsDefaultValues: {}
+2018-06-23 19:19:34,565 INFO Auctions.Data.AuctionData - GetDetailsDefaultValues: {"defaultValues":{"Id":"0dcf4a36-7779-48a8-be90-a7b825d80a92","NumberOfAuctionsPerPage":20,"AuctionDuration":86400,"SilverTokenNumber":30,"GoldTokenNumber":50,"PlatinuTokenNumber":100,"TokenValue":6.10,"Currency":1}}
+2018-06-23 19:20:55,957 INFO Auctions.Web.Controllers.AuctionsController - Bid: {"user":"maraa@gmail.com","id":"6cf22b16-e6e6-4429-a0fe-93d2847868ee","offer":2}
+2018-06-23 19:20:55,961 INFO Auctions.Data.AuctionData - MakeBid: {"auctionId":"6cf22b16-e6e6-4429-a0fe-93d2847868ee","offerTokens":2,"userId":"853df1be-ee6d-4ecc-a8e5-fbe9c2921b85"} 
+2018-06-23 19:20:55,961 INFO Auctions.Data.AuctionData - CloseAuctions: {}
+2018-06-23 19:21:11,215 INFO Auctions.Web.Controllers.AuctionsController - Bid: {"user":"maraa@gmail.com","id":"dca6782b-fed1-49fa-be77-8c2d5925b94b","offer":6}
+2018-06-23 19:21:11,215 INFO Auctions.Data.AuctionData - MakeBid: {"auctionId":"dca6782b-fed1-49fa-be77-8c2d5925b94b","offerTokens":6,"userId":"853df1be-ee6d-4ecc-a8e5-fbe9c2921b85"} 
+2018-06-23 19:21:11,215 INFO Auctions.Data.AuctionData - CloseAuctions: {}
+2018-06-23 19:21:16,061 INFO Auctions.Web.Controllers.AuctionsController - Bid: {"user":"maraa@gmail.com","id":"d29fc14d-b9db-49a2-a344-6bcf9ec7b3c2","offer":50}
+2018-06-23 19:21:16,061 INFO Auctions.Data.AuctionData - MakeBid: {"auctionId":"d29fc14d-b9db-49a2-a344-6bcf9ec7b3c2","offerTokens":50,"userId":"853df1be-ee6d-4ecc-a8e5-fbe9c2921b85"} 
+2018-06-23 19:21:16,061 INFO Auctions.Data.AuctionData - CloseAuctions: {}
+2018-06-23 19:21:16,481 INFO Auctions.Web.Controllers.AuctionsController - Bid: {"user":"maraa@gmail.com","id":"d29fc14d-b9db-49a2-a344-6bcf9ec7b3c2","offer":50}
+2018-06-23 19:21:16,481 INFO Auctions.Data.AuctionData - MakeBid: {"auctionId":"d29fc14d-b9db-49a2-a344-6bcf9ec7b3c2","offerTokens":50,"userId":"853df1be-ee6d-4ecc-a8e5-fbe9c2921b85"} 
+2018-06-23 19:21:16,481 INFO Auctions.Data.AuctionData - CloseAuctions: {}
+2018-06-23 19:21:32,324 ERROR Auctions.Data.AuctionData - Make Bid
+System.Data.Entity.Infrastructure.DbUpdateException: An error occurred while saving entities that do not expose foreign key properties for their relationships. The EntityEntries property will return null because a single entity cannot be identified as the source of the exception. Handling of exceptions while saving can be made easier by exposing foreign key properties in your entity types. See the InnerException for details. ---> System.Data.Entity.Core.OptimisticConcurrencyException: Store update, insert, or delete statement affected an unexpected number of rows (0). Entities may have been modified or deleted since entities were loaded. See http://go.microsoft.com/fwlink/?LinkId=472540 for information on understanding and handling optimistic concurrency exceptions.
+   at System.Data.Entity.Core.Mapping.Update.Internal.UpdateTranslator.ValidateRowsAffected(Int64 rowsAffected, UpdateCommand source)
+   at System.Data.Entity.Core.Mapping.Update.Internal.UpdateTranslator.Update()
+   at System.Data.Entity.Core.EntityClient.Internal.EntityAdapter.<Update>b__2(UpdateTranslator ut)
+   at System.Data.Entity.Core.EntityClient.Internal.EntityAdapter.Update[T](T noChangesResult, Func`2 updateFunction)
+   at System.Data.Entity.Core.EntityClient.Internal.EntityAdapter.Update()
+   at System.Data.Entity.Core.Objects.ObjectContext.<SaveChangesToStore>b__35()
+   at System.Data.Entity.Core.Objects.ObjectContext.ExecuteInTransaction[T](Func`1 func, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction, Boolean releaseConnectionOnSuccess)
+   at System.Data.Entity.Core.Objects.ObjectContext.SaveChangesToStore(SaveOptions options, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction)
+   at System.Data.Entity.Core.Objects.ObjectContext.<>c__DisplayClass2a.<SaveChangesInternal>b__27()
+   at System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute[TResult](Func`1 operation)
+   at System.Data.Entity.Core.Objects.ObjectContext.SaveChangesInternal(SaveOptions options, Boolean executeInExistingTransaction)
+   at System.Data.Entity.Core.Objects.ObjectContext.SaveChanges(SaveOptions options)
+   at System.Data.Entity.Internal.InternalContext.SaveChanges()
+   --- End of inner exception stack trace ---
+   at System.Data.Entity.Internal.InternalContext.SaveChanges()
+   at System.Data.Entity.Internal.LazyInternalContext.SaveChanges()
+   at System.Data.Entity.DbContext.SaveChanges()
+   at Auctions.Data.AuctionData.MakeBid(String auctionId, Nullable`1 offerTokens, String userId) in E:\FAKS\3\Infrastruktura\REŠENJE\Auctions\Auctions.Data\AuctionData.cs:line 954
+2018-06-23 19:21:32,703 INFO Auctions.Data.AuctionData - MakeBid: new bid and updated auction {"Name":"moja aukcija","PlacingTime":"2018-06-23T17:21:31.3097662Z","NumberOfTokens":50,"UserName":"maraa@gmail.com","auctionUser":"maraa@gmail.com","CurrentPrice":305.00} 
+2018-06-23 19:21:32,707 INFO Auctions.Data.AuctionData - GetAuctionDetailsById: {"id":"d29fc14d-b9db-49a2-a344-6bcf9ec7b3c2","page":1} 
+2018-06-23 19:21:32,707 INFO Auctions.Data.AuctionData - CloseAuctions: {}
+2018-06-23 19:21:38,427 INFO Auctions.Web.Controllers.AuctionsController - Bid: {"user":"maraa@gmail.com","id":"6cf22b16-e6e6-4429-a0fe-93d2847868ee","offer":2}
+2018-06-23 19:21:38,427 INFO Auctions.Data.AuctionData - MakeBid: {"auctionId":"6cf22b16-e6e6-4429-a0fe-93d2847868ee","offerTokens":2,"userId":"853df1be-ee6d-4ecc-a8e5-fbe9c2921b85"} 
+2018-06-23 19:21:38,427 INFO Auctions.Data.AuctionData - CloseAuctions: {}
+2018-06-23 19:21:38,507 INFO Auctions.Data.AuctionData - GetDetailsDefaultValues: {}
+2018-06-23 19:21:38,901 INFO Auctions.Data.AuctionData - GetDetailsDefaultValues: {"defaultValues":{"Id":"0dcf4a36-7779-48a8-be90-a7b825d80a92","NumberOfAuctionsPerPage":20,"AuctionDuration":86400,"SilverTokenNumber":30,"GoldTokenNumber":50,"PlatinuTokenNumber":100,"TokenValue":6.10,"Currency":1}}
+2018-06-23 19:21:41,431 INFO Auctions.Data.AuctionData - MakeBid: new bid and updated auction {"Name":"nova aukcija sa sjta","PlacingTime":"2018-06-23T17:21:39.6338179Z","NumberOfTokens":2,"UserName":"maraa@gmail.com","auctionUser":"maraa@gmail.com","CurrentPrice":12.20} 
+2018-06-23 19:21:41,431 INFO Auctions.Data.AuctionData - GetAuctionDetailsById: {"id":"6cf22b16-e6e6-4429-a0fe-93d2847868ee","page":1} 
+2018-06-23 19:21:41,431 INFO Auctions.Data.AuctionData - CloseAuctions: {}
+2018-06-23 19:21:45,566 INFO Auctions.Web.Controllers.AuctionsController - Bid: {"user":"maraa@gmail.com","id":"dca6782b-fed1-49fa-be77-8c2d5925b94b","offer":6}
+2018-06-23 19:21:45,566 INFO Auctions.Data.AuctionData - MakeBid: {"auctionId":"dca6782b-fed1-49fa-be77-8c2d5925b94b","offerTokens":6,"userId":"853df1be-ee6d-4ecc-a8e5-fbe9c2921b85"} 
+2018-06-23 19:21:45,566 INFO Auctions.Data.AuctionData - CloseAuctions: {}
+2018-06-23 19:21:48,365 INFO Auctions.Data.AuctionData - MakeBid: new bid and updated auction {"Name":"Igrica ","PlacingTime":"2018-06-23T17:21:47.1053354Z","NumberOfTokens":6,"UserName":"maraa@gmail.com","auctionUser":"maraa@gmail.com","CurrentPrice":36.60} 
+2018-06-23 19:21:48,365 INFO Auctions.Data.AuctionData - GetAuctionDetailsById: {"id":"dca6782b-fed1-49fa-be77-8c2d5925b94b","page":1} 
+2018-06-23 19:21:48,365 INFO Auctions.Data.AuctionData - CloseAuctions: {}
+2018-06-23 19:22:06,632 INFO Auctions.Data.AuctionData - GetDetailsDefaultValues: {}
+2018-06-23 19:22:07,006 INFO Auctions.Data.AuctionData - GetDetailsDefaultValues: {"defaultValues":{"Id":"0dcf4a36-7779-48a8-be90-a7b825d80a92","NumberOfAuctionsPerPage":20,"AuctionDuration":86400,"SilverTokenNumber":30,"GoldTokenNumber":50,"PlatinuTokenNumber":100,"TokenValue":6.10,"Currency":1}}
+2018-06-23 19:22:18,150 INFO Auctions.Data.AuctionData - GetDetailsDefaultValues: {}
+2018-06-23 19:22:18,521 INFO Auctions.Data.AuctionData - GetDetailsDefaultValues: {"defaultValues":{"Id":"0dcf4a36-7779-48a8-be90-a7b825d80a92","NumberOfAuctionsPerPage":20,"AuctionDuration":86400,"SilverTokenNumber":30,"GoldTokenNumber":50,"PlatinuTokenNumber":100,"TokenValue":6.10,"Currency":1}}
+2018-06-23 19:22:30,011 ERROR Auctions.Data.AuctionData - Make Bid
+System.Data.Entity.Infrastructure.DbUpdateException: An error occurred while saving entities that do not expose foreign key properties for their relationships. The EntityEntries property will return null because a single entity cannot be identified as the source of the exception. Handling of exceptions while saving can be made easier by exposing foreign key properties in your entity types. See the InnerException for details. ---> System.Data.Entity.Core.OptimisticConcurrencyException: Store update, insert, or delete statement affected an unexpected number of rows (0). Entities may have been modified or deleted since entities were loaded. See http://go.microsoft.com/fwlink/?LinkId=472540 for information on understanding and handling optimistic concurrency exceptions.
+   at System.Data.Entity.Core.Mapping.Update.Internal.UpdateTranslator.ValidateRowsAffected(Int64 rowsAffected, UpdateCommand source)
+   at System.Data.Entity.Core.Mapping.Update.Internal.UpdateTranslator.Update()
+   at System.Data.Entity.Core.EntityClient.Internal.EntityAdapter.<Update>b__2(UpdateTranslator ut)
+   at System.Data.Entity.Core.EntityClient.Internal.EntityAdapter.Update[T](T noChangesResult, Func`2 updateFunction)
+   at System.Data.Entity.Core.EntityClient.Internal.EntityAdapter.Update()
+   at System.Data.Entity.Core.Objects.ObjectContext.<SaveChangesToStore>b__35()
+   at System.Data.Entity.Core.Objects.ObjectContext.ExecuteInTransaction[T](Func`1 func, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction, Boolean releaseConnectionOnSuccess)
+   at System.Data.Entity.Core.Objects.ObjectContext.SaveChangesToStore(SaveOptions options, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction)
+   at System.Data.Entity.Core.Objects.ObjectContext.<>c__DisplayClass2a.<SaveChangesInternal>b__27()
+   at System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute[TResult](Func`1 operation)
+   at System.Data.Entity.Core.Objects.ObjectContext.SaveChangesInternal(SaveOptions options, Boolean executeInExistingTransaction)
+   at System.Data.Entity.Core.Objects.ObjectContext.SaveChanges(SaveOptions options)
+   at System.Data.Entity.Internal.InternalContext.SaveChanges()
+   --- End of inner exception stack trace ---
+   at System.Data.Entity.Internal.InternalContext.SaveChanges()
+   at System.Data.Entity.Internal.LazyInternalContext.SaveChanges()
+   at System.Data.Entity.DbContext.SaveChanges()
+   at Auctions.Data.AuctionData.MakeBid(String auctionId, Nullable`1 offerTokens, String userId) in E:\FAKS\3\Infrastruktura\REŠENJE\Auctions\Auctions.Data\AuctionData.cs:line 954
+2018-06-23 19:22:30,491 INFO Auctions.Data.AuctionData - MakeBid: new bid and updated auction {"Name":"Igrica ","PlacingTime":"2018-06-23T17:22:29.2197424Z","NumberOfTokens":6,"UserName":"maraa@gmail.com","auctionUser":"maraa@gmail.com","CurrentPrice":36.60} 
+2018-06-23 19:22:30,491 INFO Auctions.Data.AuctionData - GetAuctionDetailsById: {"id":"dca6782b-fed1-49fa-be77-8c2d5925b94b","page":1} 
+2018-06-23 19:22:30,491 INFO Auctions.Data.AuctionData - CloseAuctions: {}
+2018-06-23 19:22:51,318 INFO Auctions.Data.AuctionData - GetDetailsDefaultValues: {}
+2018-06-23 19:22:51,636 INFO Auctions.Data.AuctionData - GetDetailsDefaultValues: {"defaultValues":{"Id":"0dcf4a36-7779-48a8-be90-a7b825d80a92","NumberOfAuctionsPerPage":20,"AuctionDuration":86400,"SilverTokenNumber":30,"GoldTokenNumber":50,"PlatinuTokenNumber":100,"TokenValue":6.10,"Currency":1}}
+2018-06-23 19:26:04,252 INFO Auctions.Web.Controllers.AuctionsController - Index: {"user":"maraa@gmail.com","message":null,"searchString":null,"lowPrice":null,"highPrice":null,"status":null,"page":null}
+2018-06-23 19:26:04,289 INFO Auctions.Data.AuctionData - GetAllOpenedAuctions: {"searchString":null,"lowPrice":null,"highPrice":null,"status":null,"page":null}
+2018-06-23 19:26:04,292 INFO Auctions.Data.AuctionData - CloseAuctions: {}
+2018-06-23 19:26:10,525 INFO Auctions.Data.AuctionData - GetDetailsDefaultValues: {}
+2018-06-23 19:26:10,878 INFO Auctions.Data.AuctionData - GetDetailsDefaultValues: {"defaultValues":{"Id":"0dcf4a36-7779-48a8-be90-a7b825d80a92","NumberOfAuctionsPerPage":20,"AuctionDuration":86400,"SilverTokenNumber":30,"GoldTokenNumber":50,"PlatinuTokenNumber":100,"TokenValue":6.10,"Currency":1}}
+2018-06-23 19:27:08,610 INFO Auctions.Web.Controllers.AuctionsController - Index: {"user":"","message":null,"searchString":null,"lowPrice":null,"highPrice":null,"status":null,"page":null}
+2018-06-23 19:27:08,640 INFO Auctions.Data.AuctionData - GetAllOpenedAuctions: {"searchString":null,"lowPrice":null,"highPrice":null,"status":null,"page":null}
+2018-06-23 19:27:08,644 INFO Auctions.Data.AuctionData - CloseAuctions: {}
+2018-06-23 19:27:09,333 INFO Auctions.Data.AuctionData - GetDetailsDefaultValues: {}
+2018-06-23 19:27:09,372 INFO Auctions.Data.AuctionData - GetDetailsDefaultValues: {"defaultValues":{"Id":"0dcf4a36-7779-48a8-be90-a7b825d80a92","NumberOfAuctionsPerPage":20,"AuctionDuration":86400,"SilverTokenNumber":40,"GoldTokenNumber":70,"PlatinuTokenNumber":110,"TokenValue":6.00,"Currency":1}}
+2018-06-23 19:27:09,509 INFO Auctions.Data.AuctionData - GetDetailsDefaultValues: {}
+2018-06-23 19:27:09,523 INFO Auctions.Data.AuctionData - GetDetailsDefaultValues: {"defaultValues":{"Id":"0dcf4a36-7779-48a8-be90-a7b825d80a92","NumberOfAuctionsPerPage":20,"AuctionDuration":86400,"SilverTokenNumber":40,"GoldTokenNumber":70,"PlatinuTokenNumber":110,"TokenValue":6.00,"Currency":1}}
+2018-06-23 19:27:19,657 INFO Auctions.Web.Controllers.AuctionsController - Index: {"user":"","message":null,"searchString":null,"lowPrice":null,"highPrice":null,"status":null,"page":null}
+2018-06-23 19:27:19,657 INFO Auctions.Data.AuctionData - GetAllOpenedAuctions: {"searchString":null,"lowPrice":null,"highPrice":null,"status":null,"page":null}
+2018-06-23 19:27:19,657 INFO Auctions.Data.AuctionData - CloseAuctions: {}
+2018-06-23 19:27:19,681 INFO Auctions.Data.AuctionData - GetDetailsDefaultValues: {}
+2018-06-23 19:27:19,698 INFO Auctions.Data.AuctionData - GetDetailsDefaultValues: {"defaultValues":{"Id":"0dcf4a36-7779-48a8-be90-a7b825d80a92","NumberOfAuctionsPerPage":20,"AuctionDuration":86400,"SilverTokenNumber":40,"GoldTokenNumber":70,"PlatinuTokenNumber":110,"TokenValue":6.00,"Currency":1}}
+2018-06-23 19:27:19,761 INFO Auctions.Data.AuctionData - GetDetailsDefaultValues: {}
+2018-06-23 19:27:19,775 INFO Auctions.Data.AuctionData - GetDetailsDefaultValues: {"defaultValues":{"Id":"0dcf4a36-7779-48a8-be90-a7b825d80a92","NumberOfAuctionsPerPage":20,"AuctionDuration":86400,"SilverTokenNumber":40,"GoldTokenNumber":70,"PlatinuTokenNumber":110,"TokenValue":6.00,"Currency":1}}
+2018-06-23 19:27:25,184 INFO Auctions.Web.Controllers.AuctionsController - Bid: {"user":"","id":"821b0df0-8b80-4254-8b9a-55ffdfa9cd4a","offer":330}
+2018-06-23 19:27:29,362 INFO Auctions.Web.Controllers.AccountController - Login: {"user":"","returnUrl":null}
+2018-06-23 19:27:33,171 INFO Auctions.Web.Controllers.AccountController - Login-POST: {"user":"","model":{"Email":"maraa@gmail.com","Password":"Student.96","RememberMe":false},"returnUrl":null}
+2018-06-23 19:27:33,509 INFO Auctions.Web.Controllers.AuctionsController - Index: {"user":"maraa@gmail.com","message":null,"searchString":null,"lowPrice":null,"highPrice":null,"status":null,"page":null}
+2018-06-23 19:27:33,509 INFO Auctions.Data.AuctionData - GetAllOpenedAuctions: {"searchString":null,"lowPrice":null,"highPrice":null,"status":null,"page":null}
+2018-06-23 19:27:33,509 INFO Auctions.Data.AuctionData - CloseAuctions: {}
+2018-06-23 19:27:40,712 INFO Auctions.Data.AuctionData - GetDetailsDefaultValues: {}
+2018-06-23 19:27:40,731 INFO Auctions.Data.AuctionData - GetDetailsDefaultValues: {"defaultValues":{"Id":"0dcf4a36-7779-48a8-be90-a7b825d80a92","NumberOfAuctionsPerPage":20,"AuctionDuration":86400,"SilverTokenNumber":40,"GoldTokenNumber":70,"PlatinuTokenNumber":110,"TokenValue":6.00,"Currency":1}}
+2018-06-23 19:27:40,798 INFO Auctions.Data.AuctionData - GetDetailsDefaultValues: {}
+2018-06-23 19:27:40,813 INFO Auctions.Data.AuctionData - GetDetailsDefaultValues: {"defaultValues":{"Id":"0dcf4a36-7779-48a8-be90-a7b825d80a92","NumberOfAuctionsPerPage":20,"AuctionDuration":86400,"SilverTokenNumber":40,"GoldTokenNumber":70,"PlatinuTokenNumber":110,"TokenValue":6.00,"Currency":1}}
+2018-06-23 19:27:46,062 INFO Auctions.Web.Controllers.AuctionsController - Bid: {"user":"maraa@gmail.com","id":"821b0df0-8b80-4254-8b9a-55ffdfa9cd4a","offer":330}
+2018-06-23 19:27:55,747 INFO Auctions.Data.AuctionData - MakeBid: {"auctionId":"821b0df0-8b80-4254-8b9a-55ffdfa9cd4a","offerTokens":330,"userId":"853df1be-ee6d-4ecc-a8e5-fbe9c2921b85"} 
+2018-06-23 19:27:55,747 INFO Auctions.Data.AuctionData - CloseAuctions: {}
+2018-06-23 19:34:36,023 INFO Auctions.Data.AuctionData - MakeBid: new bid and updated auction {"Name":"Proba","PlacingTime":"2018-06-23T17:34:35.9274611Z","NumberOfTokens":330,"UserName":"maraa@gmail.com","auctionUser":"maraa@gmail.com","CurrentPrice":1980.00} 
+2018-06-23 19:34:36,026 INFO Auctions.Data.AuctionData - GetAuctionDetailsById: {"id":"821b0df0-8b80-4254-8b9a-55ffdfa9cd4a","page":1} 
+2018-06-23 19:34:36,026 INFO Auctions.Data.AuctionData - CloseAuctions: {}
+2018-06-23 19:34:36,107 INFO Auctions.Data.AuctionData - GetDetailsDefaultValues: {}
+2018-06-23 19:34:36,124 INFO Auctions.Data.AuctionData - GetDetailsDefaultValues: {"defaultValues":{"Id":"0dcf4a36-7779-48a8-be90-a7b825d80a92","NumberOfAuctionsPerPage":20,"AuctionDuration":86400,"SilverTokenNumber":40,"GoldTokenNumber":70,"PlatinuTokenNumber":110,"TokenValue":6.00,"Currency":1}}
+2018-06-23 19:36:06,050 INFO Auctions.Web.Controllers.AuctionsController - Bid: {"user":"maraa@gmail.com","id":"821b0df0-8b80-4254-8b9a-55ffdfa9cd4a","offer":331}
+2018-06-23 19:36:07,857 INFO Auctions.Data.AuctionData - MakeBid: {"auctionId":"821b0df0-8b80-4254-8b9a-55ffdfa9cd4a","offerTokens":331,"userId":"853df1be-ee6d-4ecc-a8e5-fbe9c2921b85"} 
+2018-06-23 19:36:08,417 INFO Auctions.Data.AuctionData - CloseAuctions: {}
+2018-06-23 19:38:43,852 ERROR Auctions.Data.AuctionData - Make Bid
+System.Data.Entity.Infrastructure.DbUpdateException: An error occurred while saving entities that do not expose foreign key properties for their relationships. The EntityEntries property will return null because a single entity cannot be identified as the source of the exception. Handling of exceptions while saving can be made easier by exposing foreign key properties in your entity types. See the InnerException for details. ---> System.Data.Entity.Core.OptimisticConcurrencyException: Store update, insert, or delete statement affected an unexpected number of rows (0). Entities may have been modified or deleted since entities were loaded. See http://go.microsoft.com/fwlink/?LinkId=472540 for information on understanding and handling optimistic concurrency exceptions.
+   at System.Data.Entity.Core.Mapping.Update.Internal.UpdateTranslator.ValidateRowsAffected(Int64 rowsAffected, UpdateCommand source)
+   at System.Data.Entity.Core.Mapping.Update.Internal.UpdateTranslator.Update()
+   at System.Data.Entity.Core.EntityClient.Internal.EntityAdapter.<Update>b__2(UpdateTranslator ut)
+   at System.Data.Entity.Core.EntityClient.Internal.EntityAdapter.Update[T](T noChangesResult, Func`2 updateFunction)
+   at System.Data.Entity.Core.EntityClient.Internal.EntityAdapter.Update()
+   at System.Data.Entity.Core.Objects.ObjectContext.<SaveChangesToStore>b__35()
+   at System.Data.Entity.Core.Objects.ObjectContext.ExecuteInTransaction[T](Func`1 func, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction, Boolean releaseConnectionOnSuccess)
+   at System.Data.Entity.Core.Objects.ObjectContext.SaveChangesToStore(SaveOptions options, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction)
+   at System.Data.Entity.Core.Objects.ObjectContext.<>c__DisplayClass2a.<SaveChangesInternal>b__27()
+   at System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute[TResult](Func`1 operation)
+   at System.Data.Entity.Core.Objects.ObjectContext.SaveChangesInternal(SaveOptions options, Boolean executeInExistingTransaction)
+   at System.Data.Entity.Core.Objects.ObjectContext.SaveChanges(SaveOptions options)
+   at System.Data.Entity.Internal.InternalContext.SaveChanges()
+   --- End of inner exception stack trace ---
+   at System.Data.Entity.Internal.InternalContext.SaveChanges()
+   at System.Data.Entity.Internal.LazyInternalContext.SaveChanges()
+   at System.Data.Entity.DbContext.SaveChanges()
+   at Auctions.Data.AuctionData.MakeBid(String auctionId, Nullable`1 offerTokens, String userId) in E:\FAKS\3\Infrastruktura\REŠENJE\Auctions\Auctions.Data\AuctionData.cs:line 954
+2018-06-23 19:38:57,395 INFO Auctions.Web.Controllers.AuctionsController - Bid: {"user":"maraa@gmail.com","id":"821b0df0-8b80-4254-8b9a-55ffdfa9cd4a","offer":331}
+2018-06-23 19:39:09,863 INFO Auctions.Data.AuctionData - MakeBid: {"auctionId":"821b0df0-8b80-4254-8b9a-55ffdfa9cd4a","offerTokens":331,"userId":"853df1be-ee6d-4ecc-a8e5-fbe9c2921b85"} 
+2018-06-23 19:39:09,863 INFO Auctions.Data.AuctionData - CloseAuctions: {}
+2018-06-23 19:40:08,664 INFO Auctions.Data.AuctionData - MakeBid: new bid and updated auction {"Name":"Proba","PlacingTime":"2018-06-23T17:40:08.619753Z","NumberOfTokens":331,"UserName":"maraa@gmail.com","auctionUser":"maraa@gmail.com","CurrentPrice":1986.00} 
+2018-06-23 19:40:08,664 INFO Auctions.Data.AuctionData - GetAuctionDetailsById: {"id":"821b0df0-8b80-4254-8b9a-55ffdfa9cd4a","page":1} 
+2018-06-23 19:40:08,664 INFO Auctions.Data.AuctionData - CloseAuctions: {}
+2018-06-23 19:40:08,731 INFO Auctions.Data.AuctionData - GetDetailsDefaultValues: {}
+2018-06-23 19:40:08,747 INFO Auctions.Data.AuctionData - GetDetailsDefaultValues: {"defaultValues":{"Id":"0dcf4a36-7779-48a8-be90-a7b825d80a92","NumberOfAuctionsPerPage":20,"AuctionDuration":86400,"SilverTokenNumber":40,"GoldTokenNumber":70,"PlatinuTokenNumber":110,"TokenValue":6.00,"Currency":1}}
+2018-06-23 19:40:12,006 INFO Auctions.Web.Controllers.AuctionsController - Bid: {"user":"maraa@gmail.com","id":"821b0df0-8b80-4254-8b9a-55ffdfa9cd4a","offer":332}
+2018-06-23 19:41:32,923 INFO Auctions.Data.AuctionData - MakeBid: {"auctionId":"821b0df0-8b80-4254-8b9a-55ffdfa9cd4a","offerTokens":332,"userId":"853df1be-ee6d-4ecc-a8e5-fbe9c2921b85"} 
+2018-06-23 19:41:32,923 INFO Auctions.Data.AuctionData - CloseAuctions: {}
+2018-06-23 19:43:45,147 INFO Auctions.Web.Controllers.AuctionsController - Index: {"user":"","message":null,"searchString":null,"lowPrice":null,"highPrice":null,"status":null,"page":null}
+2018-06-23 19:43:45,173 INFO Auctions.Data.AuctionData - GetAllOpenedAuctions: {"searchString":null,"lowPrice":null,"highPrice":null,"status":null,"page":null}
+2018-06-23 19:43:45,176 INFO Auctions.Data.AuctionData - CloseAuctions: {}
+2018-06-23 19:43:45,615 INFO Auctions.Data.AuctionData - GetDetailsDefaultValues: {}
+2018-06-23 19:43:45,633 INFO Auctions.Data.AuctionData - GetDetailsDefaultValues: {"defaultValues":{"Id":"0dcf4a36-7779-48a8-be90-a7b825d80a92","NumberOfAuctionsPerPage":20,"AuctionDuration":86400,"SilverTokenNumber":40,"GoldTokenNumber":70,"PlatinuTokenNumber":110,"TokenValue":6.00,"Currency":1}}
+2018-06-23 19:43:45,734 INFO Auctions.Data.AuctionData - GetDetailsDefaultValues: {}
+2018-06-23 19:43:45,736 INFO Auctions.Data.AuctionData - GetDetailsDefaultValues: {"defaultValues":{"Id":"0dcf4a36-7779-48a8-be90-a7b825d80a92","NumberOfAuctionsPerPage":20,"AuctionDuration":86400,"SilverTokenNumber":40,"GoldTokenNumber":70,"PlatinuTokenNumber":110,"TokenValue":6.00,"Currency":1}}
+2018-06-23 19:43:55,440 INFO Auctions.Web.Controllers.AccountController - Login: {"user":"","returnUrl":null}
+2018-06-23 19:43:59,133 INFO Auctions.Web.Controllers.AccountController - Login-POST: {"user":"","model":{"Email":"maraa@gmail.com","Password":"Student.96","RememberMe":false},"returnUrl":null}
+2018-06-23 19:43:59,375 INFO Auctions.Web.Controllers.AuctionsController - Index: {"user":"maraa@gmail.com","message":null,"searchString":null,"lowPrice":null,"highPrice":null,"status":null,"page":null}
+2018-06-23 19:43:59,375 INFO Auctions.Data.AuctionData - GetAllOpenedAuctions: {"searchString":null,"lowPrice":null,"highPrice":null,"status":null,"page":null}
+2018-06-23 19:43:59,375 INFO Auctions.Data.AuctionData - CloseAuctions: {}
+2018-06-23 19:43:59,378 INFO Auctions.Data.AuctionData - GetDetailsDefaultValues: {}
+2018-06-23 19:43:59,379 INFO Auctions.Data.AuctionData - GetDetailsDefaultValues: {"defaultValues":{"Id":"0dcf4a36-7779-48a8-be90-a7b825d80a92","NumberOfAuctionsPerPage":20,"AuctionDuration":86400,"SilverTokenNumber":40,"GoldTokenNumber":70,"PlatinuTokenNumber":110,"TokenValue":6.00,"Currency":1}}
+2018-06-23 19:43:59,421 INFO Auctions.Data.AuctionData - GetDetailsDefaultValues: {}
+2018-06-23 19:43:59,422 INFO Auctions.Data.AuctionData - GetDetailsDefaultValues: {"defaultValues":{"Id":"0dcf4a36-7779-48a8-be90-a7b825d80a92","NumberOfAuctionsPerPage":20,"AuctionDuration":86400,"SilverTokenNumber":40,"GoldTokenNumber":70,"PlatinuTokenNumber":110,"TokenValue":6.00,"Currency":1}}
+2018-06-23 19:44:10,394 INFO Auctions.Web.Controllers.AccountController - LogOff: {"user":"maraa@gmail.com"}
+2018-06-23 19:44:10,400 INFO Auctions.Web.Controllers.AuctionsController - Index: {"user":"","message":null,"searchString":null,"lowPrice":null,"highPrice":null,"status":null,"page":null}
+2018-06-23 19:44:10,400 INFO Auctions.Data.AuctionData - GetAllOpenedAuctions: {"searchString":null,"lowPrice":null,"highPrice":null,"status":null,"page":null}
+2018-06-23 19:44:10,400 INFO Auctions.Data.AuctionData - CloseAuctions: {}
+2018-06-23 19:44:10,409 INFO Auctions.Data.AuctionData - GetDetailsDefaultValues: {}
+2018-06-23 19:44:10,411 INFO Auctions.Data.AuctionData - GetDetailsDefaultValues: {"defaultValues":{"Id":"0dcf4a36-7779-48a8-be90-a7b825d80a92","NumberOfAuctionsPerPage":20,"AuctionDuration":86400,"SilverTokenNumber":40,"GoldTokenNumber":70,"PlatinuTokenNumber":110,"TokenValue":6.00,"Currency":1}}
+2018-06-23 19:44:10,463 INFO Auctions.Data.AuctionData - GetDetailsDefaultValues: {}
+2018-06-23 19:44:10,464 INFO Auctions.Data.AuctionData - GetDetailsDefaultValues: {"defaultValues":{"Id":"0dcf4a36-7779-48a8-be90-a7b825d80a92","NumberOfAuctionsPerPage":20,"AuctionDuration":86400,"SilverTokenNumber":40,"GoldTokenNumber":70,"PlatinuTokenNumber":110,"TokenValue":6.00,"Currency":1}}
+2018-06-23 19:44:13,117 INFO Auctions.Web.Controllers.AccountController - Login: {"user":"","returnUrl":null}
+2018-06-23 19:44:16,726 INFO Auctions.Web.Controllers.AccountController - Login-POST: {"user":"","model":{"Email":"marija@gmail.com","Password":"Student.96","RememberMe":false},"returnUrl":null}
+2018-06-23 19:44:16,765 INFO Auctions.Web.Controllers.AuctionsController - Index: {"user":"marija@gmail.com","message":null,"searchString":null,"lowPrice":null,"highPrice":null,"status":null,"page":null}
+2018-06-23 19:44:16,765 INFO Auctions.Data.AuctionData - GetAllOpenedAuctions: {"searchString":null,"lowPrice":null,"highPrice":null,"status":null,"page":null}
+2018-06-23 19:44:16,765 INFO Auctions.Data.AuctionData - CloseAuctions: {}
+2018-06-23 19:44:16,769 INFO Auctions.Data.AuctionData - GetDetailsDefaultValues: {}
+2018-06-23 19:44:16,769 INFO Auctions.Data.AuctionData - GetDetailsDefaultValues: {"defaultValues":{"Id":"0dcf4a36-7779-48a8-be90-a7b825d80a92","NumberOfAuctionsPerPage":20,"AuctionDuration":86400,"SilverTokenNumber":40,"GoldTokenNumber":70,"PlatinuTokenNumber":110,"TokenValue":6.00,"Currency":1}}
+2018-06-23 19:44:16,810 INFO Auctions.Data.AuctionData - GetDetailsDefaultValues: {}
+2018-06-23 19:44:16,811 INFO Auctions.Data.AuctionData - GetDetailsDefaultValues: {"defaultValues":{"Id":"0dcf4a36-7779-48a8-be90-a7b825d80a92","NumberOfAuctionsPerPage":20,"AuctionDuration":86400,"SilverTokenNumber":40,"GoldTokenNumber":70,"PlatinuTokenNumber":110,"TokenValue":6.00,"Currency":1}}
+2018-06-23 19:44:19,138 INFO Auctions.Web.Controllers.AdminController - Index: {"user":"marija@gmail.com","message":null}
+2018-06-23 19:44:19,140 INFO Auctions.Data.AuctionData - GetDetailsDefaultValues: {}
+2018-06-23 19:44:19,141 INFO Auctions.Data.AuctionData - GetDetailsDefaultValues: {"defaultValues":{"Id":"0dcf4a36-7779-48a8-be90-a7b825d80a92","NumberOfAuctionsPerPage":20,"AuctionDuration":86400,"SilverTokenNumber":40,"GoldTokenNumber":70,"PlatinuTokenNumber":110,"TokenValue":6.00,"Currency":1}}
+2018-06-23 19:44:19,143 INFO Auctions.Data.AuctionData - GetReadyAuctions: {}
+2018-06-23 19:44:21,378 INFO Auctions.Web.Controllers.AdminController - Edit: {"user":"marija@gmail.com"}
+2018-06-23 19:44:21,379 INFO Auctions.Data.AuctionData - GetEditDefaultValues: {}
+2018-06-23 19:44:21,380 INFO Auctions.Data.AuctionData - GetDetailsDefaultValues: {"defaultValues":{"Id":"0dcf4a36-7779-48a8-be90-a7b825d80a92","NumberOfAuctionsPerPage":20,"AuctionDuration":86400,"SilverTokenNumber":40,"GoldTokenNumber":70,"PlatinuTokenNumber":110,"TokenValue":6.00,"Currency":1}}
+2018-06-23 19:45:19,782 INFO Auctions.Web.Controllers.AdminController - Edit: {"user":"marija@gmail.com"}
+2018-06-23 19:45:19,782 INFO Auctions.Data.AuctionData - GetEditDefaultValues: {}
+2018-06-23 19:45:19,785 INFO Auctions.Data.AuctionData - GetDetailsDefaultValues: {"defaultValues":{"Id":"0dcf4a36-7779-48a8-be90-a7b825d80a92","NumberOfAuctionsPerPage":20,"AuctionDuration":86400,"SilverTokenNumber":40,"GoldTokenNumber":70,"PlatinuTokenNumber":110,"TokenValue":6.00,"Currency":1}}
+2018-06-23 19:45:31,486 INFO Auctions.Web.Controllers.AdminController - Edit: {"user":"marija@gmail.com"}
+2018-06-23 19:45:31,486 INFO Auctions.Data.AuctionData - GetEditDefaultValues: {}
+2018-06-23 19:45:31,488 INFO Auctions.Data.AuctionData - GetDetailsDefaultValues: {"defaultValues":{"Id":"0dcf4a36-7779-48a8-be90-a7b825d80a92","NumberOfAuctionsPerPage":20,"AuctionDuration":86400,"SilverTokenNumber":40,"GoldTokenNumber":70,"PlatinuTokenNumber":110,"TokenValue":6.00,"Currency":1}}
+2018-06-23 19:45:40,310 INFO Auctions.Web.Controllers.AdminController - Edit: {"user":"marija@gmail.com"}
+2018-06-23 19:45:40,310 INFO Auctions.Data.AuctionData - GetEditDefaultValues: {}
+2018-06-23 19:45:40,312 INFO Auctions.Data.AuctionData - GetDetailsDefaultValues: {"defaultValues":{"Id":"0dcf4a36-7779-48a8-be90-a7b825d80a92","NumberOfAuctionsPerPage":20,"AuctionDuration":86400,"SilverTokenNumber":40,"GoldTokenNumber":70,"PlatinuTokenNumber":110,"TokenValue":6.00,"Currency":1}}
+2018-06-23 19:45:46,240 INFO Auctions.Web.Controllers.AdminController - Edit: {"user":"marija@gmail.com"}
+2018-06-23 19:45:46,240 INFO Auctions.Data.AuctionData - GetEditDefaultValues: {}
+2018-06-23 19:45:46,241 INFO Auctions.Data.AuctionData - GetDetailsDefaultValues: {"defaultValues":{"Id":"0dcf4a36-7779-48a8-be90-a7b825d80a92","NumberOfAuctionsPerPage":20,"AuctionDuration":86400,"SilverTokenNumber":40,"GoldTokenNumber":70,"PlatinuTokenNumber":110,"TokenValue":6.00,"Currency":1}}
+2018-06-23 19:45:55,650 INFO Auctions.Web.Controllers.AdminController - Edit: {"user":"marija@gmail.com"}
+2018-06-23 19:45:55,650 INFO Auctions.Data.AuctionData - GetEditDefaultValues: {}
+2018-06-23 19:45:55,651 INFO Auctions.Data.AuctionData - GetDetailsDefaultValues: {"defaultValues":{"Id":"0dcf4a36-7779-48a8-be90-a7b825d80a92","NumberOfAuctionsPerPage":20,"AuctionDuration":86400,"SilverTokenNumber":40,"GoldTokenNumber":70,"PlatinuTokenNumber":110,"TokenValue":6.00,"Currency":1}}
+2018-06-23 19:46:01,455 INFO Auctions.Web.Controllers.AdminController - Edit: {"user":"marija@gmail.com"}
+2018-06-23 19:46:01,455 INFO Auctions.Data.AuctionData - GetEditDefaultValues: {}
+2018-06-23 19:46:01,456 INFO Auctions.Data.AuctionData - GetDetailsDefaultValues: {"defaultValues":{"Id":"0dcf4a36-7779-48a8-be90-a7b825d80a92","NumberOfAuctionsPerPage":20,"AuctionDuration":86400,"SilverTokenNumber":40,"GoldTokenNumber":70,"PlatinuTokenNumber":110,"TokenValue":6.00,"Currency":1}}

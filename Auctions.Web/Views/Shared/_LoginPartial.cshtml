@@ -12,7 +12,7 @@
             @if (User.IsInRole("User"))
             {
                 <li class="nav-item align-middle">
-                    <a href="" class="bg-primary rounded nav-link align-middle">@User.Identity.GetUser().NumberOfTokens</a>
+                    <a href="" class="bg-primary rounded nav-link align-middle p-1">@User.Identity.GetUser().NumberOfTokens</a>
                 </li>
             }
             <li><a href="javascript:document.getElementById('logoutForm').submit()" class="nav-link">Log off</a></li>
