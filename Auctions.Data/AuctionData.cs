@@ -201,7 +201,6 @@ namespace Auctions.Data
                             auction.Name,
                             auction.CurrentPrice,
                             auction.Currency,
-                            auction.User.UserName
                         }));
 
                         auction.Status = AuctionStatus.COMPLETED;

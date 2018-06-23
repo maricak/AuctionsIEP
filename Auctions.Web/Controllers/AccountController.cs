@@ -179,7 +179,8 @@ namespace Auctions.Web.Controllers
                     UserName = model.Email,
                     Email = model.Email,
                     Name = model.Name,
-                    Surname = model.Surname
+                    Surname = model.Surname, 
+                    NumberOfTokens = 0
                 };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)

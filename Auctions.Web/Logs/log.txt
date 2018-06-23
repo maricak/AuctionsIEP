@@ -725,3 +725,44 @@ System.Data.Entity.Infrastructure.DbUpdateException: An error occurred while sav
 2018-06-23 19:46:01,455 INFO Auctions.Web.Controllers.AdminController - Edit: {"user":"marija@gmail.com"}
 2018-06-23 19:46:01,455 INFO Auctions.Data.AuctionData - GetEditDefaultValues: {}
 2018-06-23 19:46:01,456 INFO Auctions.Data.AuctionData - GetDetailsDefaultValues: {"defaultValues":{"Id":"0dcf4a36-7779-48a8-be90-a7b825d80a92","NumberOfAuctionsPerPage":20,"AuctionDuration":86400,"SilverTokenNumber":40,"GoldTokenNumber":70,"PlatinuTokenNumber":110,"TokenValue":6.00,"Currency":1}}
+2018-06-23 20:30:32,222 INFO Auctions.Web.Controllers.AuctionsController - Index: {"user":"","message":null,"searchString":null,"lowPrice":null,"highPrice":null,"status":null,"page":null}
+2018-06-23 20:30:32,242 INFO Auctions.Data.AuctionData - GetAllOpenedAuctions: {"searchString":null,"lowPrice":null,"highPrice":null,"status":null,"page":null}
+2018-06-23 20:30:32,245 INFO Auctions.Data.AuctionData - CloseAuctions: {}
+2018-06-23 20:30:35,682 INFO Auctions.Web.Controllers.AuctionsController - Index: {"user":"","message":null,"searchString":null,"lowPrice":null,"highPrice":null,"status":null,"page":null}
+2018-06-23 20:30:35,682 INFO Auctions.Data.AuctionData - GetAllOpenedAuctions: {"searchString":null,"lowPrice":null,"highPrice":null,"status":null,"page":null}
+2018-06-23 20:30:35,683 INFO Auctions.Data.AuctionData - CloseAuctions: {}
+2018-06-23 20:30:47,834 ERROR Auctions.Data.AuctionData - CloseAuctions
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Auctions.Data.AuctionData.CloseAuctions() in E:\FAKS\3\Infrastruktura\REŠENJE\Auctions\Auctions.Data\AuctionData.cs:line 198
+2018-06-23 20:30:47,844 INFO Auctions.Data.AuctionData - GetDetailsDefaultValues: {}
+2018-06-23 20:30:48,756 INFO Auctions.Data.AuctionData - GetDetailsDefaultValues: {"defaultValues":{"Id":"0dcf4a36-7779-48a8-be90-a7b825d80a92","NumberOfAuctionsPerPage":20,"AuctionDuration":86400,"SilverTokenNumber":30,"GoldTokenNumber":50,"PlatinuTokenNumber":100,"TokenValue":6.10,"Currency":1}}
+2018-06-23 20:30:50,530 ERROR Auctions.Data.AuctionData - CloseAuctions
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Auctions.Data.AuctionData.CloseAuctions() in E:\FAKS\3\Infrastruktura\REŠENJE\Auctions\Auctions.Data\AuctionData.cs:line 198
+2018-06-23 20:30:50,530 INFO Auctions.Data.AuctionData - GetDetailsDefaultValues: {}
+2018-06-23 20:30:51,573 INFO Auctions.Data.AuctionData - GetDetailsDefaultValues: {"defaultValues":{"Id":"0dcf4a36-7779-48a8-be90-a7b825d80a92","NumberOfAuctionsPerPage":20,"AuctionDuration":86400,"SilverTokenNumber":30,"GoldTokenNumber":50,"PlatinuTokenNumber":100,"TokenValue":6.10,"Currency":1}}
+2018-06-23 20:32:24,564 INFO Auctions.Data.AuctionData - GetDetailsDefaultValues: {}
+2018-06-23 20:32:24,901 INFO Auctions.Data.AuctionData - GetDetailsDefaultValues: {"defaultValues":{"Id":"0dcf4a36-7779-48a8-be90-a7b825d80a92","NumberOfAuctionsPerPage":20,"AuctionDuration":86400,"SilverTokenNumber":30,"GoldTokenNumber":50,"PlatinuTokenNumber":100,"TokenValue":6.10,"Currency":1}}
+2018-06-23 20:32:32,283 INFO Auctions.Data.AuctionData - GetDetailsDefaultValues: {}
+2018-06-23 20:32:32,604 INFO Auctions.Data.AuctionData - GetDetailsDefaultValues: {"defaultValues":{"Id":"0dcf4a36-7779-48a8-be90-a7b825d80a92","NumberOfAuctionsPerPage":20,"AuctionDuration":86400,"SilverTokenNumber":30,"GoldTokenNumber":50,"PlatinuTokenNumber":100,"TokenValue":6.10,"Currency":1}}
+2018-06-23 20:33:08,898 INFO Auctions.Web.Controllers.AuctionsController - Details: {"user":"","id":"a23687e0-8139-4beb-96bc-52c51f2cb88a","page":null}
+2018-06-23 20:33:08,901 INFO Auctions.Data.AuctionData - GetAuctionDetailsById: {"id":"a23687e0-8139-4beb-96bc-52c51f2cb88a","page":null} 
+2018-06-23 20:33:08,901 INFO Auctions.Data.AuctionData - CloseAuctions: {}
+2018-06-23 20:33:10,266 ERROR Auctions.Data.AuctionData - CloseAuctions
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Auctions.Data.AuctionData.CloseAuctions() in E:\FAKS\3\Infrastruktura\REŠENJE\Auctions\Auctions.Data\AuctionData.cs:line 198
+2018-06-23 20:33:11,635 INFO Auctions.Data.AuctionData - GetDetailsDefaultValues: {}
+2018-06-23 20:33:11,960 INFO Auctions.Data.AuctionData - GetDetailsDefaultValues: {"defaultValues":{"Id":"0dcf4a36-7779-48a8-be90-a7b825d80a92","NumberOfAuctionsPerPage":20,"AuctionDuration":86400,"SilverTokenNumber":30,"GoldTokenNumber":50,"PlatinuTokenNumber":100,"TokenValue":6.10,"Currency":1}}
+2018-06-23 20:33:33,751 INFO Auctions.Web.Controllers.AuctionsController - Index: {"user":"","message":null,"searchString":null,"lowPrice":null,"highPrice":null,"status":null,"page":null}
+2018-06-23 20:33:33,789 INFO Auctions.Data.AuctionData - GetAllOpenedAuctions: {"searchString":null,"lowPrice":null,"highPrice":null,"status":null,"page":null}
+2018-06-23 20:33:33,792 INFO Auctions.Data.AuctionData - CloseAuctions: {}
+2018-06-23 20:58:47,751 INFO Auctions.Web.Controllers.AuctionsController - Index: {"user":"","message":null,"searchString":null,"lowPrice":null,"highPrice":null,"status":null,"page":null}
+2018-06-23 20:58:47,776 INFO Auctions.Data.AuctionData - GetAllOpenedAuctions: {"searchString":null,"lowPrice":null,"highPrice":null,"status":null,"page":null}
+2018-06-23 20:58:47,779 INFO Auctions.Data.AuctionData - CloseAuctions: {}
+2018-06-23 20:58:54,308 INFO Auctions.Data.AuctionData - CloseAuctions: Auction {"Id":"00513df3-e1c1-4dcf-b697-6f453550bc74","Name":"lopta","CurrentPrice":1.00,"Currency":1} is closed
+2018-06-23 20:58:56,166 INFO Auctions.Data.AuctionData - GetDetailsDefaultValues: {}
+2018-06-23 20:58:56,511 INFO Auctions.Data.AuctionData - GetDetailsDefaultValues: {"defaultValues":{"Id":"0dcf4a36-7779-48a8-be90-a7b825d80a92","NumberOfAuctionsPerPage":20,"AuctionDuration":86400,"SilverTokenNumber":30,"GoldTokenNumber":50,"PlatinuTokenNumber":100,"TokenValue":6.10,"Currency":1}}
+2018-06-23 20:59:36,449 INFO Auctions.Data.AuctionData - GetDetailsDefaultValues: {}
+2018-06-23 20:59:36,767 INFO Auctions.Data.AuctionData - GetDetailsDefaultValues: {"defaultValues":{"Id":"0dcf4a36-7779-48a8-be90-a7b825d80a92","NumberOfAuctionsPerPage":20,"AuctionDuration":86400,"SilverTokenNumber":30,"GoldTokenNumber":50,"PlatinuTokenNumber":100,"TokenValue":6.10,"Currency":1}}
+2018-06-23 21:00:58,403 INFO Auctions.Web.Controllers.AuctionsController - Bid: {"user":"","id":"d29fc14d-b9db-49a2-a344-6bcf9ec7b3c2","offer":51}
+2018-06-23 21:00:59,757 INFO Auctions.Web.Controllers.AuctionsController - Bid: {"user":"","id":"6cf22b16-e6e6-4429-a0fe-93d2847868ee","offer":3}

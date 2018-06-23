@@ -36,7 +36,7 @@ namespace Auctions.Data.Models
 
         [Required]
         [Display(Name = "Value of a token")]
-        [Range(0.0, Double.MaxValue, ErrorMessage = "The value must be positive")]
+        [Range(0.01, Double.MaxValue, ErrorMessage = "The value must be positive")]
         public decimal TokenValue { get; set; }
 
         [Required]

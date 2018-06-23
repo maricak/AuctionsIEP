@@ -105,7 +105,7 @@ function startTimer(that) {
             clearInterval(timer);
 
             $(that).html("--:--:--");
-            $(that).removeClass("text-warning");
+            $(that).removeClass("text-danger");
             $(that).parent().parent().find(".message").hide();
 
             // set sold picture
@@ -137,7 +137,7 @@ function startDetailsTimer(that) {
             clearInterval(timer);
 
             $(that).html("--:--:--");
-            $(that).removeClass("text-warning");
+            $(that).removeClass("text-danger");
 
             // set sold picture
             $(that).parent().parent().parent().parent().find(".over").removeClass("d-none");

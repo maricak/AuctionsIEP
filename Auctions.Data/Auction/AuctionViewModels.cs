@@ -48,6 +48,7 @@ namespace Auctions.Data.Models
 
         [Required(ErrorMessage = "The starting price field is required.")]
         [Display(Name = "Starting Price")]
+        [Range(0.01, Double.MaxValue, ErrorMessage = "The value must be positive")]
         public decimal StartPrice { get; set; }
 
         [Display(Name = "Currency")]
