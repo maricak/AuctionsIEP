@@ -49,9 +49,7 @@
             @Html.ValidationMessageFor(model => model.StartPrice, "", new { @class = "text-danger" })
         </div>
     </div>
-
-
-
+    <input type="hidden" id="currency" name="currency" value="@Model.Currency" />
     <div class="form-group">
         <div class="col-md-6 mb-4">
 

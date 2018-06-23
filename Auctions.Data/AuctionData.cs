@@ -197,10 +197,10 @@ namespace Auctions.Data
                     {
                         logger.InfoFormat("CloseAuctions: Auction {0} is closed", JsonConvert.SerializeObject(new
                         {
-                            auction.Id, 
-                            auction.Name, 
-                            auction.CurrentPrice, 
-                            auction.Currency, 
+                            auction.Id,
+                            auction.Name,
+                            auction.CurrentPrice,
+                            auction.Currency,
                             auction.User.UserName
                         }));
 
@@ -222,7 +222,7 @@ namespace Auctions.Data
                             {
                                 logger.InfoFormat("CloseAuctions: user is getting tokens back {0}", JsonConvert.SerializeObject(new
                                 {
-                                    result.tokens, 
+                                    result.tokens,
                                     result.user.UserName
                                 }));
 
@@ -312,12 +312,12 @@ namespace Auctions.Data
 
                     logger.InfoFormat("OpenAuction: Auction is {0} open", JsonConvert.SerializeObject(new
                     {
-                        auction.Id, 
-                        auction.Name, 
-                        auction.OpeningTime, 
-                        auction.Duration, 
-                        auction.ClosingTime, 
-                        auction.CurrentPrice, 
+                        auction.Id,
+                        auction.Name,
+                        auction.OpeningTime,
+                        auction.Duration,
+                        auction.ClosingTime,
+                        auction.CurrentPrice,
                         auction.Currency
                     }));
 
@@ -439,9 +439,9 @@ namespace Auctions.Data
         {
             logger.InfoFormat("CreateAuction: {0}", JsonConvert.SerializeObject(new
             {
-                model.Currency, 
-                model.Duration, 
-                model.Name, 
+                model.Currency,
+                model.Duration,
+                model.Name,
                 model.StartPrice
             }));
 
@@ -454,8 +454,19 @@ namespace Auctions.Data
                 // check if file is an image
                 Image.FromStream(new MemoryStream(imageBytes)).Dispose();
 
+
                 using (AuctionDB db = new AuctionDB())
                 {
+                    //DefaultValues defaultValues = db.DefaultValues.SingleOrDefault();
+                    //if (defaultValues == null)
+                    //{
+                    //    logger.ErrorFormat("GetAuctionById: Default valuse {0} is null", JsonConvert.SerializeObject(new
+                    //    {
+                    //        defaultValues
+                    //    }));
+                    //    return false;
+                    //}
+
                     Auction auction = new Auction
                     {
                         Id = Guid.NewGuid(),
@@ -473,12 +484,12 @@ namespace Auctions.Data
 
                     logger.InfoFormat("CreateAuction: new Auction {0}", JsonConvert.SerializeObject(new
                     {
-                        auction.Id, 
-                        auction.Name, 
-                        auction.Duration, 
-                        auction.StartPrice, 
-                        auction.CreatingTime, 
-                        auction.Status, 
+                        auction.Id,
+                        auction.Name,
+                        auction.Duration,
+                        auction.StartPrice,
+                        auction.CreatingTime,
+                        auction.Status,
                     }));
 
                     return true;
@@ -543,13 +554,13 @@ namespace Auctions.Data
 
                         logger.InfoFormat("GetAuctionById: Auction {0} ", JsonConvert.SerializeObject(new
                         {
-                            result.Id, 
-                            result.Name, 
-                            result.Currency, 
-                            result.Duration, 
-                            result.CurrentPrice, 
-                            result.CurrentNumberOfTokens, 
-                            result.LastBidder, 
+                            result.Id,
+                            result.Name,
+                            result.Currency,
+                            result.Duration,
+                            result.CurrentPrice,
+                            result.CurrentNumberOfTokens,
+                            result.LastBidder,
                             result.Status
                         }));
 
@@ -781,11 +792,11 @@ namespace Auctions.Data
 
                     logger.InfoFormat("CreateOrder: new order {0} ", JsonConvert.SerializeObject(new
                     {
-                        order.Id, 
-                        order.Currency, 
-                        order.NumberOfTokens, 
-                        order.Status, 
-                        order.Price, 
+                        order.Id,
+                        order.Currency,
+                        order.NumberOfTokens,
+                        order.Status,
+                        order.Price,
                     }));
 
                     return order.Id;
@@ -834,9 +845,9 @@ namespace Auctions.Data
 
                     logger.InfoFormat("SetOrderStatus: updated order {0} ", JsonConvert.SerializeObject(new
                     {
-                        order.Id, 
-                        order.NumberOfTokens, 
-                        order.Status, 
+                        order.Id,
+                        order.NumberOfTokens,
+                        order.Status,
                         order.User.UserName
                     }));
 
@@ -963,10 +974,10 @@ namespace Auctions.Data
                     logger.InfoFormat("MakeBid: new bid and updated auction {0} ", JsonConvert.SerializeObject(new
                     {
                         bid.Auction.Name,
-                        bid.PlacingTime, 
-                        bid.NumberOfTokens, 
-                        bid.User.UserName, 
-                        auctionUser = auction.User.UserName, 
+                        bid.PlacingTime,
+                        bid.NumberOfTokens,
+                        bid.User.UserName,
+                        auctionUser = auction.User.UserName,
                         auction.CurrentPrice
                     }));
 

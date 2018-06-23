@@ -71,7 +71,7 @@ $(function () {
             $(auction).find(".first-one").hide();
             $(auction).find("#offer").val(data.tokens);
             if ($(auction).parent().find("#bids-table")) {
-                $("<tr class=\"text-center\"><td>new</td><td>" + data.lastBid.NumberOfTokens + "</td><td>" + new Date(data.lastBid.PlacingTime).toLocaleString() + "</td><td>" + data.bidder + "</td></tr>").prependTo("table > tbody");
+                $("<tr class=\"text-center\"><td>new</td><td>" + data.lastBid.NumberOfTokens + "</td><td>" + new Date(data.lastBid.PlacingTime).toLocaleString() + "</td><td>" + data.bidder + "</td></tr>").prependTo("#bids-table > tbody");
             }
         }
         //$(auction).find(".message").html(data.message);
